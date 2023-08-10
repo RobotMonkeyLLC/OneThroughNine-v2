@@ -1,0 +1,109 @@
+* {
+    color: #ffffff;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body {
+    background-color: #5e5858;
+}
+
+.game-container {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-container {
+    text-align: center;
+    width: 510px;
+    border-bottom: solid 1px #ffffff;
+}
+
+.goal-container {
+   height: 10px;
+}
+
+.goal-container p {
+    background-color: #707070;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 0;
+    font-size: x-large;
+}
+
+.operboard-container {
+    width: flex;
+    justify-content: center;
+
+}
+.operboard-container button {
+    width: 100px;
+    height: 58px;
+    border-radius: 4px;
+    border: none;
+    background-color: #2e2e2e;
+    margin: 4px;
+}
+
+
+.key-container {
+    width: 510px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.key-container button {
+   width: 43px;
+   height: 58px;
+   border-radius: 4px;
+   border: none;
+   background-color: #2e2e2e;
+   margin: 4px; 
+}
+
+.controls-container {
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.controls-container button {
+    width: 60px;
+    height: 58px;
+    border-radius: 4px;
+    border: none;
+    background-color: #2e2e2e;
+    margin: 10px; 
+ }
+.tile-container {
+    width: 33vh;
+    margin-bottom: 30px;
+}
+
+.tile-container div {
+    display: flex;
+}
+
+.tile-container .tile {
+    width: 67px;
+    height: 62px;
+    border: 2px solid #2e2e2e;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    margin: 2px;
+}
+
+.message-container {
+    height: 30px;
+}
+
+.message-container p {
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0;
+}
