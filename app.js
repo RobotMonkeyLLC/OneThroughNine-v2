@@ -31,7 +31,7 @@ let currentTile = 0
 operators.forEach(operator => {
     const buttonElement = document.createElement('button')
     buttonElement.textContent = operator
-    buttonElement.addEventListener('click', () => handleClick(operator))
+    buttonElement.addEventListener('click', () => handleClick(buttonElement))
     operboard.append(buttonElement)
 })
 
@@ -59,7 +59,8 @@ const keyMaker = () => {
         buttonElement.textContent = lvl
         //console.log('lvl ', lvl, 'level ', level)
         buttonElement.setAttribute('id', lvl)
-        buttonElement.addEventListener('click', () => handleClick(lvl))
+        //let lvlButton = document.getElementById(lvl)
+        buttonElement.addEventListener('click', () => handleClick(buttonElement))
         keyboard.append(buttonElement)
     
     })
@@ -74,20 +75,23 @@ controls.forEach(control =>{
     controlsboard.append(buttonElement)
 })
 
-const handleClick = (key) => {
+const handleClick = (keyButton) => {
     if(isSolved) {
         return
     }
-    console.log('clicked', key)
+    
     const tile0 = document.getElementById('guessRow-' + 0 + '-tile-' + 0)
     const tile1 = document.getElementById('guessRow-' + 0 + '-tile-' + 1)
     const tile2 = document.getElementById('guessRow-' + 0 + '-tile-' + 2)
 
+    let key = keyButton.textContent
+    console.log('clicked', key)
     if (operators.includes(key)) {        
         tile1.textContent = key
         solver()
         return
     }
+
     if (tile0.textContent && tile2.textContent && tile1.textContent == '') {
         return
     }
@@ -138,6 +142,7 @@ const handleControls = (key) => {
     console.log('clicked', key)
     switch(key){
         case 'Restart':
+            self.keys = level
             keyMaker()
             prev = false
             tileMaker()
@@ -154,13 +159,28 @@ const addNumber = (number) => {
         tile.textContent = number
         guessRows[currentRow][currentTile] = number
         tile.setAttribute('data', number)
-        var index = keys.indexOf(number)
+        let index = keys.indexOf(parseInt(number))
+        console.log('Adding ', number, 'at index ',index,' to tiles')
+        switch (number) {
+            case index+1:
+                console.log('Number ', number, ' at', index)
+                console.log('Removing base tile', number, ' at ', index)
+                removeKey(index+1)
+                  
+                break;
+            default:
+                console.log('Number ', number)
+                console.log('Removing generated tile ', number)
+                removeKey(number)
+        }
+
         if (index > -1) {
             storPrev(number, index)
             keys.splice(index, 1)
         }
         
-        removeKey(number)
+       
+        
         if (keyboard.childElementCount == 0) {
             showMessage('Ran out of tiles!')
         }
@@ -178,7 +198,7 @@ const removeKey = (number) => {
     const elem = document.getElementById(number)
     if (elem != null) {        
         elem.parentNode.removeChild(elem)
-        console.log('number ',number)
+        console.log('number ',number, ' removed')
     }
     
 }
@@ -188,13 +208,13 @@ const undo = () => {
         return
     }
     prev.forEach(x => keys.splice(x, 0, x))
-
+    keys = prev
     keyMaker()
     console.log('keys', keys)
 }
 
 const checkSolution = () => {
-    console.log('current value', value,' goal', goal)
+    console.log('Recent generated - ', value,' goal', goal)
     if (value === goal) {
         isSolved = true
         showMessage('Solved! Your Time: ')
@@ -205,8 +225,8 @@ const checkSolution = () => {
         test = []
         keyboard.childNodes.forEach(x => {test.push(parseInt(x.textContent))})
         buttonElement.setAttribute('id', Math.max(...test) + 1)
-        const gValue = value
-        buttonElement.addEventListener('click', () => handleClick(gValue))
+    
+        buttonElement.addEventListener('click', () => handleClick(buttonElement))
         keyboard.append(buttonElement)
     }
 }
