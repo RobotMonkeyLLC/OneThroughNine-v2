@@ -95,7 +95,8 @@ const handleClick = (keyButton) => {
     if (tile0.textContent && tile2.textContent && tile1.textContent == '') {
         return
     }
-    addNumber(key)
+    //addNumber(key)
+    addNumber(keyButton)
     solver()
 }
 
@@ -135,7 +136,9 @@ const solver = () => {
         //console.log('Tiles full!!')
     }
 }
-const handleControls = (key) => {
+const handleControls = (keyButton) => {
+    
+    let key = keyButton
     if(isSolved) {
         return
     }
@@ -152,15 +155,16 @@ const handleControls = (key) => {
     }        
 }
 
-const addNumber = (number) => {
+const addNumber = (numberButton) => {
     if (currentTile < 3 && currentRow < 1) {
         
         const tile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile)
+        number = numberButton.textContent
         tile.textContent = number
         guessRows[currentRow][currentTile] = number
         tile.setAttribute('data', number)
-        let index = keys.indexOf(parseInt(number))
-        console.log('Adding ', number, 'at index ',index,' to tiles')
+        let index = numberButton.id//keys.indexOf(parseInt(numberButton.id))
+        console.log('Adding ', number, 'at id ',index,' to tiles')
         switch (number) {
             case index+1:
                 console.log('Number ', number, ' at', index)
@@ -170,8 +174,8 @@ const addNumber = (number) => {
                 break;
             default:
                 console.log('Number ', number)
-                console.log('Removing generated tile ', number)
-                removeKey(number)
+                console.log('Removing generated tile ', number, ' at ', index)
+                removeKey(numberButton.id)
         }
 
         if (index > -1) {
