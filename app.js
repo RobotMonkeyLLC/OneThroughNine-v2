@@ -68,8 +68,11 @@ operators.forEach(operator => {
 })
 
 const highTile = () => {
-    keyboard.childNodes.forEach(x => {if (x.id != parseInt(x.textContent)) {
-        x.classList.add('grey-overlay')}})
+    keyboard.childNodes.forEach(x => {
+        if (x.id != parseInt(x.textContent)) {
+            x.classList.add('grey-overlay')
+        }
+    })
 }
 
 const tileMaker = () => {
@@ -268,18 +271,19 @@ const undo = () => {
 
 const checkSolution = () => {
     console.log('Recent generated - ', value,' goal', goal)
+    const buttonElement = document.createElement('button')
+    buttonElement.textContent = value
+    test = []
+    keyboard.childNodes.forEach(x => {test.push(parseInt(x.id))})
+    buttonElement.setAttribute('id', Math.max(...test) + 1)
+    buttonElement.addEventListener('click', () => handleClick(buttonElement))
+    keyboard.append(buttonElement)
     if (value === goal) {
         isSolved = true
+        keyboard.lastChild.classList.add('green-overlay')
         showMessage('Solved! Your Time: ')
     } else {
         //const keyIDs= keyboard.querySelectorAll('*[id]')
-        const buttonElement = document.createElement('button')
-        buttonElement.textContent = value
-        test = []
-        keyboard.childNodes.forEach(x => {test.push(parseInt(x.id))})
-        buttonElement.setAttribute('id', Math.max(...test) + 1)
-        buttonElement.addEventListener('click', () => handleClick(buttonElement))
-        keyboard.append(buttonElement)
         highTile()
     }
 }
