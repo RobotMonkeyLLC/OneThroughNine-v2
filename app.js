@@ -67,6 +67,11 @@ operators.forEach(operator => {
     operboard.append(buttonElement)
 })
 
+const highTile = () => {
+    keyboard.childNodes.forEach(x => {if (x.id != parseInt(x.textContent)) {
+        x.classList.add('grey-overlay')}})
+}
+
 const tileMaker = () => {
     tileDisplay.textContent = ''
     guessRows.forEach((guessRow, guessRowIndex) => {
@@ -79,9 +84,11 @@ const tileMaker = () => {
             rowElement.append(tileElement)
         })
         tileDisplay.append(rowElement)
+        highTile()
     })
 }
 tileMaker()
+
 
 const keyMaker = () => {
     keyboard.textContent = ''
@@ -269,10 +276,11 @@ const checkSolution = () => {
         const buttonElement = document.createElement('button')
         buttonElement.textContent = value
         test = []
-        keyboard.childNodes.forEach(x => {test.push(parseInt(x.textContent))})
+        keyboard.childNodes.forEach(x => {test.push(parseInt(x.id))})
         buttonElement.setAttribute('id', Math.max(...test) + 1)
         buttonElement.addEventListener('click', () => handleClick(buttonElement))
         keyboard.append(buttonElement)
+        highTile()
     }
 }
 
@@ -285,9 +293,4 @@ const showMessage = (message) => {
     const messageElement = document.createElement('p')
     messageElement.textContent = message
     messageDisplay.append(messageElement)
-}
-
-const highTile = () => {
-    let tiles = document.querySelector()
-
 }
