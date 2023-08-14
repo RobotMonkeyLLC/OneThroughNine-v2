@@ -45,6 +45,10 @@ function secondsToHms(seconds) {
 }
 
 function upTimer() {
+    if (isSolved) {
+        clearInterval(timer2)
+        return
+    }
     seconds++
     document.getElementById('timer').innerHTML = secondsToHms(seconds)
 }
