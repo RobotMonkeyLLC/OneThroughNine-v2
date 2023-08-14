@@ -256,7 +256,7 @@ const undo = () => {
     //prev.forEach(x => keys.splice(x, 0, x))    
     keysO = prev
     keyMaker()
-    console.log('keys', keys)
+    tileMaker()
 }
 
 const checkSolution = () => {
