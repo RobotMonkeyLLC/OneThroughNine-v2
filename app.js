@@ -183,6 +183,8 @@ const handleControls = (keyButton) => {
     switch(key){
         case 'Restart':
             self.keys = level
+            seconds = 0
+            timer.textContent = '00:00'
             keyMaker()
             prev = false
             tileMaker()
