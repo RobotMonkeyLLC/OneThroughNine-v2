@@ -58,16 +58,15 @@ tileMaker()
 const keyMaker = () => {
     keyboard.textContent = ''
     //console.log('keyboard made')
-    keys.forEach(lvl =>{
+    for (keyO in keysO) {
         const buttonElement = document.createElement('button')
-        buttonElement.textContent = lvl
+        buttonElement.textContent = keyO
         //console.log('lvl ', lvl, 'level ', level)
-        buttonElement.setAttribute('id', keysO[lvl])
+        buttonElement.setAttribute('id', keysO[keyO])
         //let lvlButton = document.getElementById(lvl)
         buttonElement.addEventListener('click', () => handleClick(buttonElement))
         keyboard.append(buttonElement)
-    
-    })
+    }
 }
 keyMaker()
 
@@ -169,6 +168,8 @@ const addNumber = (numberButton) => {
         tile.setAttribute('data', number)
         let index = numberButton.id//keys.indexOf(parseInt(numberButton.id))
         console.log('Adding ', number, 'at id ',index,' to tiles')
+        keysO[index] = number
+        //keysO.removeKey()
         switch (number) {
             case index+1:
                 console.log('Number ', number, ' at', index)
@@ -183,7 +184,7 @@ const addNumber = (numberButton) => {
         }
 
         if (index > -1) {
-            storPrev(numberButton)
+            storPrev()
             //keys.splice(index, 1)
         }
         
@@ -216,13 +217,8 @@ const undo = () => {
         return
     }
     //prev.forEach(x => keys.splice(x, 0, x))
-    //prev.forEach(x => keys.splice(x, 0, x))
-
-    prevKeys = []
-    for (prevKey in prev) {
-        prevKeys.push(prev[prevKey])
-    }
-    keys = prevKeys
+    //prev.forEach(x => keys.splice(x, 0, x))    
+    keysO = prev
     keyMaker()
     console.log('keys', keys)
 }
@@ -239,19 +235,13 @@ const checkSolution = () => {
         test = []
         keyboard.childNodes.forEach(x => {test.push(parseInt(x.textContent))})
         buttonElement.setAttribute('id', Math.max(...test) + 1)
-    
         buttonElement.addEventListener('click', () => handleClick(buttonElement))
         keyboard.append(buttonElement)
     }
 }
 
-const storPrev = (numberButton) => {
-    let number = numberButton.textContent
-    let index = numberButton.id
-    if(prev == false){
-        prev = {}
-    }
-    prev[index] = number
+const storPrev = () => {
+    prev = keysO
     //prev.splice(index+1, 0, number)
 }
 
