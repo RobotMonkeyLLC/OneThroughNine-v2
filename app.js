@@ -205,10 +205,10 @@ const addNumber = (numberButton) => {
         //prev[index] = number
         //keysO.removeKey()
         switch (number) {
-            case index+1:
+            case index:
                 console.log('Number ', number, ' at', index)
                 console.log('Removing base tile', number, ' at ', index)
-                removeKey(index+1)
+                removeKey(index)
                   
                 break;
             default:
@@ -285,6 +285,7 @@ const showMessage = (message) => {
     messageDisplay.append(messageElement)
 }
 
-const flipTile = () => {
-    document.querySelector()
+const highTile = () => {
+    let tiles = document.querySelector()
+
 }

@@ -15,7 +15,7 @@ body {
     align-items: center;
 }
 
-.title-container {
+.title-container div{
     text-align: center;
     width: 510px;
     border-bottom: solid 1px #ffffff;
@@ -23,6 +23,7 @@ body {
 
 .goal-container {
    height: 10px;
+   text-align: center;
 }
 
 .goal-container p {
@@ -67,6 +68,7 @@ body {
     width: 300px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 .controls-container button {
     width: 60px;
@@ -83,6 +85,7 @@ body {
 
 .tile-container div {
     display: flex;
+    justify-content: center;
 }
 
 .tile-container .tile {
