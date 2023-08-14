@@ -15,6 +15,10 @@ let value = 0
 const difficulty = 9
 const level = Array.from({length: difficulty}, (_, i) => i + 1)
 keys = Array.from({length: difficulty}, (_, i) => i + 1)
+keysO={}
+keys.forEach(x => keysO[x] = x)
+console.log('keys ',keys)
+
 let prev = false
 const operators = ['+','x','-', '/']
 const controls = ['Return', 'Restart', 'Undo']
@@ -58,7 +62,7 @@ const keyMaker = () => {
         const buttonElement = document.createElement('button')
         buttonElement.textContent = lvl
         //console.log('lvl ', lvl, 'level ', level)
-        buttonElement.setAttribute('id', lvl)
+        buttonElement.setAttribute('id', keysO[lvl])
         //let lvlButton = document.getElementById(lvl)
         buttonElement.addEventListener('click', () => handleClick(buttonElement))
         keyboard.append(buttonElement)
@@ -179,8 +183,8 @@ const addNumber = (numberButton) => {
         }
 
         if (index > -1) {
-            storPrev(number, index)
-            keys.splice(index, 1)
+            storPrev(numberButton)
+            //keys.splice(index, 1)
         }
         
        
@@ -202,17 +206,23 @@ const removeKey = (number) => {
     const elem = document.getElementById(number)
     if (elem != null) {        
         elem.parentNode.removeChild(elem)
-        console.log('number ',number, ' removed')
+        console.log('number with id=',number, ' removed')
     }
-    
+
 }
 
 const undo = () => {
     if (prev == false) {
         return
     }
-    prev.forEach(x => keys.splice(x, 0, x))
-    keys = prev
+    //prev.forEach(x => keys.splice(x, 0, x))
+    //prev.forEach(x => keys.splice(x, 0, x))
+
+    prevKeys = []
+    for (prevKey in prev) {
+        prevKeys.push(prev[prevKey])
+    }
+    keys = prevKeys
     keyMaker()
     console.log('keys', keys)
 }
@@ -235,14 +245,14 @@ const checkSolution = () => {
     }
 }
 
-const storPrev = (number, index) => {
+const storPrev = (numberButton) => {
+    let number = numberButton.textContent
+    let index = numberButton.id
     if(prev == false){
-        prev = []
+        prev = {}
     }
-    if (index >= prev.length) {
-        prev.fill(0,prev.length,index+1)
-    }
-    prev.splice(index+1, 0, number)
+    prev[index] = number
+    //prev.splice(index+1, 0, number)
 }
 
 const showMessage = (message) => {
