@@ -11,19 +11,43 @@ const goalElement = document.createElement('p')
 goalElement.textContent = goal
 goalDisplay.append(goalElement)
 
+var timer = document.createElement('p')
+timer.textContent = '00:00'
+timer.id = 'timer'
+goalDisplay.append(timer)
+
+
 let value = 0
 const difficulty = 9
 const level = Array.from({length: difficulty}, (_, i) => i + 1)
-keys = Array.from({length: difficulty}, (_, i) => i + 1)
-keysO={}
+let keys = Array.from({length: difficulty}, (_, i) => i + 1)
+let keysO={}
 keys.forEach(x => keysO[x] = x)
-console.log('keys ',keys)
+//console.log('keys ',keys)
 
 let prev = false
 const operators = ['+','x','-', '/']
 const controls = ['Return', 'Restart', 'Undo']
 
 isSolved = false
+
+var seconds = 0
+var timer2 = setInterval(upTimer, 1000)
+
+function secondsToHms(seconds) {
+    var hours = Math.floor(seconds / 3600)
+    var minutes = Math.floor((seconds - (hours * 3600)) / 60)
+    minutes = minutes < 10 ? '0' + minutes : minutes
+    var seconds = seconds - (hours * 3600) - (minutes * 60)
+    seconds = seconds < 10 ? '0' + seconds : seconds
+
+    return ( hours < 1 ? '' : (hours + ':')) + ( minutes < 1 ? '00' : (minutes)) + ':'+ seconds
+}
+
+function upTimer() {
+    seconds++
+    document.getElementById('timer').innerHTML = secondsToHms(seconds)
+}
 
 const guessRows = [
     ['','',''],
@@ -58,11 +82,11 @@ tileMaker()
 const keyMaker = () => {
     keyboard.textContent = ''
     //console.log('keyboard made')
-    for (keyO in keysO) {
+    for (let keyO in keysO) {
         const buttonElement = document.createElement('button')
-        buttonElement.textContent = keyO
+        buttonElement.textContent = keysO[keyO]
         //console.log('lvl ', lvl, 'level ', level)
-        buttonElement.setAttribute('id', keysO[keyO])
+        buttonElement.setAttribute('id', keyO)
         //let lvlButton = document.getElementById(lvl)
         buttonElement.addEventListener('click', () => handleClick(buttonElement))
         keyboard.append(buttonElement)
@@ -86,6 +110,12 @@ const handleClick = (keyButton) => {
     const tile0 = document.getElementById('guessRow-' + 0 + '-tile-' + 0)
     const tile1 = document.getElementById('guessRow-' + 0 + '-tile-' + 1)
     const tile2 = document.getElementById('guessRow-' + 0 + '-tile-' + 2)
+    
+    if (tile0.textContent == '' && tile2.textContent == '' && tile1.textContent == '') {
+        let inKeyboard = {}
+        keyboard.childNodes.forEach(x => {inKeyboard[x.id] = x.textContent})
+        prev = inKeyboard
+    }
 
     let key = keyButton.textContent
     console.log('clicked', key)
@@ -96,7 +126,7 @@ const handleClick = (keyButton) => {
     }
 
     if (tile0.textContent && tile2.textContent && tile1.textContent == '') {
-        return
+        return        
     }
     //addNumber(key)
     addNumber(keyButton)
@@ -168,7 +198,7 @@ const addNumber = (numberButton) => {
         tile.setAttribute('data', number)
         let index = numberButton.id//keys.indexOf(parseInt(numberButton.id))
         console.log('Adding ', number, 'at id ',index,' to tiles')
-        keysO[index] = number
+        //prev[index] = number
         //keysO.removeKey()
         switch (number) {
             case index+1:
@@ -184,7 +214,7 @@ const addNumber = (numberButton) => {
         }
 
         if (index > -1) {
-            storPrev()
+            //storPrev()
             //keys.splice(index, 1)
         }
         
@@ -249,4 +279,8 @@ const showMessage = (message) => {
     const messageElement = document.createElement('p')
     messageElement.textContent = message
     messageDisplay.append(messageElement)
+}
+
+const flipTile = () => {
+    document.querySelector()
 }
