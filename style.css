@@ -125,3 +125,18 @@ body {
     background-color: #538d4e !important;
     border: none !important;
 }
+
+.button-grow {
+    animation-name: grower;
+    animation-duration: 0.1s;
+}
+
+@keyframes grower {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0.5;
+    }
+}

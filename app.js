@@ -226,15 +226,13 @@ const addNumber = (numberButton) => {
             default:
                 console.log('Number ', number)
                 console.log('Removing generated tile ', number, ' at ', index)
-                removeKey(numberButton.id)
+                removeKey(index)
         }
 
         if (index > -1) {
             //storPrev()
             //keys.splice(index, 1)
-        }
-        
-       
+        }      
         
         if (keyboard.childElementCount == 0) {
             showMessage('Ran out of tiles!')
@@ -251,8 +249,9 @@ const addNumber = (numberButton) => {
 
 const removeKey = (number) => {
     const elem = document.getElementById(number)
-    if (elem != null) {        
-        elem.parentNode.removeChild(elem)
+    if (elem != null) {   
+        elem.classList.add('button-grow')
+        setTimeout(() => elem.parentNode.removeChild(elem) , 200)
         console.log('number with id=',number, ' removed')
     }
 
