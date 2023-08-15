@@ -5,7 +5,7 @@ const keyboard = document.querySelector('.key-container')
 const controlsboard = document.querySelector('.controls-container')
 const messageDisplay = document.querySelector('.message-container')
 
-let goal = 12
+let goal
 
 const getGoal = () => {
     fetch('http://localhost:8000/number')
@@ -13,6 +13,7 @@ const getGoal = () => {
     .then(data => {
         console.log(data)
         document.getElementById('goal').innerHTML = data[0]
+        goal = data[0]
     })
     .catch(err => console.log(err))
 }
@@ -289,7 +290,7 @@ const checkSolution = () => {
     buttonElement.setAttribute('id', Math.max(...test) + 1)
     buttonElement.addEventListener('click', () => handleClick(buttonElement))
     keyboard.append(buttonElement)
-    if (value === goal) {
+    if (value == goal) {
         isSolved = true
         keyboard.lastChild.classList.add('green-overlay')
         showMessage('Solved! Your Time: ')
