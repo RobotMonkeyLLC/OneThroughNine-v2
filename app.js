@@ -5,13 +5,25 @@ const keyboard = document.querySelector('.key-container')
 const controlsboard = document.querySelector('.controls-container')
 const messageDisplay = document.querySelector('.message-container')
 
-const goal = 12
+let goal = 12
 
-const goalElement = document.createElement('p')
+const getGoal = () => {
+    fetch('http://localhost:8000/number')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        document.getElementById('goal').innerHTML = data[0]
+    })
+    .catch(err => console.log(err))
+}
+getGoal()
+
+let goalElement = document.createElement('p')
 goalElement.textContent = goal
+goalElement.id = 'goal'
 goalDisplay.append(goalElement)
 
-var timer = document.createElement('p')
+let timer = document.createElement('p')
 timer.textContent = '00:00'
 timer.id = 'timer'
 goalDisplay.append(timer)
