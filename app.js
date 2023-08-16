@@ -2,44 +2,55 @@ const goalDisplay = document.querySelector('.goal-container')
 const timerDisplay = document.querySelector('.timer-container')
 const tileDisplay = document.querySelector('.tile-container')
 const keyboard = document.querySelector('.key-container')
+const title = document.querySelector('.main-title-container')
 
 let isSolved = false
 let isGame = false
 
 if (isGame == false) {
-    const difficultyDisplay = document.querySelector('.difficulty-container')
-    
+        
+    // Create Title display
+    const titleElement = document.createElement('h1')
+    titleElement.textContent = 'OneThroughNine'
+
+
     // Create difficulty selector
+    const difficultyDisplay = document.querySelector('.difficulty-container')
     const difficulties = ['easy', 'advanced', 'expert']
+    
     difficulties.forEach(dif => {
         const buttonElement = document.createElement('button')
         buttonElement.textContent = dif
         buttonElement.setAttribute('id', dif)
         buttonElement.classList.add('difficulty')
-        buttonElement.addEventListener('click', () => selectedDifficulty(dif))
+        buttonElement.addEventListener('click', () => selectedDifficulty(buttonElement))
         difficultyDisplay.append(buttonElement)
     })
 
     // Difficulty selector
-    const selectedDifficulty = (difficulty) => {
-        fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
-        .then(response => response.json())
-        .then(data => {
-            choice = data.tiles
-            //console.log(choice)
-            isGame = true
-            //console.log(isGame)
-            document.getElementById('overlay').style.display = 'none'
-            var timerTime = setInterval(upTimer, 1000)
-            goal = data.target
-            let goalElement = document.createElement('p')
-            goalElement.textContent = goal
-            goalElement.id = 'goal'
-            goalDisplay.append(goalElement)
-            choice.forEach((keyO) => {keysO[keyO] = keyO})
-            keyMaker()
-        })
-        .catch(err => console.error(err))
+    const selectedDifficulty = (buttonElement) => {
+        difficulty = buttonElement.id
+        buttonElement.classList.add('button-grow')
+        setTimeout(() => {
+            fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
+            .then(response => response.json())
+            .then(data => {
+                choice = data.tiles
+                //console.log(choice)
+                isGame = true
+                //console.log(isGame)
+                document.getElementById('overlay').style.display = 'none'
+                var timerTime = setInterval(upTimer, 1000)
+                goal = data.target
+                let goalElement = document.createElement('p')
+                goalElement.textContent = goal
+                goalElement.id = 'goal'
+                goalDisplay.append(goalElement)
+                choice.forEach((keyO) => {keysO[keyO] = keyO})
+                keyMaker()
+            })
+            .catch(err => console.error(err))
+        }, 200)
     }
 
 }
