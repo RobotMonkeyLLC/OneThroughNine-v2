@@ -1,18 +1,48 @@
 const goalDisplay = document.querySelector('.goal-container')
 const timerDisplay = document.querySelector('.timer-container')
-const tileDisplay = document.querySelector('.tile-container')
-const keyboard = document.querySelector('.key-container')
-const title = document.querySelector('.main-title-container')
+const boardDisplay = document.querySelector('.board-tile-container')
+const keyboard = document.querySelector('.keyboard-container')
+const titleDisplay = document.querySelector('.main-title-container')
+const statsDisplay = document.querySelector('.stats-container')
+const operDisplay = document.querySelector('.operboard-container')
+const controlsboard = document.querySelector('.controls-container')
 
 let isSolved = false
 let isGame = false
+let board = [0,0,0]
 
 if (isGame == false) {
         
     // Create Title display
     const titleElement = document.createElement('h1')
-    titleElement.textContent = 'OneThroughNine'
+    titleElement.textContent = 'OneThruNine'
+    titleDisplay.append(titleElement)
 
+    // Get local stats
+    const getStats = (statElement) => {
+        fetch('http://localhost:8000/stats')
+        .then(response => response.json())
+        .then(data => {
+            const statItem = document.createElement('li')
+            statItem.textContent = `${statElement.id} Best: ${data.bestTime}`
+            statItem.classList.add('stat')
+            statElement.append(statItem)
+        })
+        .catch(err => console.error(err))
+    }
+
+    // Create stats board
+    const stats = ['Local Stats', 'Posted Scores'] // hard coded for now
+    stats.forEach(stat => {
+        const statElement = document.createElement('ul')
+        statElement.textContent = stat
+        statElement.classList.add('stat')
+        statElement.setAttribute('id', stat.split(' ')[0]) // splits string; should be changed later
+        statsDisplay.append(statElement)
+        getStats(statElement)
+    })
+
+    
 
     // Create difficulty selector
     const difficultyDisplay = document.querySelector('.difficulty-container')
@@ -47,7 +77,8 @@ if (isGame == false) {
                 goalElement.id = 'goal'
                 goalDisplay.append(goalElement)
                 choice.forEach((keyO) => {keysO[keyO] = keyO})
-                keyMaker()
+                gameObjects = [keyboard, boardDisplay, operDisplay]
+                gameObjects.forEach((displayElement) => gameBuilder(displayElement))
             })
             .catch(err => console.error(err))
         }, 200)
@@ -86,21 +117,33 @@ function upTimer() {
 let keysO= {}
 let key = 0
 
-// Create tiles
-const keyMaker = () => {
-    keyboard.textContent = ''    
-    for (let keyO in keysO) {
-        const buttonElement = document.createElement('button')
-        buttonElement.textContent = keysO[keyO]
-        //console.log('lvl ', lvl, 'level ', level)
-        buttonElement.setAttribute('id', keyO)
-        //let lvlButton = document.getElementById(lvl)
-        buttonElement.addEventListener('click', () => handleClick(buttonElement))
-        keyboard.append(buttonElement)
-        console.log('key ', keyO)
+// game builder
+const gameBuilder = (displayElement) => {
+    displayElement.textContent = ''
+    switch (displayElement) {
+        case keyboard:
+            boardBlock = keysO
+            elemType = 'button'
+            boardClass = 'key'
+            break
+        case boardDisplay:
+            boardBlock = ['int1', 'oper', 'int2']
+            elemType = 'div'
+            boardClass = 'board-tile'
+            break
+        case operDisplay:
+            boardBlock = ['+', '-', 'x', '/']
+            elemType = 'button'
+            boardClass = 'oper'
     }
-    console.log('keyboard made')
+    for (let i in boardBlock) {
+        const buttonElement = document.createElement(elemType)
+        buttonElement.textContent = boardBlock[i]
+        buttonElement.setAttribute('id', boardBlock[i])
+        buttonElement.classList.add(boardClass)
+        buttonElement.addEventListener('click', () => handleClick(buttonElement))
+        displayElement.append(buttonElement)
+    }
 }
-    
 
 

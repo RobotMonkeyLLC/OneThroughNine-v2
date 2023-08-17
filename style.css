@@ -20,9 +20,12 @@ body {
     align-items: center;
 }
 
+.overlay div {
+    margin: 1vw;
+}
 
 .difficulty-container {
-    width: 600px;
+    padding-inline: 4vw;
     height: 100px;
     background-color: #2e2e2e;
     border-radius: 10px;
@@ -53,8 +56,8 @@ body {
 }
 
 .goal-container {
-   height: 10px;
    text-align: center;
+   display: flex;
 }
 
 .goal-container p {
@@ -65,8 +68,12 @@ body {
     font-size: x-large;
 }
 
+.timer-container p {
+    font-size: medium;
+    padding: 10px;
+}
 .operboard-container {
-    width: flex;
+    display: flex;
     justify-content: center;
 
 }
@@ -78,8 +85,8 @@ body {
     background-color: #2e2e2e;
     margin: 4px;
 }
-.key-container {
-    width: 500px;
+.keyboard-container {
+    width: 350px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -93,7 +100,7 @@ button {
     font-size: x-large;
 }
 
-.key-container button {
+.keyboard-container button {
     width: 60px;
     height: 68px;
     border-radius: 4px;
@@ -117,29 +124,27 @@ button {
     background-color: #2e2e2e;
     margin: 10px; 
  }
-.tile-container {
-    width: 33vh;
-    margin-bottom: 30px;
-}
-
-.tile-container div {
+.board-tile-container {
+    width: 100%;
+    height: 13%;
+    margin: 0px;
     display: flex;
     justify-content: center;
 }
 
-.tile-container .tile {
-    width: 67px;
-    height: 62px;
+.board-tile-container .board-tile {
+    width: 20%;
+    height: 100%;
     border: 2px solid #2e2e2e;
     box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: #ffffff;
     margin: 2px;
+    text-align: center;
+    padding-block: 5%;
 }
 
 .message-container {
+    display: flex;
     height: 30px;
 }
 
@@ -175,8 +180,32 @@ button {
         transform: scale(1);
     }
     100% {
-        transform: scale(2);
+        transform: scale(1.5);
         opacity: 0.5;
     }
 }
  
+.stats-container {
+    width: 600px;
+    height: 100px;
+    padding: 0%;
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.stats-container ul {
+    padding-inline: 6%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: #707070;
+    border-radius: 10px;
+}
+.stats-container li {
+    list-style-type: none;
+    padding: 0%;
+    margin: 0%;
+    font-size: x-large;
+}

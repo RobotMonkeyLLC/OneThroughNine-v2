@@ -58,30 +58,14 @@ app.post('/attempt', (req, res) => {
     // You'll have to validate their math, remove/add tiles, and check for win/lose conditions.
   });
   
-/*
-app.get('/number', (req, res) => {
-    //const axios = require('axios');
-
-    const options = {
-    method: 'GET',
-    url: 'https://a-randomizer-data-api.p.rapidapi.com/api/random/numbers',
-    params: {
-        count: '1',
-        min: '0',
-        max: '100'
-    },
-    headers: {
-        'X-RapidAPI-Key': process.env.RAPID_API_KEY,
-        'X-RapidAPI-Host': 'a-randomizer-data-api.p.rapidapi.com'
-    }
-    };
-    axios.request(options).then(function (response) {
-        console.log(response.data);
-        res.json(response.data)
-    }).catch(function (error) {
-        console.error(error);
-    })
+app.get('/stats', (req, res) => {
+    req.session.bestTime = '00:00' // hard coded for now
+    req.session.lastScore = '00:00' //  hard coded for now
+    req.session.last9Scores = [1,2,3,4,5,6,7,8,9]
+    res.json({
+        bestTime: req.session.bestTime,
+        lastScore: req.session.lastScore
+      });
 })
-*/
 app.listen(PORT, () => {console.log(`Server running on port ${PORT}`)})
 
