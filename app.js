@@ -6,6 +6,7 @@ const titleDisplay = document.querySelector('.main-title-container')
 const statsDisplay = document.querySelector('.stats-container')
 const operDisplay = document.querySelector('.operboard-container')
 const controlsboard = document.querySelector('.controls-container')
+const messageDisplay = document.querySelector('.message-container')
 
 let isSolved = false
 let isGame = false
@@ -42,8 +43,6 @@ if (isGame == false) {
         getStats(statElement)
     })
 
-    
-
     // Create difficulty selector
     const difficultyDisplay = document.querySelector('.difficulty-container')
     const difficulties = ['easy', 'advanced', 'expert']
@@ -62,7 +61,7 @@ if (isGame == false) {
         difficulty = buttonElement.id
         buttonElement.classList.add('button-grow')
         setTimeout(() => {
-            fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
+            fetch(`https://localhost:8000/tiles?difficulty=${difficulty}`)
             .then(response => response.json())
             .then(data => {
                 choice = data.tiles
@@ -77,7 +76,7 @@ if (isGame == false) {
                 goalElement.id = 'goal'
                 goalDisplay.append(goalElement)
                 choice.forEach((keyO) => {keysO[keyO] = keyO})
-                gameObjects = [keyboard, boardDisplay, operDisplay, controlsboard]
+                gameObjects = [messageDisplay, keyboard, boardDisplay, operDisplay, controlsboard]
                 gameObjects.forEach((displayElement) => gameBuilder(displayElement))
             })
             .catch(err => console.error(err))
@@ -121,15 +120,20 @@ let key = 0
 const gameBuilder = (displayElement) => {
     displayElement.textContent = ''
     switch (displayElement) {
+        case messageDisplay:
+            boardBlock = ['']
+            elemType = 'p'
+            boardClass = 'message'
+            break
         case keyboard:
             boardBlock = keysO
             elemType = 'button'
             boardClass = 'key'
             break
         case boardDisplay:
-            boardBlock = ['int1', 'oper', 'int2']
+            boardBlock = ['int 1', 'operator', 'int 2']
             elemType = 'div'
-            boardClass = 'board-tile'
+            boardClass = ['int', 'oper', 'int']
             break
         case operDisplay:
             boardBlock = ['+', '-', 'x', '/']
@@ -145,10 +149,74 @@ const gameBuilder = (displayElement) => {
         const buttonElement = document.createElement(elemType)
         buttonElement.textContent = boardBlock[i]
         buttonElement.setAttribute('id', boardBlock[i])
-        buttonElement.classList.add(boardClass)
+        buttonElement.classList.add((displayElement==boardDisplay)? boardClass[i] : boardClass)
+        if(displayElement == boardDisplay){
+            buttonElement.classList.add('default')
+            buttonElement.classList.add(boardClass[i])
+        } else {
+            buttonElement.classList.add(boardClass)
+        }
         buttonElement.addEventListener('click', () => handleClick(buttonElement))
         displayElement.append(buttonElement)
     }
 }
 
+const reload = () => {
+    location.reload()
+}
+const restartGame = () => {
+    seconds = 0
+    timer.textContent = '00:00'
+    gameObjects = [messageDisplay, keyboard, boardDisplay, operDisplay, controlsboard]
+    gameObjects.forEach((displayElement) => gameBuilder(displayElement))
+}
 
+const undo = () => {    // not implemented yet
+    console.log('Undo') 
+}
+
+const checkSolution = () => {
+    switch (isSolved) {
+        case true:
+            updateWin()
+            break
+        case false:
+            saveState() // send current tiles and board to state tracker
+    }
+}
+
+const removeKey = (buttonElement) => {
+    checkSolution()
+}
+const keyManager = (buttonElement) => {
+    const boardTiles =  {int1:document.getElementById('int 1'),int2:document.getElementById('int 2')}
+        
+    if  (boardTiles.int1 == '') {
+        boardTiles.int1.textContent = buttonElement.textContent
+        removeKey(buttonElement)
+    } else if (boardTiles.int2 == '') {
+        boardTiles.int2.textContent = buttonElement.id
+        removeKey(buttonElement)
+    }
+    //removeKey(buttonElement)
+          
+}
+const handleClick = (buttonElement) => {
+    console.log('pressed a ',buttonElement.id, ' button')
+    if (buttonElement.classList.contains('key')) {
+        keyManager(buttonElement)
+    } else if (buttonElement.classList.contains('oper')) {
+        operManager(buttonElement)
+    } else if (buttonElement.classList.contains('control')) {
+        switch (buttonElement.id) {
+            case 'Return':
+                reload()
+                break
+            case 'Restart':
+                restartGame()
+                break
+            case 'Undo':
+                undo()              
+        }
+    }
+}

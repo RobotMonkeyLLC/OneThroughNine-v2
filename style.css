@@ -70,7 +70,6 @@ body {
 
 .timer-container p {
     font-size: medium;
-    padding: 10px;
 }
 .operboard-container {
     display: flex;
@@ -119,7 +118,7 @@ button {
 
 .control {
     padding: 10px;
-    font-size: large;
+    font-size: medium;
 }
 .controls-container .oper {
     width: 60px;
@@ -134,15 +133,19 @@ button {
     justify-content: center;
 }
 
-.board-tile {
+.board-tile-container div {
     border: 2px solid #2e2e2e;
     box-sizing: border-box;
-    color: #707070;
+    color: #2e2e2e;
     margin: 2px;
     text-align: center;
     padding-block: 50px;
     padding-inline: 40px;
     font-size: xx-large;
+}
+.default {
+    
+    font-style: italic;
 }
 
 .message-container {
@@ -151,6 +154,7 @@ button {
 }
 
 .message-container p {
+    width: 300px;
     background-color: #2e2e2e;
     border-radius: 10px;
     padding: 10px;
