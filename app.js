@@ -57,7 +57,7 @@ if (isGame == false) {
         difficultyDisplay.append(buttonElement)
     })
 
-    // Difficulty selector
+    // Difficulty selector and generate game
     const selectedDifficulty = (buttonElement) => {
         difficulty = buttonElement.id
         buttonElement.classList.add('button-grow')
@@ -77,7 +77,7 @@ if (isGame == false) {
                 goalElement.id = 'goal'
                 goalDisplay.append(goalElement)
                 choice.forEach((keyO) => {keysO[keyO] = keyO})
-                gameObjects = [keyboard, boardDisplay, operDisplay]
+                gameObjects = [keyboard, boardDisplay, operDisplay, controlsboard]
                 gameObjects.forEach((displayElement) => gameBuilder(displayElement))
             })
             .catch(err => console.error(err))
@@ -135,6 +135,11 @@ const gameBuilder = (displayElement) => {
             boardBlock = ['+', '-', 'x', '/']
             elemType = 'button'
             boardClass = 'oper'
+            break
+        case controlsboard:
+            boardBlock = ['Return', 'Restart', 'Undo']
+            elemType = 'button'
+            boardClass = 'control'
     }
     for (let i in boardBlock) {
         const buttonElement = document.createElement(elemType)
