@@ -20,7 +20,7 @@ if (isGame == false) {
 
     // Get local stats
     const getStats = (statElement) => {
-        fetch('http://localhost:8000/stats')
+        fetch('https://localhost:8000/stats')
         .then(response => response.json())
         .then(data => {
             const statItem = document.createElement('li')
@@ -62,7 +62,7 @@ if (isGame == false) {
         difficulty = buttonElement.id
         buttonElement.classList.add('button-grow')
         setTimeout(() => {
-            fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
+            fetch(`https://localhost:8000/tiles?difficulty=${difficulty}`)
             .then(response => response.json())
             .then(data => {
                 choice = data.tiles
