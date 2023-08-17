@@ -21,7 +21,7 @@ if (isGame == false) {
 
     // Get local stats
     const getStats = (statElement) => {
-        fetch('http://localhost:8000/stats')
+        fetch('https://localhost:8000/stats')
         .then(response => response.json())
         .then(data => {
             const statItem = document.createElement('li')
