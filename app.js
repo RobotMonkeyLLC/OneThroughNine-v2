@@ -65,7 +65,7 @@ if (isGame == false) {
             fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
             .then(response => response.json())
             .then(data => {
-                
+                choice = data.tiles
                 //console.log(choice)
                 isGame = true
                 //console.log(isGame)
@@ -76,9 +76,7 @@ if (isGame == false) {
                 goalElement.textContent = goal
                 goalElement.id = 'goal'
                 goalDisplay.append(goalElement)
-                //choice = data.tiles
-                //choice.forEach((x) => {keysO[x] = x})
-                keyboard.data = {values:data.tiles, ids:data.tiles}
+                choice.forEach((keyO) => {keysO[keyO] = keyO})
                 gameObjects = [messageDisplay, keyboard, boardDisplay, operDisplay, controlsboard]
                 gameObjects.forEach((displayElement) => gameBuilder(displayElement))
             })
@@ -116,7 +114,7 @@ function upTimer() {
     document.getElementById('timer').innerHTML = secondsToHms(seconds)
 }
 
-//let keysO= {}
+let keysO= {}
 let key = 0
 
 // game builder
@@ -128,38 +126,30 @@ const gameBuilder = (displayElement) => {
             elemType = 'p'
             boardClass = 'message'
             break
-        default:
-            switch(displayElement) {
-                case keyboard:
-                    boardBlock = displayElement.data
-                    elemType = 'button'
-                    boardClass = 'key'
-                    break
-                case boardDisplay:
-                    boardBlock = ['int 1', 'operator', 'int 2']
-                    elemType = 'div'
-                    boardClass = ['int', 'oper', 'int']
-                    break
-                case operDisplay:
-                    boardBlock = ['+', '-', 'x', '/']
-                    elemType = 'button'
-                    boardClass = 'oper'
-                    break
-                case controlsboard:
-                    boardBlock = ['Return', 'Restart', 'Undo']
-                    elemType = 'button'
-                    boardClass = 'control'
-                }
-    }/*
+        case keyboard:
+            boardBlock = keysO
+            elemType = 'button'
+            boardClass = 'key'
+            break
+        case boardDisplay:
+            boardBlock = ['int 1', 'operator', 'int 2']
+            elemType = 'div'
+            boardClass = ['int', 'oper', 'int']
+            break
+        case operDisplay:
+            boardBlock = ['+', '-', 'x', '/']
+            elemType = 'button'
+            boardClass = 'oper'
+            break
+        case controlsboard:
+            boardBlock = ['Return', 'Restart', 'Undo']
+            elemType = 'button'
+            boardClass = 'control'
+    }
     for (let i in boardBlock) {
         const buttonElement = document.createElement(elemType)
-        if (displayElement == keyboard) {
-            buttonElement.textContent = boardBlock[i]
-            buttonElement.setAttribute('id', boardBlock.ids[i])        
-        } else {
-            buttonElement.textContent = boardBlock[i]
-            buttonElement.setAttribute('id', boardBlock[i])
-        }
+        buttonElement.textContent = boardBlock[i]
+        buttonElement.setAttribute('id', boardBlock[i])
         buttonElement.classList.add((displayElement==boardDisplay)? boardClass[i] : boardClass)
         if(displayElement == boardDisplay){
             buttonElement.classList.add('default')
@@ -169,7 +159,7 @@ const gameBuilder = (displayElement) => {
         }
         buttonElement.addEventListener('click', () => handleClick(buttonElement))
         displayElement.append(buttonElement)
-    }*/
+    }
 }
 
 const reload = () => {
@@ -189,7 +179,6 @@ const undo = () => {
         return null
     }
     const lastState = undoStack.pop()
-    keyboard.data = {values:lastState.tiles, ids:lastState.ids}
     gameBuilder(keyboard)
     localStorage.setItem('undoStack', JSON.stringify(undoStack))
     console.log('Undone to ',lastState) 
