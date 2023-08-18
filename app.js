@@ -155,9 +155,10 @@ const gameBuilder = (displayElement) => {
             buttonElement.classList.add('default')
             buttonElement.classList.add(boardClass[i])
         } else {
+            buttonElement.addEventListener('click', () => handleClick(buttonElement))
             buttonElement.classList.add(boardClass)
         }
-        buttonElement.addEventListener('click', () => handleClick(buttonElement))
+        
         displayElement.append(buttonElement)
     }
 }
@@ -208,8 +209,24 @@ const isBoardFilled = () => {
     }
 }
 
+const clearBoard = () => {
+    const boardTiles =  {int1:document.getElementById('int 1'),int2:document.getElementById('int 2')}
+    const boardOper = document.getElementById('operator')
+    boardTiles.int1.classList.add('default')
+    boardTiles.int2.classList.add('default')
+    boardOper.classList.add('default')
+    boardTiles.int1.textContent = ''
+    boardTiles.int2.textContent = ''
+    boardOper.textContent = ''
+}
 const getMaxId = () => {
-
+    let maxId = 0
+    keyboard.childNodes.forEach(x => {
+        if (x.id > maxId) {
+            maxId = x.id
+        }
+    })
+    return parseInt(maxId)
 }
 
 const addKey = (value) => {
