@@ -26,9 +26,15 @@ const generateDailyTarget = (difficulty) => {
 }
 
 const tiles = {
-    easy: [1, 2, 3, 4],
-    advanced: [1, 2, 3, 4, 5, 6],
-    expert: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    goal : {
+      easy: generateDailyTarget(10),
+      advanced: generateDailyTarget(100),
+      expert: generateDailyTarget(1000)},
+    tiles:{
+      easy: [1, 2, 3, 4],
+      advanced: [1, 2, 3, 4, 5, 6],
+      expert: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    }
 }
 
 app.get('/start', (req, res) => {
@@ -45,12 +51,12 @@ app.get('/start', (req, res) => {
 app.get('/tiles', (req, res) => {
     const difficulty = req.query.difficulty;
 
-    if (!difficulty || !tiles[difficulty]) {
+    if (!difficulty || !tiles.tiles[difficulty]) {
         return res.status(400).json({ error: 'Invalid difficulty level provided.' });
     }
 
-    return res.json({ tiles: tiles[difficulty],
-                      target: generateDailyTarget() })
+    return res.json({ tiles: tiles.tiles[difficulty],
+                      target: tiles.goal[difficulty] })
 })
 
 app.post('/attempt', (req, res) => {

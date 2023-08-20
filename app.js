@@ -60,7 +60,7 @@ if (isGame == false) {
 
     // Difficulty selector and generate game
     const selectedDifficulty = (buttonElement) => {
-        difficulty = buttonElement.id
+        const difficulty = buttonElement.id
         buttonElement.classList.add('button-grow')
         setTimeout(() => {
             fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
