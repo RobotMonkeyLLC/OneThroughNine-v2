@@ -347,7 +347,7 @@ const handleClick = (buttonElement) => {
     }
 }
 
-// Clear undoStack storage on page load
+// Clear undoStack storge on page load
 document.addEventListener("DOMContentLoaded", function() {
     localStorage.setItem('undoStack', JSON.stringify([]));
 });
