@@ -189,7 +189,8 @@ const restoreBoardState = (tilesState) => {
         const buttonElement = document.createElement('div');
         buttonElement.textContent = tilesState.board.values[i];
         buttonElement.setAttribute('id', tilesState.board.ids[i]);
-        buttonElement.classList.add(tilesState.board.classList[i]);
+        tilesState.board.classList[i].split(' ').forEach(x => buttonElement.classList.add(x))
+        //buttonElement.classList.add(tilesState.board.classList[i]);
         boardDisplay.append(buttonElement);
     }
 }
@@ -265,7 +266,7 @@ const addKey = (value) => {
 }
 
 const checkSolution = () => {
-    saveState()
+    //saveState()
     if (isBoardFilled()) {
         const boardTiles =  {int1:document.getElementById('int 1'),int2:document.getElementById('int 2')}
         const boardOper = document.getElementById('operator')
@@ -298,7 +299,7 @@ const removeKey = (buttonElement) => {
 }
 const keyManager = (buttonElement) => {
     const boardTiles =  {int1:document.getElementById('int 1'),int2:document.getElementById('int 2')}
-        
+    saveState()
     if  (boardTiles.int1.classList.contains('default')) {
         boardTiles.int1.classList.remove('default')
         boardTiles.int1.textContent = buttonElement.textContent
