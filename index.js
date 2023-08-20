@@ -19,10 +19,10 @@ app.use(session({
 
 const crypto = require('crypto');
 
-const generateDailyTarget = () => {
+const generateDailyTarget = (difficulty) => {
   const hash = crypto.createHash('sha256');
   hash.update(new Date().toDateString());
-  return parseInt(hash.digest('hex').substring(0, 5), 16) % 1000;  // Example: Targets between 0-999
+  return parseInt(hash.digest('hex').substring(0, 5), 16) % difficulty;  // Example: Targets between 0-999
 }
 
 const tiles = {

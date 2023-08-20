@@ -13,6 +13,7 @@ let isGame = false
 let board = [0,0,0]
 let value = 0
 
+
 if (isGame == false) {
         
     // Create Title display
@@ -171,25 +172,28 @@ const restartGame = () => {
     timer.textContent = '00:00'
     gameObjects = [messageDisplay, keyboard, boardDisplay, operDisplay, controlsboard]
     gameObjects.forEach((displayElement) => gameBuilder(displayElement))
+    localStorage.setItem('undoStack', JSON.stringify([]))
 }
 const restoreBoardState = (tilesState) => {
     // First, clear the current keyboard
     keyboard.innerHTML = '';
     boardDisplay.textContent = boardDisplay.textContent == ''? boardDisplay.textContent : '';
     // Now, loop through the saved state and restore each key
-    for (let i = 0; i < tilesState.tiles.keys.length; i++) {
+    const tiles = tilesState.tiles
+    const board = tilesState.board
+    for (let i = 0; i < tiles.keys.length; i++) {
         const buttonElement = document.createElement('button');
-        buttonElement.textContent = tilesState.tiles.keys[i];
-        buttonElement.setAttribute('id', tilesState.tiles.ids[i]);
+        buttonElement.textContent = tiles.keys[i];
+        buttonElement.setAttribute('id', tiles.ids[i]);
         buttonElement.classList.add('key');
         buttonElement.addEventListener('click', () => handleClick(buttonElement));
         keyboard.append(buttonElement);
     }
     for (i in ['int 1', 'oper', 'int 2']) {
         const buttonElement = document.createElement('div');
-        buttonElement.textContent = tilesState.board.values[i];
-        buttonElement.setAttribute('id', tilesState.board.ids[i]);
-        tilesState.board.classList[i].split(' ').forEach(x => buttonElement.classList.add(x))
+        buttonElement.textContent = board.values[i];
+        buttonElement.setAttribute('id', board.ids[i]);
+        board.classList[i].split(' ').forEach(x => buttonElement.classList.add(x))
         //buttonElement.classList.add(tilesState.board.classList[i]);
         boardDisplay.append(buttonElement);
     }
@@ -210,14 +214,14 @@ const undo = () => {
 const saveState = () => {
     const keys = {keys:[], ids:[]}
     const board = {ids:[],values:[], classList:[]}
-    keyboard.childNodes.forEach(x => keys.keys.push(x.textContent), keys.ids.push(x.id))
+    keyboard.childNodes.forEach(x => {keys.keys.push(x.textContent), keys.ids.push(x.id)})
     boardDisplay.childNodes.forEach(x => {
         board.ids.push(x.id), 
         board.values.push(x.textContent), 
         board.classList.push(x.classList.value)
     })
     const currentState = {
-        timestamp: Date.now().toString(),
+        timestamp: new Date().getDate(),
         tiles: keys,
         board: board
     }
@@ -342,3 +346,8 @@ const handleClick = (buttonElement) => {
         }
     }
 }
+
+// Clear undoStack storage on page load
+document.addEventListener("DOMContentLoaded", function() {
+    localStorage.setItem('undoStack', JSON.stringify([]));
+});
