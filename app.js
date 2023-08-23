@@ -92,7 +92,6 @@ timer.textContent = '00:00'
 timer.id = 'timer'
 timerDisplay.append(timer)
 var seconds = 0
-//var timerTime = setInterval(upTimer, 1000)
 
 // convert seconds to HH:MM:SS
 function secondsToHms(seconds) {
@@ -107,12 +106,10 @@ function secondsToHms(seconds) {
 
 // Update timer
 function upTimer() {
-    if (isSolved) {
-        clearInterval(timerTime)
-        return
+    if (!isSolved) {
+        seconds++
+        document.getElementById('timer').innerHTML = secondsToHms(seconds)
     }
-    seconds++
-    document.getElementById('timer').innerHTML = secondsToHms(seconds)
 }
 
 let keysO= {}
@@ -345,6 +342,18 @@ const handleClick = (buttonElement) => {
                 undo()              
         }
     }
+}
+
+const updateWin = () => {
+    console.log('You win!')
+    showMessage('You win!')
+}
+
+const showMessage = (message) => {
+    const messageElement = document.createElement('p')
+    messageElement.textContent = message
+    messageDisplay.textContent = ''
+    messageDisplay.append(messageElement)
 }
 
 // Clear undoStack storge on page load
