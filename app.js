@@ -352,7 +352,10 @@ const handleClick = (buttonElement) => {
                 restartGame()
                 break
             case 'Undo':
-                undo()              
+                undo()
+                break
+            case 'Post Score':
+                postScore()           
         }
     }
 }
@@ -367,6 +370,7 @@ const updateWin = () => {
     const endGame = document.getElementById('game-over')
     endGame.classList.add('overlay')
     endGame.classList.remove('hidden')
+    
     const endGameTitle = document.createElement('h1')
     endGameTitle.textContent = 'You Win!'
     endGame.prepend(endGameTitle)
@@ -376,38 +380,88 @@ const updateWin = () => {
     gameoverMessageDisplay.append(endGameScore)
 
     const leaderBoard = document.createElement('ul')    
-    let postedScores
 
     const getPostedScores = () => {
-        const scoreElement = document.createElement('li')
-        postedScores = ['No scores to show']
-        scoreElement.classList.add('default')
+        let postedScores = ['user1 - 00:00', 'user2 - 00:00','user3 - 00:00','user4 - 00:00','user5 - 00:00','user6 - 00:00','user7 - 00:00','user8 - 00:00','user9 - 00:00','user10 - 00:00',]
         fetch('http://localhost:8000/posted_stats')
         .then(response => response.json())
         .then(data => {
-            postedScores = data.top10Scores
+            postedScores = data.top10Scores;
             
         })
-        .catch(err => {console.error(err)})
-        postedScores.forEach(score => {
-            scoreElement.textContent = score
+        .catch(err => {
+            console.error(err);
+            leaderBoard.classList.add('default')
         })
-        leaderBoard.append(scoreElement)
+        updateLeaderBoard(postedScores);
     }
+    
+    const updateLeaderBoard = (scores) => {
+        scores.forEach(score => {
+            const scoreElement = document.createElement('li');
+            scoreElement.textContent = score;
+            leaderBoard.append(scoreElement);
+        });
+    }
+    
     getPostedScores()
+
     postedScoresDisplay.append(leaderBoard)
     const leaderBoardTitle = document.createElement('h2')
     leaderBoardTitle.textContent = 'Leaderboard'
     postedScoresDisplay.prepend(leaderBoardTitle)
+
     // End game controls
-    gameBuilder(gameoverControlsDisplay)
-    
+    gameBuilder(gameoverControlsDisplay)    
 }
 
 const showMessage = (message) => {
     messageDisplay.firstChild.textContent = message
 }
 
+const postScore = () => {
+    const postScore = document.getElementById('post-score')
+    postScore.classList.add('overlay')
+    postScore.classList.remove('hidden')
+    const postScoreTitle = document.createElement('h1')
+    postScoreTitle.textContent = 'Post Score'
+    postScore.prepend(postScoreTitle)
+    const postScoreForm = document.createElement('form')
+    postScoreForm.setAttribute('id', 'post-score-form')
+    const postScoreInput = document.createElement('input')
+    postScoreInput.setAttribute('type', 'text')
+    postScoreInput.setAttribute('name', 'username')
+    postScoreInput.setAttribute('id', 'username')
+    postScoreInput.setAttribute('placeholder', 'Enter username')
+    postScoreInput.setAttribute('required', 'true')
+    const postScoreSubmit = document.createElement('input')
+    postScoreSubmit.setAttribute('type', 'submit')
+    postScoreSubmit.setAttribute('value', 'Submit')
+    postScoreForm.append(postScoreInput)
+    postScoreForm.append(postScoreSubmit)
+    postScore.append(postScoreForm)
+    postScoreForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const username = document.getElementById('username').value
+        const score = seconds
+        const data = {username, score}
+        fetch('http://localhost:8000/post_score', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            postScore.classList.add('hidden')
+            postScore.classList.remove('overlay')
+            postScore.removeChild(postScoreTitle)
+            postScore.removeChild(postScoreForm)
+        })
+    })
+}
 // Clear undoStack storge on page load
 document.addEventListener("DOMContentLoaded", function() {
     localStorage.setItem('undoStack', JSON.stringify([]));

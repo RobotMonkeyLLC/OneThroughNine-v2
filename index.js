@@ -36,17 +36,6 @@ const tiles = {
       expert: [1, 2, 3, 4, 5, 6, 7, 8, 9]
     }
 }
-
-app.get('/start', (req, res) => {
-    //req.session.tiles = [1, 2, 3, 4, 5, 6, 7, 8, 9];  // Example: Initial tiles
-    req.session.target = generateDailyTarget();
-    req.session.attempts = req.session.attempts || {};
-  
-    res.json({
-      target: req.session.target,
-      tiles: req.session.tiles
-    });
-  });
   
 app.get('/tiles', (req, res) => {
     const difficulty = req.query.difficulty;
@@ -59,9 +48,9 @@ app.get('/tiles', (req, res) => {
                       target: tiles.goal[difficulty] })
 })
 
-app.post('/attempt', (req, res) => {
-    // Here you can handle the user's attempt at the game.
-    // You'll have to validate their math, remove/add tiles, and check for win/lose conditions.
+app.post('/post_score', (req, res) => {
+    // TODO: Save score to database
+    
   });
   
 app.get('/local_stats', (req, res) => {
