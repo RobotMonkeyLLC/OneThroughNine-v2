@@ -1,6 +1,9 @@
-//import axios from 'axios'
+import { Client } from 'pg'
+
+const client = new Client()
+await client.connect()
+
 const PORT = 8000
-const axios = require('axios')
 const express = require('express')
 const session = require('express-session')
 const cors = require('cors')
@@ -51,8 +54,8 @@ app.get('/tiles', (req, res) => {
 app.post('/post_score', (req, res) => {
     // TODO: Save score to database
     console.log(req.body)
-    res.send("Score saved successfully")
-  });
+    res.send(req.body)
+  })
   
 app.get('/local_stats', (req, res) => {
     req.session.bestTime = '00:00' // hard coded for now
