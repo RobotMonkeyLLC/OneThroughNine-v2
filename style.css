@@ -257,3 +257,14 @@ button {
 .hidden {
     display: none;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+form input {
+    color: #2e2e2e;
+}

@@ -22,7 +22,7 @@ if (isGame == false) {
     titleDisplay.append(titleElement)
 
     // Get local stats
-    const getStats = (statElement) => {
+    const _getStats = (statElement) => {
         const statItem = document.createElement('li')
         fetch('http://localhost:8000/local_stats')
         .then(response => response.json())
@@ -38,6 +38,23 @@ if (isGame == false) {
         statElement.append(statItem)
     }
 
+    const getStats = async (statElement) => {
+        const statItem = document.createElement('li');
+    
+        try {
+            const response = await fetch('http://localhost:8000/local_stats');
+            const data = await response.json();
+            
+            statItem.textContent = `${statElement.id} Best: ${data.bestTime}`;          
+        } catch (err) {
+            statItem.classList.add('default');
+            statItem.textContent = 'No play history to show';
+            console.error(err);
+        }
+    
+        statItem.classList.add('stat');
+        statElement.append(statItem);
+    }
     // Create stats board
     const stats = ['Local Stats', 'Posted Scores'] // hard coded for now
     stats.forEach(stat => {
@@ -63,7 +80,7 @@ if (isGame == false) {
     })
 
     // Difficulty selector and generate game
-    const selectedDifficulty = (buttonElement) => {
+    const _selectedDifficulty = (buttonElement) => {
         const difficulty = buttonElement.id
         buttonElement.classList.add('button-grow')
         setTimeout(() => {
@@ -73,16 +90,18 @@ if (isGame == false) {
             let goalElement = document.createElement('p')
             goalElement.id = 'goal'
             // Defaults
-            goal = difficulty == 'easy' ? 10 : difficulty == 'advanced' ? 100 : 1000
-            choice = difficulty == 'easy' ? [1,2,3,4] : difficulty == 'advanced' ? [1,2,3,4,5,6] : [1,2,3,4,5,6,7,8,9]
+            //goal = difficulty == 'easy' ? 10 : difficulty == 'advanced' ? 100 : 1000
+            //choice = difficulty == 'easy' ? [1,2,3,4] : difficulty == 'advanced' ? [1,2,3,4,5,6] : [1,2,3,4,5,6,7,8,9]
                 
             fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
             .then(response => response.json())
             .then(data => {
-                choice = data.tiles                
-                goal = data.target              
+                choice = data.tiles
+                goal = data.target
             })
             .catch(err => {
+                goal = difficulty == 'easy' ? 10 : difficulty == 'advanced' ? 100 : 1000
+                choice = difficulty == 'easy' ? [1,2,3,4] : difficulty == 'advanced' ? [1,2,3,4,5,6] : [1,2,3,4,5,6,7,8,9]
                 console.error(err)
             })
             goalElement.textContent = goal                
@@ -93,6 +112,40 @@ if (isGame == false) {
         }, 200)
     }
 
+    const selectedDifficulty = async (buttonElement) => {
+        const difficulty = buttonElement.id;
+        buttonElement.classList.add('button-grow');
+    
+        setTimeout(async () => {
+            isGame = true;
+            document.getElementById('overlay').style.display = 'none';
+            var timerTime = setInterval(upTimer, 1000);
+            let goalElement = document.createElement('p');
+            goalElement.id = 'goal';
+    
+            try {
+                const response = await fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`);
+                const data = await response.json();
+                
+                choice = data.tiles;
+                goal = data.target;
+            } catch (err) {
+                goal = difficulty === 'easy' ? 10 : 
+                       difficulty === 'advanced' ? 100 : 1000;
+                choice = difficulty === 'easy' ? [1,2,3,4] : 
+                         difficulty === 'advanced' ? [1,2,3,4,5,6] : [1,2,3,4,5,6,7,8,9];
+                console.error(err);
+            }
+            
+            goalElement.textContent = goal;
+            goalDisplay.append(goalElement);
+            
+            choice.forEach((keyO) => {keysO[keyO] = keyO});
+            
+            gameObjects = [messageDisplay, keyboard, boardDisplay, operDisplay, controlsboard];
+            gameObjects.forEach((displayElement) => gameBuilder(displayElement));
+        }, 200);
+    }
 }
 // Create timer
 var timer = document.createElement('p')

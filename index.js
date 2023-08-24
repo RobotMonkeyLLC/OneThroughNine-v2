@@ -50,7 +50,8 @@ app.get('/tiles', (req, res) => {
 
 app.post('/post_score', (req, res) => {
     // TODO: Save score to database
-    
+    console.log(req.body)
+    res.send("Score saved successfully")
   });
   
 app.get('/local_stats', (req, res) => {
