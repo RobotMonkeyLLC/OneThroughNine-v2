@@ -12,7 +12,7 @@ let isSolved = false
 let isGame = false
 let board = [0,0,0]
 let value = 0
-
+let goal = 0
 
 if (isGame == false) {
         
@@ -23,15 +23,19 @@ if (isGame == false) {
 
     // Get local stats
     const getStats = (statElement) => {
-        fetch('http://localhost:8000/stats')
+        const statItem = document.createElement('li')
+        fetch('http://localhost:8000/local_stats')
         .then(response => response.json())
         .then(data => {
-            const statItem = document.createElement('li')
-            statItem.textContent = `${statElement.id} Best: ${data.bestTime}`
-            statItem.classList.add('stat')
-            statElement.append(statItem)
+            statItem.textContent = `${statElement.id} Best: ${data.bestTime}`            
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+            statItem.classList.add('default')
+            statItem.textContent = 'No play history to show'
+            console.error(err)
+        })
+        statItem.classList.add('stat')
+        statElement.append(statItem)
     }
 
     // Create stats board
@@ -63,25 +67,29 @@ if (isGame == false) {
         const difficulty = buttonElement.id
         buttonElement.classList.add('button-grow')
         setTimeout(() => {
+            isGame = true
+            document.getElementById('overlay').style.display = 'none'
+            var timerTime = setInterval(upTimer, 1000)
+            let goalElement = document.createElement('p')
+            goalElement.id = 'goal'
+            // Defaults
+            goal = difficulty == 'easy' ? 10 : difficulty == 'advanced' ? 100 : 1000
+            choice = difficulty == 'easy' ? [1,2,3,4] : difficulty == 'advanced' ? [1,2,3,4,5,6] : [1,2,3,4,5,6,7,8,9]
+                
             fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
             .then(response => response.json())
             .then(data => {
-                choice = data.tiles
-                //console.log(choice)
-                isGame = true
-                //console.log(isGame)
-                document.getElementById('overlay').style.display = 'none'
-                var timerTime = setInterval(upTimer, 1000)
-                goal = data.target
-                let goalElement = document.createElement('p')
-                goalElement.textContent = goal
-                goalElement.id = 'goal'
-                goalDisplay.append(goalElement)
-                choice.forEach((keyO) => {keysO[keyO] = keyO})
-                gameObjects = [messageDisplay, keyboard, boardDisplay, operDisplay, controlsboard]
-                gameObjects.forEach((displayElement) => gameBuilder(displayElement))
+                choice = data.tiles                
+                goal = data.target              
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                console.error(err)
+            })
+            goalElement.textContent = goal                
+            goalDisplay.append(goalElement)
+            choice.forEach((keyO) => {keysO[keyO] = keyO})
+            gameObjects = [messageDisplay, keyboard, boardDisplay, operDisplay, controlsboard]
+            gameObjects.forEach((displayElement) => gameBuilder(displayElement))
         }, 200)
     }
 
@@ -141,6 +149,11 @@ const gameBuilder = (displayElement) => {
             break
         case controlsboard:
             boardBlock = ['Return', 'Restart', 'Undo']
+            elemType = 'button'
+            boardClass = 'control'
+            break
+        case gameoverControlsDisplay:
+            boardBlock = ['Return', 'Post Score']
             elemType = 'button'
             boardClass = 'control'
     }
@@ -344,16 +357,55 @@ const handleClick = (buttonElement) => {
     }
 }
 
+const postedScoresDisplay =  document.querySelector('.game-over-stats-container')
+const gameoverControlsDisplay = document.querySelector('.game-over-controls-container')
+const gameoverMessageDisplay = document.querySelector('.game-over-message-container')
+
 const updateWin = () => {
-    console.log('You win!')
-    showMessage('You win!')
+    console.log('Solved')
+    showMessage('Goal reached!')
+    const endGame = document.getElementById('game-over')
+    endGame.classList.add('overlay')
+    endGame.classList.remove('hidden')
+    const endGameTitle = document.createElement('h1')
+    endGameTitle.textContent = 'You Win!'
+    endGame.prepend(endGameTitle)
+   
+    const endGameScore = document.createElement('p')
+    endGameScore.textContent = `Your time: ${secondsToHms(seconds)}`
+    gameoverMessageDisplay.append(endGameScore)
+
+    const leaderBoard = document.createElement('ul')    
+    let postedScores
+
+    const getPostedScores = () => {
+        const scoreElement = document.createElement('li')
+        postedScores = ['No scores to show']
+        scoreElement.classList.add('default')
+        fetch('http://localhost:8000/posted_stats')
+        .then(response => response.json())
+        .then(data => {
+            postedScores = data.top10Scores
+            
+        })
+        .catch(err => {console.error(err)})
+        postedScores.forEach(score => {
+            scoreElement.textContent = score
+        })
+        leaderBoard.append(scoreElement)
+    }
+    getPostedScores()
+    postedScoresDisplay.append(leaderBoard)
+    const leaderBoardTitle = document.createElement('h2')
+    leaderBoardTitle.textContent = 'Leaderboard'
+    postedScoresDisplay.prepend(leaderBoardTitle)
+    // End game controls
+    gameBuilder(gameoverControlsDisplay)
+    
 }
 
 const showMessage = (message) => {
-    const messageElement = document.createElement('p')
-    messageElement.textContent = message
-    messageDisplay.textContent = ''
-    messageDisplay.append(messageElement)
+    messageDisplay.firstChild.textContent = message
 }
 
 // Clear undoStack storge on page load

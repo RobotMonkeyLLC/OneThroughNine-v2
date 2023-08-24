@@ -64,7 +64,7 @@ app.post('/attempt', (req, res) => {
     // You'll have to validate their math, remove/add tiles, and check for win/lose conditions.
   });
   
-app.get('/stats', (req, res) => {
+app.get('/local_stats', (req, res) => {
     req.session.bestTime = '00:00' // hard coded for now
     req.session.lastScore = '00:00' //  hard coded for now
     req.session.last9Scores = [1,2,3,4,5,6,7,8,9]
@@ -73,5 +73,13 @@ app.get('/stats', (req, res) => {
         lastScore: req.session.lastScore
       });
 })
+
+app.get('/posted_stats', (req, res) => {
+  req.session.top10Scores = [1,2,3,4,5,6,7,8,9,10]
+  res.json({
+      top10Scores: req.session.top10Scores
+    });
+})
+
 app.listen(PORT, () => {console.log(`Server running on port ${PORT}`)})
 

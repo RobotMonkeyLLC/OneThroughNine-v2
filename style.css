@@ -141,11 +141,15 @@ button {
     text-align: center;
     padding-block: 50px;
     padding-inline: 40px;
+    
+}
+.board-tile-container div:not(.default) {
     font-size: xx-large;
 }
 .default {
     color: #ffffff85 !important;
     font-style: italic;
+    font-size: medium
 }
 
 .message-container {
@@ -202,7 +206,7 @@ button {
     justify-content: space-around;
     align-items: center;
 }
-.stats-container ul {
+.stats-container ul  {
     padding-inline: 6%;
     padding-top: 1%;
     padding-bottom: 1%;
@@ -213,5 +217,46 @@ button {
     list-style-type: none;
     padding: 0%;
     margin: 0%;
+    
+}
+.stats-container li:not(.default) {
     font-size: x-large;
+}
+#game-over {
+    justify-content: space-around;
+}
+
+.game-over-stats-container {    
+    background-color: #707070;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.game-over-stats-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.game-over-stats-container ul {
+    padding: 0%;
+    display: inline-table;    
+}
+
+.game-over-stats-container li{
+    width: 400px;
+    height: 50px;
+    padding: 0%;
+    margin: 3px;
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
 }
