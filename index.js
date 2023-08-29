@@ -1,13 +1,26 @@
-import { Client } from 'pg'
+const { Client } = require('pg');
 
+//const pool = new Pool()
 const client = new Client()
-await client.connect()
+
+async function connectToDatabase() {
+  try {
+    await client.connect();
+    console.log('Connected to database');
+  } catch (err) {
+    console.error('Error connecting to database:', err);
+  }
+}
+
+connectToDatabase();
+
 
 const PORT = 8000
 const express = require('express')
 const session = require('express-session')
 const cors = require('cors')
 require('dotenv').config()
+console.log('Here is the environment variable:', process.env);
 const app = express()
 
 app.use(cors())
