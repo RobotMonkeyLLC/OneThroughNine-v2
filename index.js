@@ -1,7 +1,26 @@
 const { Client } = require('pg');
-
+require('dotenv').config()
 //const pool = new Pool()
-const client = new Client()
+const client = new Client({
+  user: process.env.PGUSER,
+})
+
+
+const PORT = 8000
+const express = require('express')
+const session = require('express-session')
+const cors = require('cors')
+const app = express()
+ 
+app.use(cors())
+app.use(express.json())
+app.use(express.static('public'))
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true
+}))
 
 async function connectToDatabase() {
   try {
@@ -14,26 +33,20 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
+async function getScores() {
+  try {
+    const res = await client.query('SELECT * FROM users');
+    console.log(res.rows);
+    return res.rows;
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+  }
+}
 
-const PORT = 8000
-const express = require('express')
-const session = require('express-session')
-const cors = require('cors')
-require('dotenv').config()
-console.log('Here is the environment variable:', process.env);
-const app = express()
-
-app.use(cors())
-app.use(express.json())
-app.use(express.static('public'))
-
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true
-}))
+getScores();
 
 const crypto = require('crypto');
+const { get } = require('http');
 
 const generateDailyTarget = (difficulty) => {
   const hash = crypto.createHash('sha256');
