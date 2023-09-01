@@ -92,8 +92,9 @@ app.get('/local_stats', (req, res) => {
     res.json({
         bestTime: req.session.bestTime,
         lastScore: req.session.lastScore,
-        last9Scores: scores
-      });
+        last9Scores: req.session.last9Scores
+      })
+    
 })
 
 app.get('/posted_stats', (req, res) => {

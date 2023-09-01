@@ -42,7 +42,8 @@ if (isGame == false) {
         const statItem = document.createElement('li');
     
         try {
-            const response = await fetch('http://localhost:8000/local_stats');
+            const response = await fetch('http://localhost:8000/local_stats', { method: 'GET' });
+            
             const data = await response.json();
             console.log('Here is the data',data);
             
