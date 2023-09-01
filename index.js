@@ -36,14 +36,13 @@ connectToDatabase();
 async function getScores() {
   try {
     const res = await client.query('SELECT * FROM users');
-    console.log(res.rows);
+    //console.log(res.rows);
+    //console.log('Successfully retrieved scores', res.rows[0].name);
     return res.rows;
   } catch (err) {
     console.error('Error executing query', err.stack);
   }
 }
-
-getScores();
 
 const crypto = require('crypto');
 const { get } = require('http');
@@ -82,14 +81,18 @@ app.post('/post_score', (req, res) => {
     console.log(req.body)
     res.send(req.body)
   })
-  
+
+const scores = getScores()
 app.get('/local_stats', (req, res) => {
-    req.session.bestTime = '00:00' // hard coded for now
+  console.log('Scores',scores)
+  req.session.bestTime = scores // hard coded for now
+  //console.log('Best time',req.session.bestTime)
     req.session.lastScore = '00:00' //  hard coded for now
     req.session.last9Scores = [1,2,3,4,5,6,7,8,9]
     res.json({
         bestTime: req.session.bestTime,
-        lastScore: req.session.lastScore
+        lastScore: req.session.lastScore,
+        last9Scores: scores
       });
 })
 
@@ -102,3 +105,4 @@ app.get('/posted_stats', (req, res) => {
 
 app.listen(PORT, () => {console.log(`Server running on port ${PORT}`)})
 
+//await client.end();

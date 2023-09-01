@@ -44,6 +44,7 @@ if (isGame == false) {
         try {
             const response = await fetch('http://localhost:8000/local_stats');
             const data = await response.json();
+            console.log('Here is the data',data);
             
             statItem.textContent = `${statElement.id} Best: ${data.bestTime}`;          
         } catch (err) {
