@@ -22,22 +22,6 @@ if (isGame == false) {
     titleDisplay.append(titleElement)
 
     // Get local stats
-    const _getStats = (statElement) => {
-        const statItem = document.createElement('li')
-        fetch('http://localhost:8000/local_stats')
-        .then(response => response.json())
-        .then(data => {
-            statItem.textContent = `${statElement.id} Best: ${data.bestTime}`            
-        })
-        .catch(err => {
-            statItem.classList.add('default')
-            statItem.textContent = 'No play history to show'
-            console.error(err)
-        })
-        statItem.classList.add('stat')
-        statElement.append(statItem)
-    }
-
     const getStats = async (statElement) => {
         const statItem = document.createElement('li');
     
@@ -45,7 +29,7 @@ if (isGame == false) {
             const response = await fetch('http://localhost:8000/local_stats', { method: 'GET' });
             
             const data = await response.json();
-            console.log('Here is the data',data);
+            console.log('Here is the data',data.bestTime);
             
             statItem.textContent = `${statElement.id} Best: ${data.bestTime}`;          
         } catch (err) {
@@ -82,38 +66,6 @@ if (isGame == false) {
     })
 
     // Difficulty selector and generate game
-    const _selectedDifficulty = (buttonElement) => {
-        const difficulty = buttonElement.id
-        buttonElement.classList.add('button-grow')
-        setTimeout(() => {
-            isGame = true
-            document.getElementById('overlay').style.display = 'none'
-            var timerTime = setInterval(upTimer, 1000)
-            let goalElement = document.createElement('p')
-            goalElement.id = 'goal'
-            // Defaults
-            //goal = difficulty == 'easy' ? 10 : difficulty == 'advanced' ? 100 : 1000
-            //choice = difficulty == 'easy' ? [1,2,3,4] : difficulty == 'advanced' ? [1,2,3,4,5,6] : [1,2,3,4,5,6,7,8,9]
-                
-            fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
-            .then(response => response.json())
-            .then(data => {
-                choice = data.tiles
-                goal = data.target
-            })
-            .catch(err => {
-                goal = difficulty == 'easy' ? 10 : difficulty == 'advanced' ? 100 : 1000
-                choice = difficulty == 'easy' ? [1,2,3,4] : difficulty == 'advanced' ? [1,2,3,4,5,6] : [1,2,3,4,5,6,7,8,9]
-                console.error(err)
-            })
-            goalElement.textContent = goal                
-            goalDisplay.append(goalElement)
-            choice.forEach((keyO) => {keysO[keyO] = keyO})
-            gameObjects = [messageDisplay, keyboard, boardDisplay, operDisplay, controlsboard]
-            gameObjects.forEach((displayElement) => gameBuilder(displayElement))
-        }, 200)
-    }
-
     const selectedDifficulty = async (buttonElement) => {
         const difficulty = buttonElement.id;
         buttonElement.classList.add('button-grow');
@@ -274,7 +226,7 @@ const undo = () => {
     //gameBuilder(keyboard)
     restoreBoardState(lastState)
     localStorage.setItem('undoStack', JSON.stringify(undoStack))
-    console.log('Undone to ',lastState) 
+    //console.log('Undone to ',lastState) 
 }
 const saveState = () => {
     const keys = {keys:[], ids:[]}
@@ -286,7 +238,7 @@ const saveState = () => {
         board.classList.push(x.classList.value)
     })
     const currentState = {
-        timestamp: new Date().getDate(),
+        //timestamp: new Date().getDate(),
         tiles: keys,
         board: board
     }
@@ -334,6 +286,10 @@ const addKey = (value) => {
     keyboard.append(buttonElement)
 }
 
+const isAllTilesUsed = () => {
+    return keyboard.childNodes.length == 0 ? true : false
+}
+
 const checkSolution = () => {
     //saveState()
     if (isBoardFilled()) {
@@ -345,16 +301,28 @@ const checkSolution = () => {
                                boardOperKey == '-' ? parseInt(boardKeys.int1) - parseInt(boardKeys.int2) :
                                boardOperKey == 'x' ? parseInt(boardKeys.int1) * parseInt(boardKeys.int2) :
                                boardOperKey == '/' ? parseInt(boardKeys.int1) / parseInt(boardKeys.int2) : 0
-        console.log('boardOperValue ',boardOperValue)        
-        clearBoard()
-        console.log('goal ',goal)
+        if (!Number.isInteger(boardOperValue)) {
+            showMessage("No Floats Allowed!")
+            //undo()
+            return
+        }
+        //console.log('boardOperValue ',boardOperValue)        
+        
+        //console.log('goal ',goal)
         if (boardOperValue == goal) {
-            isSolved = true
-            updateWin()
-            console.log('Solved!')
+            if(isAllTilesUsed()) {
+                console.log('Solved!')
+                isSolved = true
+                updateWin()
+            } else {
+                showMessage('Goal reached!...but not all tiles used.')
+                clearBoard()
+                addKey(boardOperValue)
+            }
         } else {
+            clearBoard()
             addKey(boardOperValue)
-            console.log('Not solved!')
+            //console.log('Not solved!')
         }
     }
 }
@@ -383,6 +351,7 @@ const keyManager = (buttonElement) => {
 
 const operManager = (buttonElement) => {
     const boardOper = document.getElementById('operator')
+    saveState()
     if (boardOper.classList.contains('default')) {
         boardOper.classList.remove('default')
         boardOper.textContent = buttonElement.textContent
@@ -472,6 +441,7 @@ const updateWin = () => {
 
 const showMessage = (message) => {
     messageDisplay.firstChild.textContent = message
+    setTimeout(() => messageDisplay.firstChild.textContent = '', 2000)
 }
 
 const postScore = () => {

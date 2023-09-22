@@ -1,9 +1,13 @@
+html {
+    font-size: 62.5%;
+}
 * {
     color: #ffffff;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 body {
+    margin: 0;
     background-color: #5e5858;
 }
 .overlay {

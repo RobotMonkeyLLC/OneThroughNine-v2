@@ -5,7 +5,6 @@ const client = new Client({
   user: process.env.PGUSER,
 })
 
-
 const PORT = 8000
 const express = require('express')
 const session = require('express-session')
@@ -35,7 +34,7 @@ connectToDatabase();
 
 async function getScores() {
   try {
-    const res = await client.query('SELECT * FROM users');
+    const res = await client.query('SELECT * FROM scores');
     //console.log(res.rows);
     //console.log('Successfully retrieved scores', res.rows[0].name);
     return res.rows;
@@ -46,6 +45,7 @@ async function getScores() {
 
 const crypto = require('crypto');
 const { get } = require('http');
+const { format } = require('path');
 
 const generateDailyTarget = (difficulty) => {
   const hash = crypto.createHash('sha256');
@@ -76,9 +76,23 @@ app.get('/tiles', (req, res) => {
                       target: tiles.goal[difficulty] })
 })
 
+async function postScore (name, score) {    
+  try {
+    const query1 = format('INSERT INTO scores (player_name, score_time) VALUES (%L, %L)', [name, score])
+    console.log("Here is the query",query1);
+    const res = await client.query(query1);
+    //console.log(res.rows);
+    //console.log('Successfully retrieved scores', res.rows[0].name);
+    return res.rows;
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+  }
+}
+
 app.post('/post_score', (req, res) => {
     // TODO: Save score to database
     console.log(req.body)
+    postScore(req.body.name, req.body.score)
     res.send(req.body)
   })
 
