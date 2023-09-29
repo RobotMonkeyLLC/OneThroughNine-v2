@@ -14,6 +14,7 @@ let isGame = false
 let board = [0,0,0]
 let value = 0
 let goal = 0
+let seconds = 0
 
 if (isGame == false) {
         
@@ -73,51 +74,64 @@ if (isGame == false) {
         difficultyDisplay.append(buttonElement)
     })
 
+    // Get default difficulty
+    function getDefaults(difficulty) {
+        goal = difficulty === 'easy' ? 10 : 
+                difficulty === 'advanced' ? 100 : 1000;
+        choice = difficulty === 'easy' ? [1,2,3,4] : 
+                difficulty === 'advanced' ? [1,2,3,4,5,6] : [1,2,3,4,5,6,7,8,9];
+        return {goal, choice}
+    }
+    
+    // Get difficulty from server
+    async function getDifficulty(difficulty) {
+        isGame = true;
+        document.getElementById('overlay').style.display = 'none';
+        
+        let goalElement = document.createElement('p');
+        goalElement.id = 'goal';
+    
+        try {
+            const response = await fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log(data);
+            goal = data.target;
+            choice = data.tiles;
+        } catch (err) {
+            let {goal, choice} = getDefaults(difficulty)
+            console.error(err);
+        }
+        goalElement.textContent = goal;
+        goalDisplay.append(goalElement);
+        
+        choice.forEach((keyO) => {keysO[keyO] = keyO});
+            
+        gameObjects = [messageDisplay, keyboard, boardDisplay, operDisplay, controlsboard];
+        gameObjects.forEach((displayElement) => gameBuilder(displayElement));
+        
+        // start timer
+        var timerTime = setInterval(upTimer, 1000);
+    }
+
     // Difficulty selector and generate game
     const selectedDifficulty = async (buttonElement) => {
         const difficulty = buttonElement.id;
         buttonElement.classList.add('button-grow');
-    
-        setTimeout(async () => {
-            isGame = true;
-            document.getElementById('overlay').style.display = 'none';
-            var timerTime = setInterval(upTimer, 1000);
-            let goalElement = document.createElement('p');
-            goalElement.id = 'goal';
-    
-            try {
-                const response = await fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
 
-                choice = data.tiles;
-                goal = data.target;
-            } catch (err) {
-                goal = difficulty === 'easy' ? 10 : 
-                       difficulty === 'advanced' ? 100 : 1000;
-                choice = difficulty === 'easy' ? [1,2,3,4] : 
-                         difficulty === 'advanced' ? [1,2,3,4,5,6] : [1,2,3,4,5,6,7,8,9];
-                console.error(err);
-            }
-            
-            goalElement.textContent = goal;
-            goalDisplay.append(goalElement);
-            
-            choice.forEach((keyO) => {keysO[keyO] = keyO});
-            
-            gameObjects = [messageDisplay, keyboard, boardDisplay, operDisplay, controlsboard];
-            gameObjects.forEach((displayElement) => gameBuilder(displayElement));
-        }, 200);
+        getDifficulty(difficulty);
+        createTimer()
     }
 }
 // Create timer
-var timer = document.createElement('p')
-timer.textContent = '00:00'
-timer.id = 'timer'
-timerDisplay.append(timer)
-var seconds = 0
+function createTimer() {
+    var timer = document.createElement('p')
+    timer.textContent = '00:00'
+    timer.id = 'timer'
+    timerDisplay.append(timer)
+}
 
 // convert seconds to HH:MM:SS
 function secondsToHms(seconds) {
