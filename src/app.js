@@ -7,6 +7,7 @@ const statsDisplay = document.querySelector('.stats-container')
 const operDisplay = document.querySelector('.operboard-container')
 const controlsboard = document.querySelector('.controls-container')
 const messageDisplay = document.querySelector('.message-container')
+const rulesDisplay = document.querySelector('.rules-container')
 
 let isSolved = false
 let isGame = false
@@ -20,6 +21,13 @@ if (isGame == false) {
     const titleElement = document.createElement('h1')
     titleElement.textContent = 'OneThruNine'
     titleDisplay.append(titleElement)
+    
+    // Create Rules display
+    const rulesElement = document.createElement('div')
+    rulesElement.classList.add('rules')
+    rulesParagraph = rulesElement.appendChild(document.createElement('p'))
+    rulesParagraph.textContent = 'Use all of the digits provided to arrive at the random number generated.'
+    rulesDisplay.append(rulesElement)
 
     // Get local stats
     const getStats = async (statElement) => {
@@ -54,12 +62,12 @@ if (isGame == false) {
 
     // Create difficulty selector
     const difficultyDisplay = document.querySelector('.difficulty-container')
-    const difficulties = ['easy', 'advanced', 'expert']
+    const difficulties = [['easy','Level 1'], ['advanced','Level 2'], ['expert','Level 3']]
     
     difficulties.forEach(dif => {
         const buttonElement = document.createElement('button')
-        buttonElement.textContent = dif
-        buttonElement.setAttribute('id', dif)
+        buttonElement.textContent = dif[1]
+        buttonElement.setAttribute('id', dif[0])
         buttonElement.classList.add('difficulty')
         buttonElement.addEventListener('click', () => selectedDifficulty(buttonElement))
         difficultyDisplay.append(buttonElement)
@@ -79,8 +87,11 @@ if (isGame == false) {
     
             try {
                 const response = await fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 const data = await response.json();
-                
+
                 choice = data.tiles;
                 goal = data.target;
             } catch (err) {
@@ -332,7 +343,6 @@ const removeKey = (buttonElement) => {
     buttonElement.classList.add('inactive')
     checkSolution()
     setTimeout(() => elem.parentNode.removeChild(elem), 200)
-    
 }
 const keyManager = (buttonElement) => {
     const boardTiles =  {int1:document.getElementById('int 1'),int2:document.getElementById('int 2')}

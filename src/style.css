@@ -9,6 +9,7 @@ html {
 body {
     margin: 0;
     background-color: #5e5858;
+    height: 100vh;
 }
 .overlay {
     position: absolute;
@@ -20,17 +21,27 @@ body {
     z-index: 10;  /* Ensure the overlay is above the game board */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
-.overlay div {
-    margin: 1vw;
+.rules-container {
+    margin-bottom: 3vh;
+}
+
+.rules {
+    padding-inline: 4vw;
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: large;
 }
 
 .difficulty-container {
-    padding-inline: 4vw;
-    height: 100px;
+    padding-inline: 1vw;
+    padding-block: 1vw;
     background-color: #2e2e2e;
     border-radius: 10px;
     display: flex;
@@ -42,14 +53,15 @@ body {
 .difficulty-container button {
     height: 50px;
     padding-inline: 4vw;
+    margin-inline: 3vw;
     background-color: #707070;
 }
 
 .game-container {
-    height: 90vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -60,8 +72,9 @@ body {
 }
 
 .goal-container {
-   text-align: center;
-   display: flex;
+    height: 10vh;
+    text-align: center;
+    display: flex;
 }
 
 .goal-container p {
@@ -200,9 +213,9 @@ button {
 }
  
 .stats-container {
-    width: 600px;
-    height: 100px;
+    width: 80vw;
     padding: 0%;
+    padding-block: 1vh;
     background-color: #2e2e2e;
     border-radius: 10px;
     display: flex;

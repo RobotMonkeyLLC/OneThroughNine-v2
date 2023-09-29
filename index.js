@@ -59,8 +59,8 @@ const tiles = {
       advanced: generateDailyTarget(100),
       expert: generateDailyTarget(1000)},
     tiles:{
-      easy: [1, 2, 3, 4],
-      advanced: [1, 2, 3, 4, 5, 6],
+      easy: [1, 2, 3, 4, 5],
+      advanced: [1, 2, 3, 4, 5, 6, 7],
       expert: [1, 2, 3, 4, 5, 6, 7, 8, 9]
     }
 }
