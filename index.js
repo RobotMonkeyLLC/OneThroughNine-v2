@@ -141,7 +141,7 @@ app.get('/local_stats', async (req, res) => {
       const scores = await getLocalScores();
       req.session.best = scores[0].score;
       req.session.average = getAverage(scores);
-      req.session.daily = isDaily(scores) == true? scores.sort(compare)[0].score : 'No score today';
+      req.session.daily = isDaily(scores) == true? scores.sort(compare)[0].score : 'None';
       res.json({
         best: req.session.best,
         average: req.session.average,

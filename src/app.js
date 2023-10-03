@@ -27,7 +27,7 @@ if (isGame == false) {
     const rulesElement = document.createElement('div')
     rulesElement.classList.add('rules')
     rulesParagraph = rulesElement.appendChild(document.createElement('p'))
-    rulesParagraph.textContent = 'Use all of the digits provided to arrive at the random number generated.'
+    rulesParagraph.textContent = 'Directions - Use all of the digits provided to arrive at the random number generated.'
     rulesDisplay.append(rulesElement)
 
     // Get local stats
@@ -103,9 +103,16 @@ if (isGame == false) {
     const stats = ['Local Stats', 'Posted Scores'] // hard coded for now
     stats.forEach(stat => {
         const statElement = document.createElement('ul')
-        statElement.textContent = stat
+        const statHeader = document.createElement('ul')
+        const statTitle = document.createElement('li')
+        const stateValue = document.createElement('li')
+        statTitle.textContent = stat
+        stateValue.textContent = 'Loading...'
+        //statElement.textContent = stat
         statElement.classList.add('stat')
         statElement.setAttribute('id', stat.split(' ')[0]) // splits string; should be changed later
+        statHeader.append(statTitle, stateValue)
+        statElement.append(statHeader)
         statsDisplay.append(statElement)
         getStats(statElement, stat.split(' ')[0])
     })
