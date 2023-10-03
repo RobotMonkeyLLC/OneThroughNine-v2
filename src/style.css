@@ -229,6 +229,7 @@ button {
 }
 .stats-container ul  {
     display: flex;
+    justify-content: space-between;
     padding-inline: 6%;
     padding-top: 1%;
     padding-bottom: 1%;
@@ -239,11 +240,49 @@ button {
     list-style-type: none;
     padding: 0%;
     margin: 0%;
+    display: flex;
     flex-direction: row;
 }
 .stats-container li:not(.default) {
     font-size: x-large;
+    align-self: center;
 }
+
+.stat-list {
+    justify-content: space-around;
+    align-items: center;
+}
+
+.user {
+    color:#3b3b3b
+}
+
+#Posted {
+    height: 15vh;
+    overflow-y: auto;
+    transition: height 0.3s ease;
+}
+
+#Posted:hover {
+    height: 20vh;
+}
+/* Chrome, Safari and newer versions of Opera */
+#Posted::-webkit-scrollbar {
+    width: 0;  /* remove vertical scrollbar */
+    height: 0; /* remove horizontal scrollbar */
+}
+
+/* Firefox */
+#Posted {
+    scrollbar-width: none;
+}
+
+/* IE and Edge */
+#Posted {
+    -ms-overflow-style: none;
+}
+
+
 #game-over {
     justify-content: space-around;
 }

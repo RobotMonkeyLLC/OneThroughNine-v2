@@ -54,26 +54,37 @@ if (isGame == false) {
                         scoreElement.append(scoreTitle, scoreValue)
                         statElement.append(scoreElement);
                     })
-                    /*scoreTitle.textContent = 'Best Personal Time:'
-                    statElement.append(scoreTitle)
-                    const scoreElement = document.createElement('li')
-                    scoreElement.textContent = data.bestTime
-                    statElement.append(scoreElement)*/
+                    
                     break
                 case 'Posted':
-                    //statItem.textContent = `Best Time: ${data.top10Scores[0]}` 
-                    topscore = data.top10Scores[0]                   
-                    top9Scores = data.top10Scores.slice(1,data.top10Scores.length)
+                    
                     data.top10Scores.forEach((score, index) => {
                         const scoreContainer = document.createElement('ul')
                         scoreContainer.classList.add('score-container')
+                        
                         const scoreTitle = document.createElement('li')
-                        const scoreValue = document.createElement('li')
                         scoreTitle.textContent = index === 0 ? 'Best Time: ' : `#${index+1}: `
-                        scoreValue.textContent = score
+
+                        const metaContainer = document.createElement('ul')
+                        metaContainer.classList.add('meta-container')
+
+                        const scoreValue = document.createElement('li')
+                        scoreValue.textContent = score.score
+                        const scoreDate = document.createElement('li')
+                        scoreDate.textContent = formatDate(score.date)
+                        const scoreUser = document.createElement('li')
+                        scoreUser.textContent = score.name
+                        scoreUser.classList.add('user')
+                        
+                        const statList = document.createElement('ul')
+                        statList.classList.add('stat-list')
+                        
+                        metaContainer.append(scoreUser, scoreDate)
                         scoreContainer.append(scoreTitle, scoreValue)
-                        statElement.append(scoreContainer)
+                        statList.append(scoreContainer, metaContainer)
+                        statElement.append(statList)
                     })
+                    
                     break
                     
             }
@@ -189,6 +200,12 @@ function upTimer() {
         seconds++
         document.getElementById('timer').innerHTML = secondsToHms(seconds)
     }
+}
+
+// Format date
+function formatDate(date) {
+    const d = new Date(date);
+    return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
 }
 
 let keysO= {}

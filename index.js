@@ -10,6 +10,8 @@ const express = require('express')
 const session = require('express-session')
 const cors = require('cors')
 const app = express()
+
+
  
 app.use(cors())
 app.use(express.json())
@@ -32,12 +34,18 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-async function getScores() {
+async function getLocalScores() {
   try {
-    const res = await client.query('SELECT * FROM scores');
-    //console.log(res.rows);
-    //console.log('Successfully retrieved scores', res.rows[0].name);
-    return res.rows;
+    const res = await client.query("SELECT player_name,score_time,score_date FROM scores WHERE player_name = 'Player628' ORDER BY score_time asc LIMIT 5;")
+    //console.log('rows',res.rows);
+    const scores = res.rows.map((row) => {
+      return {name: row.player_name, 
+              score: row.score_time,
+              date: row.score_date}
+    })
+    //console.log('Successfully retrieved scores', scores[0]);
+    
+    return scores;
   } catch (err) {
     console.error('Error executing query', err.stack);
   }
@@ -76,7 +84,7 @@ app.get('/tiles', (req, res) => {
                       target: tiles.goal[difficulty] })
 })
 
-async function postScore (name, score) {    
+async function postScore(name, score) {    
   try {
     const query1 = format('INSERT INTO scores (player_name, score_time) VALUES (%L, %L)', [name, score])
     console.log("Here is the query",query1);
@@ -96,23 +104,73 @@ app.post('/post_score', (req, res) => {
     res.send(req.body)
   })
 
-const scores = getScores()
-app.get('/local_stats', (req, res) => {
-  console.log('Scores',scores)
-  req.session.bestTime = scores // hard coded for now
-  //console.log('Best time',req.session.bestTime)
-    req.session.lastScore = '00:00' //  hard coded for now
-    req.session.last9Scores = [1,2,3,4,5,6,7,8,9]
-    res.json({
-        bestTime: req.session.bestTime,
-        lastScore: req.session.lastScore,
-        last9Scores: req.session.last9Scores
-      })
-    
-})
+// calculate average score
+const getAverage = (scores) => {
+  let sum = 0;
+  for (let i = 0; i < scores.length; i++) {
+    sum += scores[i].score;
+  }
+  return sum / scores.length;
+}
 
-app.get('/posted_stats', (req, res) => {
-  req.session.top10Scores = [1,2,3,4,5,6,7,8,9,10]
+// compare function for sorting scores by date
+const compare = (a, b) => {
+  if (a.date < b.date) {
+    return -1;
+  } else if (a.date > b.date) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+// check if daily
+const isDaily = (scores) => {
+  const today = new Date();
+  const todayString = today.toDateString();
+  if (scores[0].date === todayString) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+app.get('/local_stats', async (req, res) => {
+  try {
+      const scores = await getLocalScores();
+      req.session.best = scores[0].score;
+      req.session.average = getAverage(scores);
+      req.session.daily = isDaily(scores) == true? scores.sort(compare)[0].score : 'No score today';
+      res.json({
+        best: req.session.best,
+        average: req.session.average,
+        daily: req.session.daily
+      });
+  } catch (error) {
+      res.status(500).send(error.toString());
+  }
+});
+
+async function getTop10Scores() {
+  try {
+    const res = await client.query("SELECT player_name,score_time,score_date FROM scores ORDER BY score_time asc LIMIT 10;")
+    //console.log('rows',res.rows);
+    const scores = res.rows.map((row) => {
+      return {name: row.player_name, 
+              score: row.score_time,
+              date: row.score_date}
+    })
+    //console.log('Successfully retrieved scores', scores[0]);
+    
+    return scores;
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+  }
+}
+
+app.get('/posted_stats', async (req, res) => {
+  req.session.top10Scores = await getTop10Scores()
   res.json({
       top10Scores: req.session.top10Scores
     });
