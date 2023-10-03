@@ -212,6 +212,10 @@ button {
     }
 }
 
+.stat {
+    display: flex;
+    flex-direction: column;
+}
 .stats-container {
     width: 80vw;
     padding: 0%;
@@ -224,6 +228,7 @@ button {
     align-items: center;
 }
 .stats-container ul  {
+    display: flex;
     padding-inline: 6%;
     padding-top: 1%;
     padding-bottom: 1%;
@@ -234,7 +239,7 @@ button {
     list-style-type: none;
     padding: 0%;
     margin: 0%;
-    
+    flex-direction: row;
 }
 .stats-container li:not(.default) {
     font-size: x-large;

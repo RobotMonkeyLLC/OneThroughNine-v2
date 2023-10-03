@@ -31,25 +31,63 @@ if (isGame == false) {
     rulesDisplay.append(rulesElement)
 
     // Get local stats
-    const getStats = async (statElement) => {
+    const getStats = async (statElement, domain) => {
         const statItem = document.createElement('li');
     
         try {
-            const response = await fetch('http://localhost:8000/local_stats', { method: 'GET' });
+            const response = await fetch(`http://localhost:8000/${domain}_stats`, { method: 'GET' });
             
             const data = await response.json();
-            console.log('Here is the data',data.bestTime);
-            
-            statItem.textContent = `${statElement.id} Best: ${data.bestTime}`;          
+            console.log(`Here is the ${domain} data`,data.bestTime)
+            const scoreTitle = document.createElement('li');
+            switch (domain) {
+                
+                case 'Local':
+                    // statItem.textContent = `Best Time: ${data.bestTime}`
+                    ['Best Time', 'Average', 'Daily Time'].forEach((stat, index) => {
+                        const scoreElement = document.createElement('ul')
+                        const scoreTitle = document.createElement('li')
+                        const scoreValue = document.createElement('li')
+                        scoreTitle.textContent = stat + ': '
+                        scoreValue.textContent = data[stat.toLowerCase().split(' ')[0]]
+                        console.log('Score Element ',scoreValue.textContent, 'at index ',index)
+                        scoreElement.append(scoreTitle, scoreValue)
+                        statElement.append(scoreElement);
+                    })
+                    /*scoreTitle.textContent = 'Best Personal Time:'
+                    statElement.append(scoreTitle)
+                    const scoreElement = document.createElement('li')
+                    scoreElement.textContent = data.bestTime
+                    statElement.append(scoreElement)*/
+                    break
+                case 'Posted':
+                    //statItem.textContent = `Best Time: ${data.top10Scores[0]}` 
+                    topscore = data.top10Scores[0]                   
+                    top9Scores = data.top10Scores.slice(1,data.top10Scores.length)
+                    data.top10Scores.forEach((score, index) => {
+                        const scoreContainer = document.createElement('ul')
+                        scoreContainer.classList.add('score-container')
+                        const scoreTitle = document.createElement('li')
+                        const scoreValue = document.createElement('li')
+                        scoreTitle.textContent = index === 0 ? 'Best Time: ' : `#${index+1}: `
+                        scoreValue.textContent = score
+                        scoreContainer.append(scoreTitle, scoreValue)
+                        statElement.append(scoreContainer)
+                    })
+                    break
+                    
+            }
+            //statElement.append(scoreElement);
         } catch (err) {
             statItem.classList.add('default');
             statItem.textContent = 'No play history to show';
             console.error(err);
         }
     
-        statItem.classList.add('stat');
-        statElement.append(statItem);
+        //statItem.classList.add('stat');
+        //statElement.append(statItem);
     }
+
     // Create stats board
     const stats = ['Local Stats', 'Posted Scores'] // hard coded for now
     stats.forEach(stat => {
@@ -58,7 +96,7 @@ if (isGame == false) {
         statElement.classList.add('stat')
         statElement.setAttribute('id', stat.split(' ')[0]) // splits string; should be changed later
         statsDisplay.append(statElement)
-        getStats(statElement)
+        getStats(statElement, stat.split(' ')[0])
     })
 
     // Create difficulty selector
@@ -104,6 +142,7 @@ if (isGame == false) {
             let {goal, choice} = getDefaults(difficulty)
             console.error(err);
         }
+
         goalElement.textContent = goal;
         goalDisplay.append(goalElement);
         
