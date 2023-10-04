@@ -55,17 +55,23 @@ const crypto = require('crypto');
 const { get } = require('http');
 const { format } = require('path');
 
-const generateDailyTarget = (difficulty) => {
-  const hash = crypto.createHash('sha256');
-  hash.update(new Date().toDateString());
-  return parseInt(hash.digest('hex').substring(0, 5), 16) % difficulty;  // Example: Targets between 0-999
+const generateDailyTarget = (min, max) => {
+  if (min >= max) {
+      throw new Error('Min should be less than max.');
+  }
+
+  const randomBytes = crypto.randomBytes(4);
+  const randomNumber = randomBytes.readUInt32BE(0);
+  const scale = max - min + 1;
+
+  return min + (randomNumber % scale);
 }
 
 const tiles = {
     goal : {
-      easy: generateDailyTarget(10),
-      advanced: generateDailyTarget(100),
-      expert: generateDailyTarget(1000)},
+      easy: generateDailyTarget(4,200),
+      advanced: generateDailyTarget(201,1000),
+      expert: generateDailyTarget(1001,5000)},
     tiles:{
       easy: [1, 2, 3, 4, 5],
       advanced: [1, 2, 3, 4, 5, 6, 7],
@@ -99,8 +105,8 @@ async function postScore(name, score) {
 
 app.post('/post_score', (req, res) => {
     // TODO: Save score to database
-    console.log(req.body)
-    postScore(req.body.name, req.body.score)
+    console.log('post_score body:',req.body)
+    postScore(req.body.username, req.body.score)
     res.send(req.body)
   })
 

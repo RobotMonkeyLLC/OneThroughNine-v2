@@ -38,7 +38,7 @@ if (isGame == false) {
             const response = await fetch(`http://localhost:8000/${domain}_stats`, { method: 'GET' });
             
             const data = await response.json();
-            console.log(`Here is the ${domain} data`,data.bestTime)
+            //console.log(`Here is the ${domain} data`,data.bestTime)
             const scoreTitle = document.createElement('li');
             switch (domain) {
                 
@@ -50,7 +50,7 @@ if (isGame == false) {
                         const scoreValue = document.createElement('li')
                         scoreTitle.textContent = stat + ': '
                         scoreValue.textContent = data[stat.toLowerCase().split(' ')[0]]
-                        console.log('Score Element ',scoreValue.textContent, 'at index ',index)
+                        //console.log('Score Element ',scoreValue.textContent, 'at index ',index)
                         scoreElement.append(scoreTitle, scoreValue)
                         statElement.append(scoreElement);
                     })
@@ -374,8 +374,20 @@ const addKey = (value) => {
     keyboard.append(buttonElement)
 }
 
-const isAllTilesUsed = () => {
-    return keyboard.childNodes.length == 0 ? true : false
+const isAllTilesUsed = (boardOperValue) => {
+    let isEmpty = (keyboard.childNodes.length == 0)
+    //let isGoal = (goal == boardOperValue)
+
+    if (isEmpty) {
+        
+        if(isEmpty){ 
+            return true
+        } else {
+            return ((keyboard.childNodes.length == 1) & isGoal)
+        }
+    } else if(keyboard.childNodes.length == 1) {
+        return (goal == boardOperValue)
+    }
 }
 
 const checkSolution = () => {
@@ -398,7 +410,7 @@ const checkSolution = () => {
         
         //console.log('goal ',goal)
         if (boardOperValue == goal) {
-            if(isAllTilesUsed()) {
+            if(isAllTilesUsed(boardOperValue)) {
                 console.log('Solved!')
                 isSolved = true
                 updateWin()
@@ -476,7 +488,7 @@ const gameoverControlsDisplay = document.querySelector('.game-over-controls-cont
 const gameoverMessageDisplay = document.querySelector('.game-over-message-container')
 
 const updateWin = () => {
-    console.log('Solved')
+
     showMessage('Goal reached!')
     const endGame = document.getElementById('game-over')
     endGame.classList.add('overlay')
@@ -490,32 +502,52 @@ const updateWin = () => {
     endGameScore.textContent = `Your time: ${secondsToHms(seconds)}`
     gameoverMessageDisplay.append(endGameScore)
 
-    const leaderBoard = document.createElement('ul')    
+    const leaderBoard = document.createElement('ol')    
 
     const getPostedScores = () => {
-        let postedScores = ['user1 - 00:00', 'user2 - 00:00','user3 - 00:00','user4 - 00:00','user5 - 00:00','user6 - 00:00','user7 - 00:00','user8 - 00:00','user9 - 00:00','user10 - 00:00',]
         fetch('http://localhost:8000/posted_stats')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
-            postedScores = data.top10Scores;
-            
+            const postedScores = data.top10Scores;
+            updateLeaderBoard(postedScores);
         })
         .catch(err => {
             console.error(err);
-            leaderBoard.classList.add('default')
-        })
-        updateLeaderBoard(postedScores);
-    }
-    
-    const updateLeaderBoard = (scores) => {
-        scores.forEach(score => {
-            const scoreElement = document.createElement('li');
-            scoreElement.textContent = score;
-            leaderBoard.append(scoreElement);
+            leaderBoard.classList.add('default');
         });
     }
     
-    getPostedScores()
+    const updateLeaderBoard = (scores) => {
+        leaderBoard.innerHTML = ''; // Clear the existing scores before appending new ones.
+        scores.forEach(score => {
+            const scoreElement = document.createElement('ol')
+            scoreElement.classList.add('over-score')
+            
+            const scoreName = document.createElement('li')
+            scoreName.classList.add('over-user')
+
+            const scoreValue = document.createElement('li')
+            scoreValue.classList.add('over-value')
+            
+            const scoreDate = document.createElement('li')
+            scoreDate.classList.add('over-date')
+
+            scoreName.textContent = score.name
+            scoreValue.textContent = score.score
+            scoreDate.textContent = formatDate(score.date)
+            //console.log('Score ',score)
+            scoreElement.append(scoreName, scoreValue, scoreDate)
+            leaderBoard.append(scoreElement)
+        });
+    }
+    
+    getPostedScores();
+    
 
     postedScoresDisplay.append(leaderBoard)
     const leaderBoardTitle = document.createElement('h2')
@@ -535,16 +567,28 @@ const postScore = () => {
     const postScore = document.getElementById('post-score')
     postScore.classList.add('overlay')
     postScore.classList.remove('hidden')
-    const postScoreTitle = document.createElement('h1')
+    
+    const postScoreTitle = document.createElement('h1') 
     postScoreTitle.textContent = 'Post Score'
-    postScore.prepend(postScoreTitle)
+    //postScore.prepend(postScoreTitle)
+    
+    const scoreBanner = document.createElement('div')
+    scoreBanner.classList.add('score-banner')
+    
+    const bannerParagraph = document.createElement('p')
+    //bannerParagraph.classList.add('score-banner')
+    bannerParagraph.textContent = `Your time: ${secondsToHms(seconds)}`
+    scoreBanner.append(postScoreTitle)
+    scoreBanner.append(bannerParagraph)    
+    postScore.append(scoreBanner)
+
     const postScoreForm = document.createElement('form')
     postScoreForm.setAttribute('id', 'post-score-form')
     const postScoreInput = document.createElement('input')
     postScoreInput.setAttribute('type', 'text')
     postScoreInput.setAttribute('name', 'username')
     postScoreInput.setAttribute('id', 'username')
-    postScoreInput.setAttribute('placeholder', 'Enter username')
+    postScoreInput.setAttribute('placeholder', 'Enter name')
     postScoreInput.setAttribute('required', 'true')
     const postScoreSubmit = document.createElement('input')
     postScoreSubmit.setAttribute('type', 'submit')
@@ -572,6 +616,7 @@ const postScore = () => {
             postScore.removeChild(postScoreTitle)
             postScore.removeChild(postScoreForm)
         })
+        console.log('Posted score', data)
     })
 }
 // Clear undoStack storge on page load

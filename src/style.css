@@ -232,23 +232,28 @@ button {
     align-items: center;
 }
 .stats-container ul  {
+    width: 30vw;
     display: flex;
     justify-content: space-between;
-    padding-inline: 6%;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    padding-inline: 2vw;
+    padding-block: 1vh;
     background-color: #707070;
     border-radius: 10px;
 }
+.stats-container ul > ul {
+    padding-block: 0vh;
+    padding-inline: 0vw;
+}
+
 .stats-container li {
     list-style-type: none;
-    padding: 0%;
+    padding-block: 0.5vh;
     margin: 0%;
     display: flex;
     flex-direction: row;
 }
 .stats-container li:not(.default) {
-    font-size: x-large;
+    font-size: large;
     align-self: center;
 }
 
@@ -260,6 +265,7 @@ button {
 .user {
     color:#3b3b3b
 }
+
 
 #Local > li {
     align-self: flex-start;
@@ -306,22 +312,30 @@ button {
     align-items: center;
 }
 
-.game-over-stats-container ul {
-    padding: 0%;
-    display: inline-table;    
+.game-over-stats-container ol ol li {
+    margin-inline: 7vw;
 }
 
-.game-over-stats-container li{
-    width: 400px;
-    height: 50px;
+.over-score .over-value:nth-child(2) {
+    font-size: large;
+}
+
+
+.game-over-stats-container ol ol {
+    flex-direction: row;
+}
+
+.game-over-stats-container ol {
+    height: 60vh;
     padding: 0%;
-    margin: 3px;
+    margin: 0px;
     background-color: #2e2e2e;
     border-radius: 10px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    list-style: none;
 }
 
 .hidden {
@@ -333,8 +347,43 @@ form {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    background-color: #707070;
+    border-radius: 10px;
+    height: 30vh;
+    width: 30vw;
 }
 
-form input {
-    color: #2e2e2e;
+#post-score {
+    justify-content: center;    
+}
+
+#post-score-form input {
+    border-radius: 4px;
+    border: none;
+    background-color: #2e2e2e;
+    margin: 4px; 
+    padding-block: 1vh;
+    padding-inline: 2vw;
+    font-size: x-large;
+}
+
+.score-banner h1 {
+    font-size: 5vw;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 1vh;
+}
+
+.score-banner p {
+    font-size: 3vw;
+    margin: 0;
+    padding: 0;
+    padding-block: 1vh;
+}
+
+.score-banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
