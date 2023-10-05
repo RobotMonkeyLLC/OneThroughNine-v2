@@ -30,6 +30,56 @@ if (isGame == false) {
     rulesParagraph.textContent = 'Directions - Use all of the digits provided to arrive at the random number generated.'
     rulesDisplay.append(rulesElement)
 
+    // populate stats
+    const populateStats = (statElement, domain, data) => {
+        switch (domain) {
+                
+            case 'Local':
+                // statItem.textContent = `Best Time: ${data.bestTime}`
+                ['Best Time', 'Average', 'Daily Time'].forEach((stat, index) => {
+                    const scoreElement = document.createElement('ul')
+                    const scoreTitle = document.createElement('li')
+                    const scoreValue = document.createElement('li')
+                    scoreTitle.textContent = stat + ': '
+                    scoreValue.textContent = data[stat.toLowerCase().split(' ')[0]]
+                    //console.log('Score Element ',scoreValue.textContent, 'at index ',index)
+                    scoreElement.append(scoreTitle, scoreValue)
+                    statElement.append(scoreElement);
+                })
+                
+                break
+            case 'Posted':
+                
+                data.top10Scores.forEach((score, index) => {
+                    const scoreContainer = document.createElement('ul')
+                    scoreContainer.classList.add('score-container')
+                    
+                    const scoreTitle = document.createElement('li')
+                    scoreTitle.textContent = index === 0 ? 'Best Time: ' : `#${index+1}: `
+
+                    const metaContainer = document.createElement('ul')
+                    metaContainer.classList.add('meta-container')
+
+                    const scoreValue = document.createElement('li')
+                    scoreValue.textContent = score.score
+                    const scoreDate = document.createElement('li')
+                    scoreDate.textContent = formatDate(score.date)
+                    const scoreUser = document.createElement('li')
+                    scoreUser.textContent = score.name
+                    scoreUser.classList.add('user')
+                    
+                    const statList = document.createElement('ul')
+                    statList.classList.add('stat-list')
+                    
+                    metaContainer.append(scoreUser, scoreDate)
+                    scoreContainer.append(scoreTitle, scoreValue)
+                    statList.append(scoreContainer, metaContainer)
+                    statElement.append(statList)
+                })
+                break
+        }
+    }
+
     // Get local stats
     const getStats = async (statElement, domain) => {
         const statItem = document.createElement('li');
@@ -39,59 +89,16 @@ if (isGame == false) {
             
             const data = await response.json();
             //console.log(`Here is the ${domain} data`,data.bestTime)
-            const scoreTitle = document.createElement('li');
-            switch (domain) {
-                
-                case 'Local':
-                    // statItem.textContent = `Best Time: ${data.bestTime}`
-                    ['Best Time', 'Average', 'Daily Time'].forEach((stat, index) => {
-                        const scoreElement = document.createElement('ul')
-                        const scoreTitle = document.createElement('li')
-                        const scoreValue = document.createElement('li')
-                        scoreTitle.textContent = stat + ': '
-                        scoreValue.textContent = data[stat.toLowerCase().split(' ')[0]]
-                        //console.log('Score Element ',scoreValue.textContent, 'at index ',index)
-                        scoreElement.append(scoreTitle, scoreValue)
-                        statElement.append(scoreElement);
-                    })
-                    
-                    break
-                case 'Posted':
-                    
-                    data.top10Scores.forEach((score, index) => {
-                        const scoreContainer = document.createElement('ul')
-                        scoreContainer.classList.add('score-container')
-                        
-                        const scoreTitle = document.createElement('li')
-                        scoreTitle.textContent = index === 0 ? 'Best Time: ' : `#${index+1}: `
-
-                        const metaContainer = document.createElement('ul')
-                        metaContainer.classList.add('meta-container')
-
-                        const scoreValue = document.createElement('li')
-                        scoreValue.textContent = score.score
-                        const scoreDate = document.createElement('li')
-                        scoreDate.textContent = formatDate(score.date)
-                        const scoreUser = document.createElement('li')
-                        scoreUser.textContent = score.name
-                        scoreUser.classList.add('user')
-                        
-                        const statList = document.createElement('ul')
-                        statList.classList.add('stat-list')
-                        
-                        metaContainer.append(scoreUser, scoreDate)
-                        scoreContainer.append(scoreTitle, scoreValue)
-                        statList.append(scoreContainer, metaContainer)
-                        statElement.append(statList)
-                    })
-                    
-                    break
-                    
-            }
+            //const scoreTitle = document.createElement('li');
+            populateStats(statElement, domain, data)
+            
             //statElement.append(scoreElement);
         } catch (err) {
-            statItem.classList.add('default');
+            /* statItem.classList.add('default');
             statItem.textContent = 'No play history to show';
+            statElement.append(statItem); */
+            const data = {best: 'None', average: 'None', daily: 'None', top10Scores: []}
+            populateStats(statElement, domain, data)
             console.error(err);
         }
     
@@ -108,9 +115,11 @@ if (isGame == false) {
         const stateValue = document.createElement('li')
         statTitle.textContent = stat
         stateValue.textContent = 'Loading...'
-        //statElement.textContent = stat
+        
         statElement.classList.add('stat')
         statElement.setAttribute('id', stat.split(' ')[0]) // splits string; should be changed later
+        
+        statHeader.classList.add('stat-title')
         statHeader.append(statTitle, stateValue)
         statElement.append(statHeader)
         statsDisplay.append(statElement)
@@ -132,10 +141,10 @@ if (isGame == false) {
 
     // Get default difficulty
     function getDefaults(difficulty) {
-        goal = difficulty === 'easy' ? 10 : 
-                difficulty === 'advanced' ? 100 : 1000;
-        choice = difficulty === 'easy' ? [1,2,3,4] : 
-                difficulty === 'advanced' ? [1,2,3,4,5,6] : [1,2,3,4,5,6,7,8,9];
+        goal = difficulty === 'easy' ? 100 : 
+                difficulty === 'advanced' ? 500 : 3000;
+        choice = difficulty === 'easy' ? [1,2,3,4,5] : 
+                difficulty === 'advanced' ? [1,2,3,4,5,6,7] : [1,2,3,4,5,6,7,8,9];
         return {goal, choice}
     }
     
