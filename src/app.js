@@ -97,7 +97,17 @@ if (isGame == false) {
             /* statItem.classList.add('default');
             statItem.textContent = 'No play history to show';
             statElement.append(statItem); */
-            const data = {best: 'None', average: 'None', daily: 'None', top10Scores: []}
+            const data = {
+                best: 'None',
+                average: 'None',
+                daily: 'None',
+                top10Scores: Array(10).fill().map(() => ({
+                    score: '0',
+                    name: '-----',
+                    date: '--/--/----'
+                }))
+            };
+            
             populateStats(statElement, domain, data)
             console.error(err);
         }
@@ -114,7 +124,7 @@ if (isGame == false) {
         const statTitle = document.createElement('li')
         const stateValue = document.createElement('li')
         statTitle.textContent = stat
-        stateValue.textContent = 'Loading...'
+        stateValue.textContent = (stat == 'Local Stats') ? 'Time' : 'Time-User-Date'
         
         statElement.classList.add('stat')
         statElement.setAttribute('id', stat.split(' ')[0]) // splits string; should be changed later
@@ -179,7 +189,8 @@ if (isGame == false) {
         gameObjects.forEach((displayElement) => gameBuilder(displayElement));
         
         // start timer
-        var timerTime = setInterval(upTimer, 1000);
+        //var timerTime = setInterval(upTimer, 1000);
+        setInterval(upTimer, 1000);
     }
 
     // Difficulty selector and generate game
