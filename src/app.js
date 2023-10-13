@@ -523,7 +523,7 @@ const updateWin = () => {
     gameoverMessageDisplay.append(endGameScore)
 
     const leaderBoard = document.createElement('ol')    
-
+    leaderBoard.classList.add('leaderboard')
     const getPostedScores = () => {
         fetch('http://localhost:8000/posted_stats')
         .then(response => {
@@ -539,6 +539,12 @@ const updateWin = () => {
         .catch(err => {
             console.error(err);
             leaderBoard.classList.add('default');
+            defaultScores = Array(10).fill().map(() => ({
+                score: '0',
+                name: '-----',
+                date: '--/--/----'
+            }));
+            updateLeaderBoard(defaultScores)
         });
     }
     
@@ -610,17 +616,28 @@ const postScore = () => {
     postScoreInput.setAttribute('id', 'username')
     postScoreInput.setAttribute('placeholder', 'Enter name')
     postScoreInput.setAttribute('required', 'true')
-    const postScoreSubmit = document.createElement('input')
-    postScoreSubmit.setAttribute('type', 'submit')
-    postScoreSubmit.setAttribute('value', 'Submit')
-    postScoreForm.append(postScoreInput)
-    postScoreForm.append(postScoreSubmit)
-    postScore.append(postScoreForm)
+
+    const postScoreSubmit = document.createElement('input');
+    postScoreSubmit.setAttribute('type', 'submit');
+    postScoreSubmit.setAttribute('value', 'Submit');
+
+    const postScoreCancel = document.createElement('input');
+    postScoreCancel.setAttribute('type', 'button');
+    postScoreCancel.setAttribute('value', 'Cancel');
+
+    const postScoreControls = document.createElement('div');
+    postScoreControls.classList.add('post-score-controls');
+    postScoreControls.append(postScoreSubmit, postScoreCancel);
+
+    postScoreForm.append(postScoreInput, postScoreControls);
+    postScore.append(postScoreForm);
+
     postScoreForm.addEventListener('submit', (e) => {
-        e.preventDefault()
-        const username = document.getElementById('username').value
-        const score = seconds
-        const data = {username, score}
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const score = seconds;
+        const data = { username, score };
+
         fetch('http://localhost:8000/post_score', {
             method: 'POST',
             headers: {
@@ -631,13 +648,19 @@ const postScore = () => {
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            postScore.classList.add('hidden')
-            postScore.classList.remove('overlay')
-            postScore.removeChild(postScoreTitle)
-            postScore.removeChild(postScoreForm)
+            postScore.classList.add('hidden');
         })
-        console.log('Posted score', data)
-    })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
+    postScoreCancel.addEventListener('click', () => {
+        postScore.innerHTML = '';
+        postScore.classList.add('hidden');
+        //postScore.remove();
+    });
+
 }
 // Clear undoStack storge on page load
 document.addEventListener("DOMContentLoaded", function() {

@@ -320,6 +320,23 @@ button {
     justify-content: space-around;
 }
 
+#game-over > h1 {
+    font-size: x-large;
+}
+
+.game-over-message-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-size: xx-large;
+}
+
+.leaderboard-container {
+    margin-inline: 1vw;
+    margin-block: 2vh;
+}   
+
 .game-over-stats-container {    
     background-color: #707070;
     border-radius: 10px;
@@ -328,6 +345,10 @@ button {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+}
+
+.game-over-stats-container > h2 {
+    margin-block-end: 2vh;
 }
 
 .game-over-stats-container ol ol li {
@@ -356,6 +377,13 @@ button {
     list-style: none;
 }
 
+.game-over-controls-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .hidden {
     display: none;
 }
@@ -375,14 +403,38 @@ form {
     justify-content: center;    
 }
 
-#post-score-form input {
+#post-score-form > * {
     border-radius: 4px;
+}
+#post-score-form > .post-score-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.post-score-controls {
+    width:inherit;
+}
+
+.post-score-controls > input {
+    border: none;
+    border-radius: 4px;
+    font-size: large;
+    background-color: #575757;
+    padding-inline: 2vw;
+    padding-block: 0.5vh;
+}
+
+#username {
+    
     border: none;
     background-color: #2e2e2e;
     margin: 4px; 
     padding-block: 1vh;
     padding-inline: 2vw;
     font-size: x-large;
+    width: 23vw;
 }
 
 .score-banner h1 {
