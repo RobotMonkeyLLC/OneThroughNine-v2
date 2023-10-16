@@ -45,6 +45,7 @@ body {
     justify-content: space-around;
     font-size: large;
     margin-block: 5vh;
+    margin-inline: 1vw;
 }
 
 .difficulty-container {
@@ -67,7 +68,7 @@ body {
 }
 
 .game-container {
-    height: 100vh;
+    height: 110vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -81,12 +82,14 @@ body {
 }
 
 .goal-container {
-    height: 10vh;
+    width: 100px;
+    height: 100px;
     text-align: center;
     display: flex;
 }
 
 .goal-container p {
+    align-self: center;
     background-color: #707070;
     border-radius: 10px;
     padding: 30px;
