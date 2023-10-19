@@ -1,5 +1,7 @@
 html {
-    font-size: 62.5%;
+    height: 100%;
+    overflow: hidden;
+    font-size: 62.5%;    
 }
 * {
     margin: 0;
@@ -10,7 +12,9 @@ html {
 body {
     margin: 0;
     background-color: #5e5858;
-    height: 100vh;
+    position: relative;
+    overflow-y: scroll;
+    overscroll-behavior: none;
 }
 .overlay {
     position: absolute;
@@ -35,9 +39,12 @@ body {
     margin-block: 5vh;
 }
 
+.rules-container {
+    width: 795px;
+}
 .rules {
-    padding-inline: 4vw;
-    padding-block: 1vw;
+    padding-inline: 110px;
+    padding-block: 10px;
     background-color: #2e2e2e;
     border-radius: 10px;
     display: flex;
@@ -49,8 +56,8 @@ body {
 }
 
 .difficulty-container {
-    padding-inline: 1vw;
-    padding-block: 1vw;
+    width: 700px;
+    padding: 10px;
     background-color: #2e2e2e;
     border-radius: 10px;
     display: flex;
@@ -60,15 +67,16 @@ body {
     margin-block: 1vw;
 }
 
-.difficulty-container button {
+.difficulty-container > button {
     height: 50px;
-    padding-inline: 4vw;
-    margin-inline: 3vw;
+    width: 150px;
+    padding-inline: 30px;
+    margin-inline: 20px;
     background-color: #707070;
 }
 
 .game-container {
-    height: 110vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -238,7 +246,7 @@ button {
     margin-top: 2vh;
 }
 .stats-container {
-    width: 80vw;
+    width: 950px;
     padding: 0%;
     padding-block: 2vh;
     background-color: #2e2e2e;
@@ -248,7 +256,7 @@ button {
     justify-content: space-around;
 }
 .stats-container ul  {
-    width: 30vw;
+    width: 345px;
     display: flex;
     justify-content: space-between;
     padding-inline: 2vw;
@@ -398,8 +406,8 @@ form {
     align-items: center;
     background-color: #707070;
     border-radius: 10px;
-    height: 30vh;
-    width: 30vw;
+    height: 280px;
+    width: 330px;
 }
 
 #post-score {
@@ -430,25 +438,23 @@ form {
 }
 
 #username {
-    
     border: none;
     background-color: #2e2e2e;
     margin: 4px; 
-    padding-block: 1vh;
-    padding-inline: 2vw;
+    padding-block: 10px;
     font-size: x-large;
-    width: 23vw;
+    text-align: center;
 }
 
 .score-banner h1 {
-    font-size: 5vw;
+    font-size: 65px;
     margin: 0;
     padding: 0;
     padding-bottom: 1vh;
 }
 
 .score-banner p {
-    font-size: 3vw;
+    font-size: 33px;
     margin: 0;
     padding: 0;
     padding-block: 1vh;
