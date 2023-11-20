@@ -90,11 +90,11 @@ app.get('/tiles', (req, res) => {
                       target: tiles.goal[difficulty] })
 })
 
-async function postScore(name, score) {    
+function postScore(name, score) {    
   try {
-    const query1 = format('INSERT INTO scores (player_name, score_time) VALUES (%L, %L)', [name, score])
+    const query1 = `INSERT INTO scores (player_name, score_time, score_date) VALUES ('${name}', ${score}, '${new Date().toDateString()}');`;
     console.log("Here is the query",query1);
-    const res = await client.query(query1);
+    const res = client.query(query1);
     //console.log(res.rows);
     //console.log('Successfully retrieved scores', res.rows[0].name);
     return res.rows;
