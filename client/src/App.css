@@ -36,3 +36,504 @@
     transform: rotate(360deg);
   }
 }
+
+html {
+  height: 100%;
+  overflow: hidden;
+  font-size: 62.5%;    
+}
+* {
+  margin: 0;
+  color: #ffffff;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #5e5858;
+  position: relative;
+  overflow-y: scroll;
+  overscroll-behavior: none;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);  /* This will make it slightly translucent */
+  z-index: 10;  /* Ensure the overlay is above the game board */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.main-title-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: x-large;
+  margin-block: 5vh;
+}
+
+.rules-container {
+  width: 80%;
+  max-width: 800px;
+  min-width: 100px;
+}
+.rules {
+  padding-inline: 50px;
+  padding-block: 10px;
+  background-color: #2e2e2e;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: large;
+  margin-block: 50px;
+  margin-inline: 10px;
+  gap: 10px;
+}
+
+.text-header {
+  font-size: medium;
+  text-align: start;
+}
+.difficulty-container {
+  width: 700px;
+  padding: 10px;
+  background-color: #2e2e2e;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-block: 1vw;
+}
+
+.difficulty-container > button {
+  height: 50px;
+  width: 150px;
+  padding-inline: 30px;
+  margin-inline: 20px;
+  background-color: #707070;
+}
+
+.game-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.title-container div{
+  text-align: center;
+  width: 510px;
+  border-bottom: solid 1px #ffffff;
+}
+
+.goal-container {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  display: flex;
+}
+
+.goal-container p {
+  align-self: center;
+  background-color: #707070;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 0;
+  font-size: x-large;
+}
+
+.timer-container p {
+  font-size: medium;
+}
+.operboard-container {
+  display: flex;
+  justify-content: center;
+
+}
+.operboard-container button {
+  width: 100px;
+  height: 58px;
+  border-radius: 4px;
+  border: none;
+  background-color: #2e2e2e;
+  margin: 4px;
+}
+.keyboard-container {
+  width: 350px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+button {
+  border-radius: 4px;
+  border: none;
+  background-color: #2e2e2e;
+  margin: 4px; 
+  font-size: x-large;
+}
+
+.keyboard-container button {
+  width: 60px;
+  height: 68px;
+  border-radius: 4px;
+  border: none;
+  background-color: #2e2e2e;
+  margin: 4px; 
+  font-size: x-large;
+}
+
+.controls-container {
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.control {
+  padding: 10px;
+  font-size: medium;
+}
+.controls-container .oper {
+  width: 60px;
+  height: 58px;
+  border-radius: 4px;
+  border: none;
+  background-color: #2e2e2e;
+  margin: 10px; 
+}
+.board-tile-container {
+  display: flex;
+  justify-content: center;
+}
+
+.board-tile-container div {
+  border: 2px solid #2e2e2e;
+  box-sizing: border-box;
+  color: #2e2e2e;
+  margin: 2px;
+  text-align: center;
+  padding-block: 50px;
+  padding-inline: 40px;
+  
+}
+.board-tile-container div:not(.default) {
+  font-size: xx-large;
+}
+.default {
+  color: #ffffff85 !important;
+  font-style: italic;
+  font-size: medium
+}
+
+.message-container {
+  display: flex;
+  height: 30px;
+}
+
+.message-container p {
+  width: 300px;
+  background-color: #2e2e2e;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0;
+}
+
+.grey-overlay {
+  background-color: #3a3a3c !important;
+  border: none !important;
+}
+
+.yellow-overlay {
+  background-color: #b59f3a !important;
+  border: none !important;
+}
+
+.green-overlay {
+  background-color: #538d4e !important;
+  border: none !important;
+}
+
+.button-grow {
+  animation-name: grower;
+  animation-duration: 0.1s;
+}
+
+@keyframes grower {
+  0% {
+      transform: scale(1);
+  }
+  100% {
+      transform: scale(1.5);
+      opacity: 0.5;
+  }
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+#Local.stat li {
+  flex-direction: row;
+}
+
+.stat-spacer {
+  height: 30vh;
+  margin-top: 2vh;
+}
+.stats-container {
+  width: 950px;
+  padding: 0%;
+  padding-block: 2vh;
+  background-color: #2e2e2e;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.stats-container ul  {
+  width: 345px;
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 2vw;
+  padding-block: 1vh;
+  background-color: #707070;
+  border-radius: 10px;
+}
+.stats-container ul > ul {
+  padding-block: 0vh;
+  padding-inline: 0vw;
+}
+
+.stats-container li {
+  list-style-type: none;
+  padding-block: 0.5vh;
+  margin: 0%;
+  display: flex;
+  flex-direction: row;
+}
+.stats-container li:not(.default) {
+  font-size: large;
+  align-self: center;
+}
+
+.stat-list {
+  justify-content: space-around;
+  align-items: center;
+}
+.stat ul.stat-title > li {
+  font-size: x-large;
+}
+.user {
+  color:#3b3b3b
+}
+
+#Local {
+  height: 15vh;
+}
+
+#Local > li {
+  align-self: flex-start;
+  
+}
+
+#Posted {
+  height: 15vh;
+  overflow-y: auto;
+  transition: height 0.3s ease;
+}
+
+#Posted:hover {
+  height: 20vh;
+}
+/* Chrome, Safari and newer versions of Opera */
+#Posted::-webkit-scrollbar {
+  width: 0;  /* remove vertical scrollbar */
+  height: 0; /* remove horizontal scrollbar */
+}
+
+/* Firefox */
+#Posted {
+  scrollbar-width: none;
+}
+
+/* IE and Edge */
+#Posted {
+  -ms-overflow-style: none;
+}
+
+
+#game-over {
+  justify-content: space-around;
+}
+
+#game-over > h1 {
+  font-size: x-large;
+}
+
+.game-over-message-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-size: xx-large;
+}
+
+.leaderboard-container {
+  margin-inline: 1vw;
+  margin-block: 2vh;
+}   
+
+.game-over-stats-container {    
+  background-color: #707070;
+  border-radius: 10px;
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.game-over-stats-container > h2 {
+  margin-block-end: 2vh;
+}
+
+.game-over-stats-container ol ol li {
+  margin-inline: 7vw;
+}
+
+.over-score .over-value:nth-child(2) {
+  font-size: large;
+}
+
+
+.game-over-stats-container ol ol {
+  flex-direction: row;
+}
+
+.game-over-stats-container ol {
+  height: 60vh;
+  padding: 0%;
+  margin: 0px;
+  background-color: #2e2e2e;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+
+.game-over-controls-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #707070;
+  border-radius: 10px;
+  height: 280px;
+  width: 330px;
+}
+
+#post-score {
+  justify-content: center;    
+}
+
+#post-score-form > * {
+  border-radius: 4px;
+}
+#post-score-form > .post-score-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.post-score-controls {
+  width:inherit;
+}
+
+.post-score-controls > input {
+  border: none;
+  border-radius: 4px;
+  font-size: large;
+  background-color: #575757;
+  padding-inline: 2vw;
+  padding-block: 0.5vh;
+}
+
+#username {
+  border: none;
+  background-color: #2e2e2e;
+  margin: 4px; 
+  padding-block: 10px;
+  font-size: x-large;
+  text-align: center;
+}
+
+.score-banner h1 {
+  font-size: 65px;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 1vh;
+}
+
+.score-banner p {
+  font-size: 33px;
+  margin: 0;
+  padding: 0;
+  padding-block: 1vh;
+}
+
+.score-banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background-color: #f4f4f4;
+}
+
+.company-logo {
+  height: 40px;
+  margin-left: 20px;
+}
+
+.footer-note {
+  font-size: 12px;
+  color: #888;
+}

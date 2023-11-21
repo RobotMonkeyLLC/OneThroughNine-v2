@@ -10,8 +10,6 @@ const express = require('express')
 const session = require('express-session')
 const cors = require('cors')
 const app = express()
-
-
  
 app.use(cors())
 app.use(express.json())
@@ -180,6 +178,10 @@ app.get('/posted_stats', async (req, res) => {
   res.json({
       top10Scores: req.session.top10Scores
     });
+})
+
+app.get('/api', (req, res) => {
+    res.json({ message: 'Hello from server!' });
 })
 
 app.listen(PORT, () => {console.log(`Server running on port ${PORT}`)})
