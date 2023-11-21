@@ -82,7 +82,7 @@ body {
 .rules-container {
   width: 80%;
   max-width: 800px;
-  min-width: 100px;
+  min-width: 310px;
 }
 .rules {
   padding-inline: 50px;
@@ -103,22 +103,46 @@ body {
   text-align: start;
 }
 .difficulty-container {
-  width: 700px;
-  padding: 10px;
+  width: 80%;
+  max-width: 1200px;
+  padding-inline: 20px;
+  padding-block: 10px;
   background-color: #2e2e2e;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 10px;
+
+}
+
+.difficulty-buttons {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin-block: 1vw;
+  gap: 20px;
 }
 
-.difficulty-container > button {
-  height: 50px;
-  width: 150px;
-  padding-inline: 30px;
-  margin-inline: 20px;
+@media screen and (max-width: 900px) {
+  .difficulty-container {
+    width: 60%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .difficulty-buttons {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+}
+
+.difficulty-button {
+  height: 80px;
+  width: 100%;
   background-color: #707070;
 }
 

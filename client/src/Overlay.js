@@ -11,7 +11,7 @@ const Rules = () => (
         <div className="rules">
             <p className='text-header'>Directions</p>
             <p>
-                Use all of the digits provided to arrive at the random number generated. Good Luck!
+                Use all of the digits provided to arrive at the random number generated.
             </p>
         </div>        
     </div>
@@ -19,11 +19,11 @@ const Rules = () => (
 
 const Difficulty = () => (
     <div className="difficulty-container">
-        <h2>Difficulty</h2>
+        <p className='text-header'>Difficulty</p>
         <div className="difficulty-buttons">
-            <button className="difficulty-button" id="easy">Easy</button>
-            <button className="difficulty-button" id="medium">Medium</button>
-            <button className="difficulty-button" id="hard">Hard</button>
+            <button className="difficulty-button" >Easy</button>
+            <button className="difficulty-button" >Medium</button>
+            <button className="difficulty-button" >Hard</button>
         </div>
     </div>
 )
