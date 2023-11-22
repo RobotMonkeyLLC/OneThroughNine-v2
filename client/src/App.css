@@ -99,8 +99,12 @@ body {
 }
 
 .text-header {
+  display: flex;
+  flex-direction: row;
   font-size: medium;
   text-align: start;
+  justify-content: space-between;
+  text-decoration: underline;
 }
 .difficulty-container {
   width: 80%;
@@ -319,13 +323,22 @@ button {
 .stats-container {
   width: 950px;
   padding: 0%;
-  padding-block: 2vh;
+  padding-block: 1vh;
+  padding-inline: 1vw;
   background-color: #2e2e2e;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.stats-board {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
+
 .stats-container ul  {
   width: 345px;
   display: flex;

@@ -1,4 +1,5 @@
 import React from 'react';
+import Leaderboard from './Leaderboard';
 
 const Title = () => (
     <div className="main-title-container">
@@ -36,7 +37,7 @@ function Overlay() {
       <Title />
       <Rules />
       <Difficulty />
-      
+      <Leaderboard />
       {/* Add more elements as needed */}
     </div>
   );
