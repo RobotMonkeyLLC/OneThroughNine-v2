@@ -8,7 +8,7 @@ const scoresData_posted = [
         "date": "2020-01-01"
     },
     {
-        "name": "Player 4",
+        "name": "Player 2",
         "score": 200,
         "source": "Local",
         "difficulty": "Easy",
@@ -22,42 +22,42 @@ const scoresData_posted = [
         "date": "2020-01-01"
     },
     {
-        "name": "Player 2",
+        "name": "Player 1",
         "score": 200,
         "source": "Local",
         "difficulty": "Hard",
         "date": "2020-01-01"
     },
     {
-        "name": "Player 2",
+        "name": "Player 5",
         "score": 200,
         "source": "Local",
         "difficulty": "Hard",
         "date": "2020-01-01"
     },
     {
-        "name": "Player 2",
+        "name": "Player 6",
         "score": 200,
         "source": "Local",
         "difficulty": "Hard",
         "date": "2020-01-01"
     },
     {
-        "name": "Player 2",
+        "name": "Player 7",
         "score": 200,
         "source": "Local",
         "difficulty": "Hard",
         "date": "2020-01-01"
     },
     {
-        "name": "Player 2",
+        "name": "Player 8",
         "score": 200,
         "source": "Local",
         "difficulty": "Hard",
         "date": "2020-01-01"
     },
     {
-        "name": "Player 2",
+        "name": "Player 9",
         "score": 200,
         "source": "Local",
         "difficulty": "Hard",
@@ -82,7 +82,7 @@ const scoresData_local = [
         "date": "2020-01-01"
     },
     {
-        "name": "Player 2",
+        "name": "Player 3",
         "score": 200,
         "source": "Local",
         "difficulty": "Hard",
