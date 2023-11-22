@@ -22,9 +22,14 @@ const Difficulty = () => (
     <div className="difficulty-container">
         <p className='text-header'>Difficulty</p>
         <div className="difficulty-buttons">
-            <button className="difficulty-button" >Easy</button>
-            <button className="difficulty-button" >Medium</button>
-            <button className="difficulty-button" >Hard</button>
+            {
+                ['Easy', 'Medium', 'Hard'].map((difficulty) => {
+                    return (
+                        <button className="difficulty-button" >{difficulty}</button>
+                    )
+                })
+            }
+            
         </div>
     </div>
 )

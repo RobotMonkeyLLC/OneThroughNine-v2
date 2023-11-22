@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Overlay from './Overlay';
+import GameBoard from './GameBoard.jsx';
 
 function App() {
   const [seconds, setSeconds] = useState(0);
@@ -50,7 +51,7 @@ function App() {
         <Overlay />
       </div>
       <div id="game-board" className="game-container">
-        {/* Implement your game board elements here */}
+        <GameBoard />
       </div>
       <div id="game-over" className="game-over-container hidden">
         {/* Implement game over elements here */}

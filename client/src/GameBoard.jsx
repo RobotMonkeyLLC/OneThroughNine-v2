@@ -30,7 +30,7 @@ async function getDifficulty(difficulty) {
 const Goal = () => {
     return (
         <div className="goal-container">
-            <p>{getDifficulty()}</p>
+            <p>10</p>
         </div>
     )
 }
