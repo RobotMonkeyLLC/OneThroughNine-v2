@@ -1,3 +1,4 @@
+import React from 'react';
 import Timer from './Timer.jsx';
 
 function getDefaults(difficulty) {
@@ -23,8 +24,6 @@ async function getDifficulty(difficulty) {
         let {goal, choice} = getDefaults(difficulty)
         console.error(err);
     }
-    
-    
 }
 
 const Goal = () => {
@@ -35,7 +34,8 @@ const Goal = () => {
     )
 }
 
-const GameBoard = () => {
+const GameBoard = ({ selectedDifficulty, gameStarted }) => {
+    
     return (
         <div id = "game-board" className="game-container">
             
@@ -43,7 +43,7 @@ const GameBoard = () => {
                 <h1>OneThruNine</h1>
             </div>
             <Goal />
-            <Timer />
+            {gameStarted && <Timer gameStarted={gameStarted}/>}
             <div className="message-container"></div>        
             <div className="keyboard-container"></div>
             <div className="board-tile-container"></div>

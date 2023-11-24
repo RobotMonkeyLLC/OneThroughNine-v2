@@ -6,15 +6,19 @@ import GameBoard from './GameBoard.jsx';
 function App() {
   const [seconds, setSeconds] = useState(0);
   const [goal, setGoal] = useState(0);
+  const [difficultySelected, setDifficultySelected] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
+
   // Add more state variables as needed to manage the game
 
   useEffect(() => {
     // Function to update timer every second
-    const interval = setInterval(() => {
+    if(gameStarted) {
+      const interval = setInterval(() => {
       setSeconds((prevSeconds) => prevSeconds + 1);
     }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}
+  }, [gameStarted]);
 
   useEffect(() => {
     // Function to fetch initial game data or set up game elements
@@ -45,17 +49,27 @@ function App() {
     // Implement your game logic and UI updates here
   };
 
+  const handleGameStart = () => {
+    // Set difficulty and enable game board to render
+    console.log('game handle started')
+    //setDifficultySelected(selectedDifficulty);
+    setGameStarted(true);
+    // Perform other actions related to the selected difficulty if needed
+  };
+  
   return (
     <div className="App">
-      <div id="overlay" className="overlay">
-        <Overlay />
-      </div>
-      <div id="game-board" className="game-container">
-        <GameBoard />
-      </div>
-      <div id="game-over" className="game-over-container hidden">
-        {/* Implement game over elements here */}
-      </div>
+      
+    <div id="overlay" className="overlay">
+      <Overlay onGameStart={handleGameStart} />
+    </div>
+    <div id="game-board" className="game-container">
+     <GameBoard selectedDifficulty={difficultySelected} gameStarted={gameStarted}/>
+    </div>
+      
+    <div id="game-over" className="game-over-container hidden">
+      {/* Implement game over elements here */}
+    </div>
     </div>
   );
 }

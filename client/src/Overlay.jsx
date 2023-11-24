@@ -18,30 +18,35 @@ const Rules = () => (
     </div>
 )
 
-const Difficulty = () => (
+
+const Difficulty = ({difficulties, onStartGame}) => (
     <div className="difficulty-container">
         <p className='text-header'>Difficulty</p>
         <div className="difficulty-buttons">
             {
-                ['Easy', 'Medium', 'Hard'].map((difficulty) => {
-                    return (
-                        <button className="difficulty-button" >{difficulty}</button>
+                difficulties.map((difficulty, index) =>  (
+                        <button className="difficulty-button" onClick={() => {
+                            document.querySelector('.overlay').style.display = 'none'
+                            onStartGame(true)
+                            }
+                        } key={index}>{difficulty}</button>
                     )
-                })
+                )
             }
             
         </div>
     </div>
 )
 
-function Overlay() {
+function Overlay({ onGameStart }) {
   // Add necessary logic and JSX elements for the overlay
-
+  
+  
   return (
     <div className="overlay">
       <Title />
       <Rules />
-      <Difficulty />
+      <Difficulty  difficulties={['Easy', 'Medium', 'Hard']} onStartGame={onGameStart}/>
       <Leaderboard />
       {/* Add more elements as needed */}
     </div>
