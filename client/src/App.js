@@ -8,6 +8,7 @@ function App() {
   const [goal, setGoal] = useState(0);
   const [difficultySelected, setDifficultySelected] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [isSolved, setIsSolved] = useState(false);
 
   // Add more state variables as needed to manage the game
 
@@ -63,9 +64,7 @@ function App() {
     <div id="overlay" className="overlay">
       <Overlay onGameStart={handleGameStart} />
     </div>
-    <div id="game-board" className="game-container">
-     <GameBoard selectedDifficulty={difficultySelected} gameStarted={gameStarted}/>
-    </div>
+    <GameBoard selectedDifficulty={difficultySelected} gameStarted={gameStarted} isSolved={isSolved}/>
       
     <div id="game-over" className="game-over-container hidden">
       {/* Implement game over elements here */}

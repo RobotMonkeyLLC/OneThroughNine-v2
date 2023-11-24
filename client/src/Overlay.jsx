@@ -1,22 +1,7 @@
 import React from 'react';
 import Leaderboard from './Overlay/Leaderboard.jsx';
-
-const Title = () => (
-    <div className="main-title-container">
-        <h1>OneThruNine</h1>
-    </div>
-);
-
-const Rules = () => (
-    <div className="rules-container">
-        <div className="rules">
-            <p className='text-header'>Directions</p>
-            <p>
-                Use all of the digits provided to arrive at the random number generated.
-            </p>
-        </div>        
-    </div>
-)
+import Title from './Overlay/Title';
+import Rules from './Overlay/Rules'
 
 
 const Difficulty = ({difficulties, onStartGame}) => (
