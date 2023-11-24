@@ -1,5 +1,5 @@
 import React from 'react';
-import Leaderboard from './Leaderboard';
+import Leaderboard from './Overlay/Leaderboard.jsx';
 
 const Title = () => (
     <div className="main-title-container">

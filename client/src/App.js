@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Overlay from './Overlay';
+import Overlay from './Overlay.jsx';
 import GameBoard from './GameBoard.jsx';
 
 function App() {

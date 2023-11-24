@@ -1,5 +1,5 @@
 import React from "react";
-import {scoresData_local, scoresData_posted} from "./scoresData";
+import {scoresData_local, scoresData_posted} from "../Constants/scoresData";
 
 const FillPosted = ({data}) => (
     <ul className="stats">
