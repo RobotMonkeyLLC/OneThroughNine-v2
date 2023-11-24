@@ -4,7 +4,8 @@ import Message from './GameBoard/Message.jsx';
 import { Goal, choice } from './GameBoard/getChoice.jsx';
 import Stack from './GameBoard/Stack.jsx';
 import BoardTile from './GameBoard/BoardTile.jsx';
-import Operators from './GameBoard/Operators.jsx'
+import Operators from './GameBoard/Operators.jsx';
+import Controls from './GameBoard/Controls.jsx';
 
 const GameBoard = ({ selectedDifficulty, gameStarted, isSolved }) => {
     console.log(choice, gameStarted,' GameBoard made');
@@ -20,8 +21,7 @@ const GameBoard = ({ selectedDifficulty, gameStarted, isSolved }) => {
             <Stack keys={choice} isSolved={isSolved}/>
             <BoardTile />
             <Operators />
-            <div className="controls-container"></div>
-
+            <Controls />
         </div>
     )
     
