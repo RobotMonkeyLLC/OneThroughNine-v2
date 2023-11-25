@@ -8,7 +8,7 @@ import Operators from './GameBoard/Operators.jsx';
 import Controls from './GameBoard/Controls.jsx';
 
 const GameBoard = ({ selectedDifficulty, gameStarted, isSolved }) => {
-    console.log(choice, gameStarted,' GameBoard made');
+    //console.log(choice, gameStarted,' GameBoard made');
     return (
         <div id = "game-board" className="game-container">
             
@@ -18,7 +18,7 @@ const GameBoard = ({ selectedDifficulty, gameStarted, isSolved }) => {
             <Goal />
             {gameStarted && <Timer gameStarted={gameStarted}/>}
             <Message />
-            <Stack keys={choice} isSolved={isSolved}/>
+            {gameStarted && <Stack keys={choice} isSolved={isSolved}/>}
             <BoardTile />
             <Operators />
             <Controls />

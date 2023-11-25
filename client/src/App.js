@@ -52,7 +52,7 @@ function App() {
 
   const handleGameStart = () => {
     // Set difficulty and enable game board to render
-    console.log('game handle started')
+    //console.log('game handle started')
     //setDifficultySelected(selectedDifficulty);
     setGameStarted(true);
     // Perform other actions related to the selected difficulty if needed

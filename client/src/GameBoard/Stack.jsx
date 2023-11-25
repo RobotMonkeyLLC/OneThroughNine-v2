@@ -1,21 +1,24 @@
-import { handleClick } from './functions.jsx'
+import { saveState } from './functions.jsx'
 
-const KeyboardButton = ({value, isSolved}) => {
-    return(
-        <button className="key" onClick={() => handleClick(value, isSolved)}>{value}</button>
-    )
-
+const handleTiles = ()  => {
+    console.log('in handleTiles')
+    saveState()
 }
 
-const Keyboard = ({keys, isSolved}) => {
-    console.log('in keyboard ',keys);
+const StackButton = ({index, value, isSolved}) => (
+        <button id={index} className="key" onClick={() => handleTiles(value, isSolved)}>{value}</button>
+    )
+
+
+const Stack = ({keys, isSolved}) => {
+    
     return(
         <div className="keyboard-container">{
             keys.map((key, index) => (
-                <KeyboardButton key={index} value={key} isSolved={isSolved}/>
-            ))            
+                <StackButton key={index} value={key} isSolved={isSolved} />
+            ))
         }</div>
     )
 }
 
-export default Keyboard;
+export default Stack;

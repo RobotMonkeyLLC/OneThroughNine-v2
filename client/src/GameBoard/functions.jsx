@@ -193,4 +193,4 @@ const handleClick = (buttonElement, isSolved) => {
     }
 }
 
-export { handleClick }
+export { handleClick, saveState, removeKey }
