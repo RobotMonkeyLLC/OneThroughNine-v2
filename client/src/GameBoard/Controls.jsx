@@ -1,10 +1,18 @@
 import { undo } from './functions.jsx'
 
-const Controls = () => {
+const Controls = ({ handleGameReStart }) => {
+    const handleRestart = () => {
+    //handleGameReStart()
+        while (localStorage.undoStack.length > 250) {
+            console.log('removing state')
+            undo()
+        }
+    }
+
     return (
         <div className="controls-container">
             <button id="Return" className="control" onClick={() => window.location.reload()}>Return</button>
-            <button id="Restart" className="control">Restart</button>
+            <button id="Restart" className="control" onClick={() => {handleRestart()}}>Restart</button>
             <button id="Undo" className="control" onClick={() => undo()}>Undo</button>
         </div>
     )

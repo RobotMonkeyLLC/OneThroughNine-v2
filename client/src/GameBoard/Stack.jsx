@@ -1,7 +1,6 @@
 import { checkSolution, keyManager, saveState } from './functions.jsx'
 
-const handleTiles = (tile, value, isSolved, index)  => {
-    
+const handleTiles = (tile, value, isSolved, index)  => {    
     //const tile = document.getElementById(`tile-${index}`)
     keyManager(tile, isSolved)
     //saveState()

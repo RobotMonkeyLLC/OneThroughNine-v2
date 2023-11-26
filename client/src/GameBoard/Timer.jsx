@@ -17,6 +17,13 @@ const Timer = ({ gameStarted }) => {
   }, [gameStarted]);
 
   useEffect(() => {
+    // Reset timer when game is restarted
+    if (!gameStarted) {
+      setSeconds(0);
+    }
+  }, [gameStarted]);
+
+  useEffect(() => {
     // Update timer text when seconds change
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -27,7 +34,7 @@ const Timer = ({ gameStarted }) => {
     setTimerText(`${formattedMinutes}:${formattedSeconds}`);
   }, [seconds]);
 
-  return <p>{timerText}</p>;
+  return <div className='timer-container'><p className='timer'>{timerText}</p></div>;
 };
 
 export default Timer;

@@ -7,9 +7,12 @@ import BoardTile from './GameBoard/BoardTile.jsx';
 import Operators from './GameBoard/Operators.jsx';
 import Controls from './GameBoard/Controls.jsx';
 
-function GameBoard ({ selectedDifficulty, gameStarted, isSolved, setDifficultySelected }) {
+function GameBoard ({ selectedDifficulty, gameStarted, isSolved, handleGameReStart }) {
     //setDifficultySelected(selectedDifficulty ? choice : [])
     //console.log(tiles, 'choice in GameBoard');
+    /* const restart = () => {
+        onGameRestart()
+    } */
     return (
         <div id = "game-board" className="game-container">
             
@@ -22,7 +25,7 @@ function GameBoard ({ selectedDifficulty, gameStarted, isSolved, setDifficultySe
             <Stack keys={gameStarted ? choice : []} isSolved={isSolved}/>
             <BoardTile />
             <Operators isSolved={isSolved}/>
-            <Controls />
+            <Controls handleGameReStart={handleGameReStart}/>
         </div>
     )
     

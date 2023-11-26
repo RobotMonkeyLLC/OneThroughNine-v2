@@ -193,12 +193,12 @@ const restoreBoardState = (tilesState) => {
         keyboard.append(buttonElement);
     })
     board.values.map((values, ids) => {
-        console.log('testing key:',values, 'id:',ids)
+        console.log('testing key:',values, 'id:',ids, 'classList:', board.classList[ids])
         const divElement = document.createElement('div');
         divElement.textContent = values;
         divElement.setAttribute('id', board.ids[ids]);
         board.classList[ids].split(' ').forEach(x => divElement.classList.add(x))
-        values.split(' ').forEach(x => divElement.classList.add(x))
+        //values.split(' ').forEach(x => divElement.classList.add(x))
         boardDisplay.append(divElement);
     })
 }

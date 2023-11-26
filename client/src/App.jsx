@@ -12,7 +12,7 @@ function App() {
 
   // Add more state variables as needed to manage the game
 
-  useEffect(() => {
+  /* useEffect(() => {
     // Function to update timer every second
     if(gameStarted) {
       const interval = setInterval(() => {
@@ -20,7 +20,7 @@ function App() {
     }, 1000);
     return () => clearInterval(interval);}
   }, [gameStarted]);
-
+ */
   useEffect(() => {
     // Function to fetch initial game data or set up game elements
     const fetchData = async () => {
@@ -34,30 +34,21 @@ function App() {
     fetchData();
   }, []);
 
-  const formatTime = (totalSeconds) => {
-    // Function to format total seconds to HH:MM:SS
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const secs = totalSeconds % 60;
-    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes
-      .toString()
-      .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    return formattedTime;
-  };
-
-  const handleGameLogic = () => {
-    // Function to handle game logic and UI updates
-    // Implement your game logic and UI updates here
-  };
-
   const handleGameStart = () => {
     // Set difficulty and enable game board to render
     //console.log('game handle started')
     //setDifficultySelected(selectedDifficulty);
     setGameStarted(true);
+    //console.log('game handle started')
     // Perform other actions related to the selected difficulty if needed
   };
   
+  const handleGameReStart = () => {
+    //console.log('game handle restarted')
+    setGameStarted(false);
+    setTimeout(() => setGameStarted(true), 10);
+  };
+
   return (
     <div className="App">
     <div id="overlay" className="overlay">
@@ -67,7 +58,7 @@ function App() {
       selectedDifficulty={difficultySelected}
       gameStarted={gameStarted} 
       isSolved={isSolved}
-      
+      handleGameReStart={handleGameReStart}   
       />
       
     <div id="game-over" className="game-over-container hidden">
