@@ -3,6 +3,7 @@ import { undo } from './functions.jsx'
 const Controls = ({ handleGameReStart }) => {
     const handleRestart = () => {
     //handleGameReStart()
+        // ** This is a temporary fix to the restart issue. Update to track actual stack count**
         while (localStorage.undoStack.length > 250) {
             console.log('removing state')
             undo()

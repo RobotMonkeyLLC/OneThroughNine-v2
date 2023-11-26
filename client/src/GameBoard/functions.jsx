@@ -149,7 +149,10 @@ const saveState = () => {
     const undoStack = JSON.parse(localStorage.getItem('undoStack')) || []
     undoStack.push({currentState})
     localStorage.setItem('undoStack', JSON.stringify(undoStack))
-    console.log('Saved state', currentState)
+
+    // Track number of states saved for restart purposes
+    //localStorage.setItem('stackCount', (localStorage.stackCount ? localStorage.stackCount : 0) + 1)
+    //console.log('Saved state', currentState)
 } 
 
 const keyManager = (buttonElement,isSolved) => {
