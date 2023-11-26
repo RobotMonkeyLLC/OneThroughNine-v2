@@ -5,7 +5,7 @@ const handleTiles = (tile, value, isSolved, index)  => {
     //const tile = document.getElementById(`tile-${index}`)
     keyManager(tile, isSolved)
     //saveState()
-    checkSolution()
+    checkSolution(isSolved)
     tile.classList.add('inactive')
     console.log('in handleTiles', value, isSolved, index)
 }

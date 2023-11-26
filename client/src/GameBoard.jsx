@@ -21,7 +21,7 @@ function GameBoard ({ selectedDifficulty, gameStarted, isSolved, setDifficultySe
             <Message />
             <Stack keys={gameStarted ? choice : []} isSolved={isSolved}/>
             <BoardTile />
-            <Operators />
+            <Operators isSolved={isSolved}/>
             <Controls />
         </div>
     )
