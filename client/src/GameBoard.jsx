@@ -7,8 +7,9 @@ import BoardTile from './GameBoard/BoardTile.jsx';
 import Operators from './GameBoard/Operators.jsx';
 import Controls from './GameBoard/Controls.jsx';
 
-const GameBoard = ({ selectedDifficulty, gameStarted, isSolved }) => {
-    //console.log(choice, gameStarted,' GameBoard made');
+function GameBoard ({ selectedDifficulty, gameStarted, isSolved, setDifficultySelected }) {
+    //setDifficultySelected(selectedDifficulty ? choice : [])
+    //console.log(tiles, 'choice in GameBoard');
     return (
         <div id = "game-board" className="game-container">
             
@@ -16,9 +17,9 @@ const GameBoard = ({ selectedDifficulty, gameStarted, isSolved }) => {
                 <h1>OneThruNine</h1>
             </div>
             <Goal />
-            {gameStarted && <Timer gameStarted={gameStarted}/>}
+            <Timer gameStarted={gameStarted}/>
             <Message />
-            {gameStarted && <Stack keys={choice} isSolved={isSolved}/>}
+            <Stack keys={gameStarted ? choice : []} isSolved={isSolved}/>
             <BoardTile />
             <Operators />
             <Controls />

@@ -1,6 +1,12 @@
 import getDefaults from './defaults.js';
 
-const choice = [1,2,3,4,5]
+const choice = [
+    {id:1,value:1},
+    {id:2,value:2},
+    {id:3,value:3},
+    {id:4,value:4},
+    {id:5,value:5},
+]
 
 async function getDifficulty(difficulty) {
     

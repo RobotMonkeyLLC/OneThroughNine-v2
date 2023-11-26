@@ -22,11 +22,7 @@ const isBoardFilled = () => {
     }
 }
 
-const isAllTilesUsed = (boardOperValue) => {
-    const keyboard = document.querySelector('.keyboard-container')
-    // Check if all keys are used
-    console.log('Update isAllTilesUsed function ')
-}
+
 
 const checkSolution = (isSolved) => {
     //saveState()
@@ -44,26 +40,6 @@ const checkSolution = (isSolved) => {
             //undo()
             return
         }
-        //console.log('boardOperValue ',boardOperValue)        
-        
-        //console.log('goal ',goal)
-        const goal = parseInt(document.querySelector('.goal-container').firstChild.textContent)
-        
-        if (boardOperValue === goal) {
-            if(isAllTilesUsed(boardOperValue)) {
-                console.log('Solved!')
-                isSolved = true
-                //updateWin()
-            } else {
-                showMessage('Goal reached!...but not all tiles used.')
-                //clearBoard()
-                //addKey(boardOperValue)
-            }
-        } else {
-            //clearBoard()
-            //addKey(boardOperValue)
-            //console.log('Not solved!')
-        }
     }
 }
 
@@ -72,9 +48,9 @@ const operManager = (buttonElement, isSolved) => {
     saveState()
     if (boardOper.classList.contains('default')) {
         boardOper.classList.remove('default')
-        boardOper.textContent = buttonElement.textContent
-        checkSolution(isSolved)
     }
+    boardOper.textContent = buttonElement.textContent
+    checkSolution(isSolved)
 }
 
 const removeKey = (buttonElement, isSolved) => {
@@ -109,10 +85,15 @@ const saveState = () => {
     const undoStack = JSON.parse(localStorage.getItem('undoStack')) || []
     undoStack.push({currentState})
     localStorage.setItem('undoStack', JSON.stringify(undoStack))
+    console.log('Saved state', currentState)
 } 
 
 const keyManager = (buttonElement,isSolved) => {
-    const boardTiles =  {int1:document.getElementById('int 1'),int2:document.getElementById('int 2')}
+    const boardTiles =  {
+        int1:document.getElementById('int 1'),
+        int2:document.getElementById('int 2'),
+        oper:document.getElementById('operator')
+    }
     saveState()
     if  (boardTiles.int1.classList.contains('default')) {
         boardTiles.int1.classList.remove('default')
@@ -122,7 +103,9 @@ const keyManager = (buttonElement,isSolved) => {
         boardTiles.int2.classList.remove('default')
         boardTiles.int2.textContent = buttonElement.textContent
         removeKey(buttonElement, isSolved)
-    }        
+    } else {
+        showMessage('Board is full! Either Undo or finish the expression.')
+    }
 }
 
 const restoreBoardState = (tilesState) => {
@@ -134,35 +117,39 @@ const restoreBoardState = (tilesState) => {
     // Now, loop through the saved state and restore each key
     const tiles = tilesState.tiles
     const board = tilesState.board
-    for (let i = 0; i < tiles.keys.length; i++) {
+    console.log(tiles, 'restore tiles', board, 'restore board')
+    /* for (let i = 0; i < tiles.keys.length; i++) { */
+    tiles.keys.map((key, i) => {
+        console.log('testing key:',key, 'id:',i, 'class:',tiles.ids[i])
         const buttonElement = document.createElement('button');
-        buttonElement.textContent = tiles.keys[i];
+        buttonElement.textContent = key;
         buttonElement.setAttribute('id', tiles.ids[i]);
         buttonElement.classList.add('key');
         buttonElement.addEventListener('click', () => handleClick(buttonElement));
         keyboard.append(buttonElement);
-    }
-    ['int 1', 'oper', 'int 2'].map((key) => {
-        const buttonElement = document.createElement('div');
-        buttonElement.textContent = board.values[key];
-        buttonElement.setAttribute('id', board.ids[key]);
-        board.classList[key].split(' ').forEach(x => buttonElement.classList.add(x))
-        //buttonElement.classList.add(tilesState.board.classList[i]);
-        boardDisplay.append(buttonElement);
+    })
+    board.values.map((values, ids) => {
+        
+        const divElement = document.createElement('div');
+        divElement.textContent = values;
+        divElement.setAttribute('id', board.ids[ids]);
+        board.classList[ids].split(' ').forEach(x => divElement.classList.add(x))
+        values.split(' ').forEach(x => divElement.classList.add(x))
+        boardDisplay.append(divElement);
     })
 }
 
 const undo = () => {   
     const undoStack = JSON.parse(localStorage.getItem('undoStack')) || []
     if (undoStack.length === 0) {
+        showMessage('Nothing to undo')
         console.log('Nothing to undo')
         return null
     }
     const lastState = undoStack.pop().currentState
-    //gameBuilder(keyboard)
     restoreBoardState(lastState)
     localStorage.setItem('undoStack', JSON.stringify(undoStack))
-    //console.log('Undone to ',lastState) 
+    console.log('Undone to ',lastState) 
 }
 
 const handleClick = (buttonElement, isSolved) => {
@@ -193,4 +180,4 @@ const handleClick = (buttonElement, isSolved) => {
     }
 }
 
-export { handleClick, saveState, removeKey }
+export { handleClick, saveState, removeKey , undo, checkSolution, keyManager, operManager}

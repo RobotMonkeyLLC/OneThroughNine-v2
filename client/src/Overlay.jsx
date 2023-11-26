@@ -4,7 +4,7 @@ import Title from './Overlay/Title';
 import Rules from './Overlay/Rules'
 
 
-const Difficulty = ({difficulties, onStartGame}) => (
+const Difficulty = ({difficulties, onStartGame, setDifficultySelected}) => (
     <div className="difficulty-container">
         <p className='text-header'>Difficulty</p>
         <div className="difficulty-buttons">
@@ -13,6 +13,7 @@ const Difficulty = ({difficulties, onStartGame}) => (
                         <button className="difficulty-button" onClick={() => {
                             document.querySelector('.overlay').style.display = 'none'
                             onStartGame(true)
+                            setDifficultySelected(difficulty)
                             }
                         } key={index}>{difficulty}</button>
                     )
@@ -23,15 +24,17 @@ const Difficulty = ({difficulties, onStartGame}) => (
     </div>
 )
 
-function Overlay({ onGameStart }) {
+function Overlay({ onGameStart, setDifficultySelected}) {
   // Add necessary logic and JSX elements for the overlay
-  
-  
   return (
     <div className="overlay">
       <Title />
       <Rules />
-      <Difficulty  difficulties={['Easy', 'Medium', 'Hard']} onStartGame={onGameStart}/>
+      <Difficulty  
+        difficulties={['Easy', 'Medium', 'Hard']}
+        onStartGame={onGameStart}
+        setDifficultySelected={setDifficultySelected}
+      />
       <Leaderboard />
       {/* Add more elements as needed */}
     </div>

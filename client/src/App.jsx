@@ -60,11 +60,15 @@ function App() {
   
   return (
     <div className="App">
-      
     <div id="overlay" className="overlay">
-      <Overlay onGameStart={handleGameStart} />
+      <Overlay onGameStart={handleGameStart} setDifficultySelected={setDifficultySelected}/>
     </div>
-    <GameBoard selectedDifficulty={difficultySelected} gameStarted={gameStarted} isSolved={isSolved}/>
+    <GameBoard 
+      selectedDifficulty={difficultySelected}
+      gameStarted={gameStarted} 
+      isSolved={isSolved}
+      
+      />
       
     <div id="game-over" className="game-over-container hidden">
       {/* Implement game over elements here */}
@@ -72,5 +76,7 @@ function App() {
     </div>
   );
 }
-
+document.addEventListener("DOMContentLoaded", function() {
+  localStorage.setItem('undoStack', JSON.stringify([]));
+});
 export default App;

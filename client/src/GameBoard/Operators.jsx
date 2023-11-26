@@ -1,10 +1,21 @@
+import { operManager, saveState } from "./functions"
+
+const operatorHandler = (e) => {
+    e.preventDefault()
+    //saveState()
+    operManager(e.target)
+}
+
 const Operators = () => {
     return (
         <div className="operboard-container">
-            <button id="+" className="oper">+</button>
-            <button id="-" className="oper">+</button>
-            <button id="x" className="oper">+</button>
-            <button id="÷" className="oper">+</button>
+            {
+                ['+', '-', 'x', '÷'].map((oper, index) => {
+                    return (
+                        <button id={oper} className="operator" onClick={(e) => operatorHandler(e)} key={index}>{oper}</button>
+                    )
+                })
+            }
         </div>
     )
     
