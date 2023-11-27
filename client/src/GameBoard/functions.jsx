@@ -19,14 +19,6 @@ const isAllTilesUsed = (boardOperValue) => {
     }
 }
 
-const restartGame = () => {
-    /* seconds = 0
-    timer.textContent = '00:00'
-    gameObjects = [messageDisplay, keyboard, boardDisplay, operDisplay, controlsboard]
-    gameObjects.forEach((displayElement) => gameBuilder(displayElement)) */
-    localStorage.setItem('undoStack', JSON.stringify([]))
-}
-
 const showMessage = (message) => {
     const messageDisplay = document.querySelector('.message-container')
     messageDisplay.firstChild.textContent = message
@@ -80,12 +72,15 @@ const checkSolution = (isSolved) => {
         const boardOperValue = boardOperKey === '+' ? parseInt(boardKeys.int1) + parseInt(boardKeys.int2) :
                                boardOperKey === '-' ? parseInt(boardKeys.int1) - parseInt(boardKeys.int2) :
                                boardOperKey === 'x' ? parseInt(boardKeys.int1) * parseInt(boardKeys.int2) :
-                               boardOperKey === '/' ? parseInt(boardKeys.int1) / parseInt(boardKeys.int2) : 0
+                               boardOperKey === '÷' ? parseInt(boardKeys.int1) / parseInt(boardKeys.int2) : 0
+        console.log('boardOperkey:',boardOperKey,'boardOperValue:', boardOperValue, 'goal:', goal)
         if (!Number.isInteger(boardOperValue)) {
             showMessage("No Floats Allowed!")
+            JSON.parse(localStorage.getItem('undoStack')).pop()
             //undo()
             return
         }
+        
         if (boardOperValue === goal) {
             if(isAllTilesUsed(boardOperValue)) {
                 console.log('Solved!')
@@ -106,20 +101,27 @@ const checkSolution = (isSolved) => {
 }
 
 const operManager = (buttonElement, isSolved) => {
-    saveState()
-
     const boardOper = document.getElementById('operator')
+    if(boardOper.textContent === buttonElement.textContent) {
+        console.log('Same operator selected, not saving state or checking solution')
+        return
+    } else {
     
-    if (boardOper.classList.contains('default')) {
-        boardOper.classList.remove('default')
+        saveState()
+        //console.log('in operManager', buttonElement, isSolved)
+        
+        
+        if (boardOper.classList.contains('default')) {
+            boardOper.classList.remove('default')
+        }
+        boardOper.textContent = buttonElement.textContent
+        checkSolution(isSolved)
     }
-    boardOper.textContent = buttonElement.textContent
-    checkSolution(isSolved)
 }
 
 const removeKey = (buttonElement, isSolved) => {
     const elem = buttonElement
-    buttonElement.classList.add('inactive')
+    //buttonElement.classList.add('inactive')
     checkSolution(isSolved)
     setTimeout(() => elem.parentNode.removeChild(elem), 200)
 }
@@ -161,12 +163,15 @@ const keyManager = (buttonElement,isSolved) => {
         int2:document.getElementById('int 2'),
         oper:document.getElementById('operator')
     }
-    saveState()
+    console.log('in keyManager', buttonElement, isSolved)
+    
     if  (boardTiles.int1.classList.contains('default')) {
+        saveState()
         boardTiles.int1.classList.remove('default')
         boardTiles.int1.textContent = buttonElement.textContent
         removeKey(buttonElement, isSolved)
     } else if (boardTiles.int2.classList.contains('default')) {
+        saveState()
         boardTiles.int2.classList.remove('default')
         boardTiles.int2.textContent = buttonElement.textContent
         removeKey(buttonElement, isSolved)
@@ -184,7 +189,7 @@ const restoreBoardState = (tilesState) => {
     // Now, loop through the saved state and restore each key
     const tiles = tilesState.tiles
     const board = tilesState.board
-    console.log(tiles, 'restore tiles', board, 'restore board')
+    //console.log(tiles, 'restore tiles', board, 'restore board')
     /* for (let i = 0; i < tiles.keys.length; i++) { */
     tiles.keys.map((key, i) => {
         
@@ -196,7 +201,7 @@ const restoreBoardState = (tilesState) => {
         keyboard.append(buttonElement);
     })
     board.values.map((values, ids) => {
-        console.log('testing key:',values, 'id:',ids, 'classList:', board.classList[ids])
+        //console.log('testing key:',values, 'id:',ids, 'classList:', board.classList[ids])
         const divElement = document.createElement('div');
         divElement.textContent = values;
         divElement.setAttribute('id', board.ids[ids]);
