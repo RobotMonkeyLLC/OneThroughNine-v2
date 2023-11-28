@@ -67,13 +67,19 @@ const generateDailyTarget = (min, max) => {
 
 const tiles = {
     goal : {
-      easy: generateDailyTarget(4,200),
+      /* easy: generateDailyTarget(4,200),
       advanced: generateDailyTarget(201,1000),
-      expert: generateDailyTarget(1001,5000)},
+      expert: generateDailyTarget(1001,5000)}, */
+      lvl_1: generateDailyTarget(4,200),
+      lvl_2: generateDailyTarget(201,1000),
+      lvl_3: generateDailyTarget(1001,5000)},
     tiles:{
-      easy: [1, 2, 3, 4, 5],
+      /* easy: [1, 2, 3, 4, 5],
       advanced: [1, 2, 3, 4, 5, 6, 7],
-      expert: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      expert: [1, 2, 3, 4, 5, 6, 7, 8, 9] */
+      lvl_1: [1, 2, 3, 4, 5],
+      lvl_2: [1, 2, 3, 4, 5, 6, 7],
+      lvl_3: [1, 2, 3, 4, 5, 6, 7, 8, 9]
     }
 }
   

@@ -1,14 +1,8 @@
+import { useState } from 'react';
 import getDefaults from './defaults.js';
 
-const choice = [
-    {id:1,value:1},
-    {id:2,value:2},
-    {id:3,value:3},
-    {id:4,value:4},
-    {id:5,value:5},
-]
 
-async function getDifficulty(difficulty) {
+export async function getDifficulty(difficulty, setGoal, goal) {
     
     try {
         const response = await fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
@@ -16,21 +10,25 @@ async function getDifficulty(difficulty) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data);
-        const goal = data.target;
-        const choice = data.tiles;
+        console.log('fectched data:',data, 'at', difficulty);
+        //setGoal(data)
+        //console.log('goal set to:', goal)
+        return data
+        /* const goal = data.target;
+        const choice = data.tiles; */
     } catch (err) {
-        let {goal, choice} = getDefaults(difficulty)
-        console.error(err);
+        const {goal, choice} = getDefaults(difficulty)
+        console.warn('Error fetching data, using defaults:',goal, choice,);
     }
+    //return { goal, choice}
 }
 
-const Goal = () => {
+const Goal = ({goal}) => {
     return (
         <div className="goal-container">
-            <p>10</p>
+            <p>{goal}</p>
         </div>
     )
 }
 
-export { Goal, choice }
+export default Goal

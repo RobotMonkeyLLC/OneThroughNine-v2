@@ -2,38 +2,22 @@ import React from 'react';
 import Leaderboard from './Overlay/Leaderboard.jsx';
 import Title from './Overlay/Title';
 import Rules from './Overlay/Rules'
+import Difficulty from './Overlay/Difficulty.jsx'
+import { difficulties } from './Constants/text.js'; 
 
-
-const Difficulty = ({difficulties, onStartGame, setDifficultySelected}) => (
-    <div className="difficulty-container">
-        <p className='text-header'>Difficulty</p>
-        <div className="difficulty-buttons">
-            {
-                difficulties.map((difficulty, index) =>  (
-                        <button className="difficulty-button" onClick={() => {
-                            document.querySelector('.overlay').style.display = 'none'
-                            onStartGame(true)
-                            setDifficultySelected(difficulty)
-                            }
-                        } key={index}>{difficulty}</button>
-                    )
-                )
-            }
-            
-        </div>
-    </div>
-)
-
-function Overlay({ onGameStart, setDifficultySelected}) {
+function Overlay({ onGameStart, setDifficultySelected, goal, setGoal}) {
   // Add necessary logic and JSX elements for the overlay
   return (
     <div className="overlay">
       <Title />
       <Rules />
       <Difficulty  
-        difficulties={['Easy', 'Medium', 'Hard']}
+        difficulties={difficulties}
         onStartGame={onGameStart}
         setDifficultySelected={setDifficultySelected}
+        goal={goal}
+        setGoal={setGoal}
+        setTiles={setGoal}
       />
       <Leaderboard />
       {/* Add more elements as needed */}

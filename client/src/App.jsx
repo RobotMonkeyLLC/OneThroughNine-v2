@@ -6,6 +6,7 @@ import GameBoard from './GameBoard.jsx';
 function App() {
   const [seconds, setSeconds] = useState(0);
   const [goal, setGoal] = useState(0);
+  const [tiles, setTiles] = useState([]);
   const [difficultySelected, setDifficultySelected] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [isSolved, setIsSolved] = useState(false);
@@ -52,11 +53,18 @@ function App() {
   return (
     <div className="App">
     <div id="overlay" className="overlay">
-      <Overlay onGameStart={handleGameStart} setDifficultySelected={setDifficultySelected}/>
+      <Overlay 
+        onGameStart={handleGameStart}
+        setDifficultySelected={setDifficultySelected}
+        goal={goal}
+        setGoal={setGoal}
+        setTiles={setTiles}
+      />
     </div>
     <GameBoard 
-      selectedDifficulty={difficultySelected}
-      gameStarted={gameStarted} 
+      goal={goal}
+      tiles={tiles}
+      gameStarted={gameStarted}
       isSolved={isSolved}
       handleGameReStart={handleGameReStart}   
       />

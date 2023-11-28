@@ -16,10 +16,10 @@ const StackButton = ({index, value, isSolved}) => {
 }
 
 const Stack = ({keys, isSolved}) => {
-    //console.log(keys, 'keys in Stack')
+    console.log(keys, 'keys in Stack')
     const stackTiles = keys.map((key, index) => {
         return (
-            <StackButton key={key.id} value={key.value} isSolved={isSolved}/>
+            <StackButton key={key} value={key} isSolved={isSolved}/>
         )
     })
     return(
