@@ -82,7 +82,8 @@ const tiles = {
       lvl_3: [1, 2, 3, 4, 5, 6, 7, 8, 9]
     }
 }
-  
+ 
+// merge difficulty endpoints into single call at the start of game
 app.get('/tiles', (req, res) => {
     const difficulty = req.query.difficulty;
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import getDefaults from './defaults.js';
 
-
+// merge difficulty endpoints into single call at the start of game
 export async function getDifficulty(difficulty, setGoal, goal) {
     
     try {
