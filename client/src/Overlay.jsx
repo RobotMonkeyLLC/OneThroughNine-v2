@@ -5,7 +5,8 @@ import Rules from './Overlay/Rules'
 import Difficulty from './Overlay/Difficulty.jsx'
 import { difficulties } from './Constants/text.js'; 
 
-function Overlay({ onGameStart, setDifficultySelected, goal, setGoal}) {
+// setTiles needs to be merged into setGoal
+function Overlay({ onGameStart, setDifficultySelected, goal, setGoal, setTiles}) {
   // Add necessary logic and JSX elements for the overlay
   return (
     <div className="overlay">
@@ -17,7 +18,7 @@ function Overlay({ onGameStart, setDifficultySelected, goal, setGoal}) {
         setDifficultySelected={setDifficultySelected}
         goal={goal}
         setGoal={setGoal}
-        setTiles={setGoal}
+        setTiles={setTiles}
       />
       <Leaderboard />
       {/* Add more elements as needed */}

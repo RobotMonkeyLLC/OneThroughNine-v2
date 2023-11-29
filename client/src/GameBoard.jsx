@@ -21,10 +21,10 @@ function GameBoard ({ goal, tiles, gameStarted, isSolved, handleGameReStart, set
             <div className="title-container">
                 <h1>OneThruNine</h1>
             </div>
-            <Goal goal={goal.target}/>
+            <Goal goal={goal}/>
             <Timer gameStarted={gameStarted}/>
             <Message />
-            <Stack keys={gameStarted ? goal.tiles : []} isSolved={isSolved}/>
+            <Stack keys={gameStarted ? tiles : []} isSolved={isSolved}/>
             <BoardTile />
             <Operators isSolved={isSolved}/>
             <Controls handleGameReStart={handleGameReStart}/>

@@ -110,12 +110,25 @@ body {
   text-decoration: underline;
 }
 
+.selected {
+  border: #b59f3a;
+  border-style: solid;
+}
+
 .debug-button {
   font-size: small;
   color: #2e2e2e;
   font-weight: bolder;
   background-color: #ffc965;
   text-decoration: none;
+}
+
+form.debug-box {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .debug-box {
@@ -136,6 +149,14 @@ body {
   margin: 4px; 
   font-size: x-large;
   text-align: center;
+}
+
+.debug-level {
+  background-color: #3a3a3c;
+  margin: 4px;
+  border-radius: 20px;
+  padding-inline: 80px;
+  font-size: x-large;
 }
 
 /* Chrome, Safari, Edge, Opera */
