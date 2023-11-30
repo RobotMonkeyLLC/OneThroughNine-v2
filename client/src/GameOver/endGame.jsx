@@ -1,16 +1,6 @@
 import {showMessage} from '../GameBoard/functions'
 import { getPostedScores } from './getPostedScores.jsx'
 
-// convert seconds to HH:MM:SS
-export function secondsToHms() {
-    const seconds = document.getElementById('timer').textContent
-    let hours = Math.floor(seconds / 3600)
-    let minutes = Math.floor(seconds % 3600 / 60)
-    let secondsScore = Math.floor(seconds % 3600 % 60)
-
-    return ( hours < 1 ? '' : (hours + ':')) + ( minutes < 1 ? '00' : (minutes)) + ':'+ secondsScore
-}
-
 export const updateWin = () => {
     const postedScoresDisplay =  document.querySelector('.game-over-stats-container')
     const gameoverControlsDisplay = document.querySelector('.game-over-controls-container')

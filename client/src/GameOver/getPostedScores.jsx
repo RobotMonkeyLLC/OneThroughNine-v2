@@ -1,5 +1,15 @@
 import { leaderScores } from "../Constants/defaults";
 
+// convert seconds to HH:MM:SS
+function secondsToHms(seconds) {
+    //const seconds = document.getElementById('timer').textContent
+    let hours = Math.floor(seconds / 3600)
+    let minutes = Math.floor(seconds % 3600 / 60)
+    let secondsScore = Math.floor(seconds % 3600 % 60)
+
+    return ( hours < 1 ? '' : (hours + ':')) + ( minutes < 1 ? '00' : (minutes)) + ':'+ secondsScore
+}
+
 function formatDate(date) {
     const d = new Date(date);
     return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
@@ -22,7 +32,7 @@ const updateLeaderBoard = (scores, leaderBoard) => {
         scoreDate.classList.add('over-date')
 
         scoreName.textContent = score.name
-        scoreValue.textContent = score.score
+        scoreValue.textContent = secondsToHms(score.score)
         scoreDate.textContent = formatDate(score.date)
         //console.log('Score ',score)
         scoreElement.append(scoreName, scoreValue, scoreDate)
@@ -48,5 +58,5 @@ export const getPostedScores = (leaderBoard) => {
         console.log('leaderScores', leaderScores)
         updateLeaderBoard(leaderScores, leaderBoard)
     });
-    
+
 }

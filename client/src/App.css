@@ -550,29 +550,36 @@ button {
   display: none;
 }
 
-form {
+#post-score {
+  justify-content: center;
+}
+
+#post-score-form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-around;
   align-items: center;
   background-color: #707070;
   border-radius: 10px;
-  height: 280px;
-  width: 330px;
+  padding-inline: 50px;
+  gap: 10px;
 }
 
-#post-score {
-  justify-content: center;    
+#post-score-form > label {
+  font-size: large;
+  color: #282c34;
 }
 
-#post-score-form > * {
-  border-radius: 4px;
-}
 #post-score-form > .post-score-controls {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+}
+
+#name {
+  font-size: medium;
+  color: #282c34;
 }
 
 .post-score-controls {
