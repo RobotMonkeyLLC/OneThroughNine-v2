@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import getDefaults from './defaults.js';
+import getDefaults from '../Constants/defaults.js';
 
 // merge difficulty endpoints into single call at the start of game
 export async function getDifficulty(difficulty, setGoal, goal) {
@@ -22,13 +22,3 @@ export async function getDifficulty(difficulty, setGoal, goal) {
     }
     //return { goal, choice}
 }
-
-const Goal = ({goal}) => {
-    return (
-        <div className="goal-container">
-            <p>{goal}</p>
-        </div>
-    )
-}
-
-export default Goal

@@ -5,7 +5,7 @@ import { debug, handleSubmit } from './Debug.jsx'
 const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, setGoal, setTiles}) => {
     const [ isDebug, setIsDebug ] = useState(false)
     const [ min, setMin ] = useState(1)
-    const [ max, setMax ] = useState(9)
+    const [ max, setMax ] = useState(200)
     const [ target, setTarget ] = useState(0)
     const [ level, setLevel ] = useState(['Level 1', 'lvl_1'])
 
@@ -19,6 +19,7 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
     }
 
     const toggleDebug = () => {
+        document.getElementById(level[1]).classList.add('selected')
         setIsDebug(!isDebug)
     }
     
@@ -93,10 +94,11 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
                 name='target'
                 placeholder={target || 'Set target'}
                 className='goal-contianer'
-                onChange={e => setGoal(e.target.value)}/>
+                onChange={e => setGoal(e.target.value)}
+                value={goal}/>
             <label className='debug-level' type="text" name="level">{level[0]}</label>
             <button
-                button="button"
+                type="button"
                 onClick={randomTarget}>
                     Random
             </button>

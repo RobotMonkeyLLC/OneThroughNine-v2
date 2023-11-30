@@ -1,7 +1,8 @@
 import React from 'react';
 import Timer from './GameBoard/Timer.jsx';
 import Message from './GameBoard/Message.jsx';
-import Goal, {getDifficulty} from './GameBoard/getChoice.jsx';
+import {getDifficulty} from './GameBoard/getChoice.jsx';
+import Goal from './GameBoard/Goal.jsx';
 import Stack from './GameBoard/Stack.jsx';
 import BoardTile from './GameBoard/BoardTile.jsx';
 import Operators from './GameBoard/Operators.jsx';
@@ -22,6 +23,7 @@ function GameBoard ({ goal, tiles, gameStarted, isSolved, handleGameReStart, set
                 <h1>OneThruNine</h1>
             </div>
             <Goal goal={goal}/>
+            {console.log('logging goal',goal)}
             <Timer gameStarted={gameStarted}/>
             <Message />
             <Stack keys={gameStarted ? tiles : []} isSolved={isSolved}/>

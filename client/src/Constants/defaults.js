@@ -22,5 +22,11 @@ const defaults = {
         }
 }
 
-export { defaults }
+const leaderScores = Array(10).fill().map(() => ({
+        score: '0',
+        name: '-----',
+        date: '--/--/----'
+    }));
+
+export { defaults, leaderScores }
 export default getDefaults;

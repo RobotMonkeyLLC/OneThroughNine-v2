@@ -1,4 +1,5 @@
-import { defaults } from './defaults'
+import { defaults } from '../Constants/defaults'
+import { updateWin } from '../GameOver/endGame'
 
 const isAllTilesUsed = (boardOperValue) => {
     const keyboard = document.querySelector('.keyboard-container')
@@ -61,8 +62,9 @@ const clearBoard = () => {
     boardOper.textContent = defaults.board.oper
 }
 
+
 const checkSolution = (isSolved) => {
-    const goal = document.querySelector('.goal-container').textContent
+    const goal = parseInt(document.querySelector('.goal-container').textContent)
     //saveState()
     if (isBoardFilled()) {
         const boardTiles =  {int1:document.getElementById('int 1'),int2:document.getElementById('int 2')}
@@ -85,7 +87,7 @@ const checkSolution = (isSolved) => {
             if(isAllTilesUsed(boardOperValue)) {
                 console.log('Solved!')
                 isSolved = true
-                //updateWin()
+                updateWin()
                 console.log('Goal reached! isSolved:', isSolved)
             } else {
                 showMessage('Goal reached!...but not all tiles used.')
@@ -121,7 +123,7 @@ const operManager = (buttonElement, isSolved) => {
 
 const removeKey = (buttonElement, isSolved) => {
     const elem = buttonElement
-    //buttonElement.classList.add('inactive')
+    buttonElement.classList.add('inactive')
     checkSolution(isSolved)
     setTimeout(() => elem.parentNode.removeChild(elem), 200)
 }
@@ -252,4 +254,4 @@ const handleClick = (buttonElement, isSolved) => {
     }
 }
 
-export { handleClick, saveState, removeKey , undo, checkSolution, keyManager, operManager}
+export { handleClick, saveState, removeKey , undo, checkSolution, keyManager, operManager, showMessage}

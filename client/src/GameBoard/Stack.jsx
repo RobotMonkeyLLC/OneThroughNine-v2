@@ -2,6 +2,9 @@ import { checkSolution, keyManager, saveState } from './functions.jsx'
 
 const handleTiles = (tile, value, isSolved)  => {    
     //const tile = document.getElementById(`tile-${index}`)
+    if (tile.classList.contains('inactive')) {
+        return
+    }
     keyManager(tile, isSolved)
     //saveState()
     //checkSolution(isSolved)
@@ -9,9 +12,9 @@ const handleTiles = (tile, value, isSolved)  => {
     //console.log('in handleTiles', value, isSolved, index)
 }
 
-const StackButton = ({index, value, isSolved}) => {
+const StackButton = ({value, isSolved}) => {
     return (
-        <button id={`tile-${index}`} className="key" onClick={(tile) => handleTiles(tile.target, value, isSolved)}>{value}</button>
+        <button id={`tile-${value}`} className="key" onClick={(tile) => handleTiles(tile.target, value, isSolved)}>{value}</button>
     )
 }
 

@@ -34,7 +34,7 @@ const Timer = ({ gameStarted }) => {
     setTimerText(`${formattedMinutes}:${formattedSeconds}`);
   }, [seconds]);
 
-  return <div className='timer-container'><p className='timer'>{timerText}</p></div>;
+  return <div className='timer-container'><p id='timer' className='timer'>{timerText}</p></div>;
 };
 
 export default Timer;

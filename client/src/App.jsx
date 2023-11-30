@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Overlay from './Overlay.jsx';
 import GameBoard from './GameBoard.jsx';
+import GameOver from './GameOver.jsx';
 
 function App() {
   const [seconds, setSeconds] = useState(0);
   const [goal, setGoal] = useState(0);
-  const [tiles, setTiles] = useState([]);
+  const [tiles, setTiles] = useState([1,2,3,4,5]);
   const [difficultySelected, setDifficultySelected] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [isSolved, setIsSolved] = useState(false);
@@ -39,7 +40,7 @@ function App() {
     // Set difficulty and enable game board to render
     //console.log('game handle started')
     //setDifficultySelected(selectedDifficulty);
-    setGameStarted(true);
+    setGameStarted(!gameStarted);
     //console.log('game handle started')
     // Perform other actions related to the selected difficulty if needed
   };
@@ -69,9 +70,7 @@ function App() {
       handleGameReStart={handleGameReStart}   
       />
       
-    <div id="game-over" className="game-over-container hidden">
-      {/* Implement game over elements here */}
-    </div>
+    <GameOver isSolved={isSolved} />
     </div>
   );
 }
