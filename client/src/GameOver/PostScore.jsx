@@ -61,7 +61,7 @@ export default function PostScore({difficultySelected}) {
             <form id="post-score-form" onSubmit={handleSubmit}>
                 <label htmlFor="name">Name:</label>
                 <input type="text" id="name" name="name" placeholder="Enter your name" required></input>
-                <button type="button" value='Cancel' >Cancel</button>
+                <button type="button" value='Cancel' onClick={() => window.location.reload()}>Cancel</button>
                 <button type="submit">Submit</button>
             </form>
         </div>

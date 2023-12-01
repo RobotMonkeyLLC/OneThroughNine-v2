@@ -170,17 +170,21 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
         oper:document.getElementById('operator')
     }
     checkSolution(isSolved, setIsSolved)
-    console.log('in keyManager', buttonElement, isSolved)
     
-    if  (boardTiles.int1.classList.contains('default')) {
+    
+    if (buttonElement.classList.contains('inactive')) {
+        return
+    }   else if  (boardTiles.int1.classList.contains('default')) {
         saveState()
         boardTiles.int1.classList.remove('default')
         boardTiles.int1.textContent = buttonElement.textContent
+        console.log('in keyManager int 1 removing default', buttonElement, isSolved)
         removeKey(buttonElement, isSolved, setIsSolved)
     } else if (boardTiles.int2.classList.contains('default')) {
         saveState()
         boardTiles.int2.classList.remove('default')
         boardTiles.int2.textContent = buttonElement.textContent
+        console.log('in keyManager int 2 removing default ', buttonElement, isSolved)
         removeKey(buttonElement, isSolved, setIsSolved)
     } else {
         showMessage('Board is full! Either Undo or finish the expression.')
