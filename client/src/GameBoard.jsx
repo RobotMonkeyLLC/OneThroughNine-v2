@@ -8,7 +8,7 @@ import BoardTile from './GameBoard/BoardTile.jsx';
 import Operators from './GameBoard/Operators.jsx';
 import Controls from './GameBoard/Controls.jsx';
 
-function GameBoard ({ goal, tiles, gameStarted, isSolved, handleGameReStart, setTiles }) {
+function GameBoard ({ goal, tiles, gameStarted, isSolved, setIsSolved, handleGameReStart }) {
     //setDifficultySelected(selectedDifficulty ? choice : [])
     //console.log(tiles, 'choice in GameBoard');
     /* const restart = () => {
@@ -25,9 +25,9 @@ function GameBoard ({ goal, tiles, gameStarted, isSolved, handleGameReStart, set
             <Goal goal={goal}/>
             <Timer gameStarted={gameStarted}/>
             <Message />
-            <Stack keys={gameStarted ? tiles : []} isSolved={isSolved}/>
+            <Stack keys={gameStarted ? tiles : []} isSolved={isSolved} setIsSolved={setIsSolved}/>
             <BoardTile />
-            <Operators isSolved={isSolved}/>
+            <Operators isSolved={isSolved} setIsSolved={setIsSolved}/>
             <Controls handleGameReStart={handleGameReStart}/>
         </div>
     )

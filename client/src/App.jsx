@@ -40,27 +40,28 @@ function App() {
     setGameStarted(false);
     setTimeout(() => setGameStarted(true), 10);
   };
-
+  //console.log('loading app')
   return (
     <div className="App">
-    <div id="overlay" className="overlay">
-      <Overlay 
-        onGameStart={handleGameStart}
-        setDifficultySelected={setDifficultySelected}
+      <div id="overlay" className="overlay">
+        <Overlay 
+          onGameStart={handleGameStart}
+          setDifficultySelected={setDifficultySelected}
+          goal={goal}
+          setGoal={setGoal}
+          setTiles={setTiles}
+        />
+      </div>
+      <GameBoard 
         goal={goal}
-        setGoal={setGoal}
-        setTiles={setTiles}
-      />
-    </div>
-    <GameBoard 
-      goal={goal}
-      tiles={tiles}
-      gameStarted={gameStarted}
-      isSolved={isSolved}
-      handleGameReStart={handleGameReStart}   
-      />
-      
-    <GameOver isSolved={isSolved} difficultySelected={difficultySelected}/>
+        tiles={tiles}
+        gameStarted={gameStarted}
+        isSolved={isSolved}
+        setIsSolved={setIsSolved}
+        handleGameReStart={handleGameReStart}   
+        />
+        
+      <GameOver isSolved={isSolved} difficultySelected={difficultySelected}/>
     </div>
   );
 }

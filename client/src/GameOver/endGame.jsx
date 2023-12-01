@@ -6,7 +6,6 @@ export const updateWin = () => {
     const gameoverControlsDisplay = document.querySelector('.game-over-controls-container')
     const gameoverMessageDisplay = document.querySelector('.game-over-message-container')
 
-
     // *** replace with text.js from constants folder
     showMessage('You Win!')
     const endGame = document.getElementById('game-over')
