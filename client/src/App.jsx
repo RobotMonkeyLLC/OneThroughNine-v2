@@ -12,17 +12,7 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [isSolved, setIsSolved] = useState(false);
 
-  // Add more state variables as needed to manage the game
-
-  /* useEffect(() => {
-    // Function to update timer every second
-    if(gameStarted) {
-      const interval = setInterval(() => {
-      setSeconds((prevSeconds) => prevSeconds + 1);
-    }, 1000);
-    return () => clearInterval(interval);}
-  }, [gameStarted]);
- */
+  
   useEffect(() => {
     // Function to fetch initial game data or set up game elements
     const fetchData = async () => {
@@ -70,7 +60,7 @@ function App() {
       handleGameReStart={handleGameReStart}   
       />
       
-    <GameOver isSolved={isSolved} />
+    <GameOver isSolved={isSolved} difficultySelected={difficultySelected}/>
     </div>
   );
 }

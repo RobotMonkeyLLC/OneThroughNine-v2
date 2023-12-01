@@ -32,7 +32,7 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-async function getLocalScores() {
+async function getLocalScores(name) {
   try {
     const res = await client.query("SELECT player_name,score_time,score_date FROM scores WHERE player_name = 'Player628' ORDER BY score_time asc LIMIT 5;")
     //console.log('rows',res.rows);
@@ -95,14 +95,16 @@ app.get('/tiles', (req, res) => {
                       target: tiles.goal[difficulty] })
 })
 
-function postScore(name, score) {    
+async function postScore(name, score, difficulty, date) {    
   try {
-    const query1 = `INSERT INTO scores (player_name, score_time, score_date) VALUES ('${name}', ${score}, '${new Date().toDateString()}');`;
-    console.log("Here is the query",query1);
-    const res = client.query(query1);
+    const query1 = `INSERT INTO scores 
+      (player_name, score_time, difficulty_id, score_date) 
+      VALUES ('${name}', ${score}, '${difficulty}', '${date}');`;
+    console.log("Here is the query",query1, "Here is the name", name, "Here is the score", score, "Here is the difficulty", difficulty);
+    await client.query(query1).then((res) => {
     //console.log(res.rows);
-    //console.log('Successfully retrieved scores', res.rows[0].name);
-    return res.rows;
+    console.log('Successfully updated scores');
+    return res.rows;} )
   } catch (err) {
     console.error('Error executing query', err.stack);
   }
@@ -111,7 +113,7 @@ function postScore(name, score) {
 app.post('/post_score', (req, res) => {
     // TODO: Save score to database
     console.log('post_score body:',req.body)
-    postScore(req.body.username, req.body.score)
+    postScore(req.body.name, req.body.score, req.body.difficulty, req.body.date)
     res.send(req.body)
   })
 
@@ -149,10 +151,10 @@ const isDaily = (scores) => {
 
 app.get('/local_stats', async (req, res) => {
   try {
-      const scores = await getLocalScores();
+      const scores = await getLocalScores(req.query.name);
       req.session.best = scores[0].score;
       req.session.average = getAverage(scores);
-      req.session.daily = isDaily(scores) == true? scores.sort(compare)[0].score : 'None';
+      req.session.daily = isDaily(scores) == true? scores.sort(compare)[0].score : 'No score yet';
       res.json({
         best: req.session.best,
         average: req.session.average,

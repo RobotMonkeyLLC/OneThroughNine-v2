@@ -1,13 +1,43 @@
-export default function PostScore() {
+import React, { useState, useEffect } from 'react';
+
+const timeToSeconds = (time) => {
+    const timeArray = time.split(':').reverse()
+    console.log('timeArrya',timeArray)
+    const seconds = parseInt(timeArray[0])
+    const minutes = parseInt(timeArray[1])
+    const hours = parseInt(timeArray[2] || 0)
+    console.log('tts returns',(hours * 3600) + (minutes * 60) + seconds)
+    return  (minutes * 60) + seconds
+}
+
+export default function PostScore({difficultySelected}) {
+    const [localStats, setLocalStats] = useState([]);
     
+    useEffect(() => {
+        // Fetch local stats from localStorage on component mount
+        const localStatsFromStorage = JSON.parse(localStorage.getItem('localStats')) || [];
+        setLocalStats(localStatsFromStorage);
+      }, []);
+    
+      // Function to update local leaderboard stats
+      const updateLocalStats = (newStat) => {
+        // Add the new stat to the localStats array
+        const updatedStats = [...localStats, newStat];
+        // Update the state and localStorage
+        setLocalStats(updatedStats);
+        localStorage.setItem('localStats', JSON.stringify(updatedStats));
+      };
+
     const handleSubmit = (event) => {
         event.preventDefault()
         const name = document.getElementById('name').value
-        const seconds = document.getElementById('timer').textContent
-        const score = seconds
+        const seconds = document.getElementById('final-score').textContent
+        const score = timeToSeconds(seconds)
+        const difficulty = difficultySelected.split('_')[1]
         const date = new Date()
-        const data = {name, score, date}
+        const data = {name, score, difficulty, date}
         console.log('data', data)
+        updateLocalStats(data)
         fetch('http://localhost:8000/post_score', {
             method: 'POST',
             headers: {
@@ -19,7 +49,7 @@ export default function PostScore() {
             .then(data => {
                 console.log('Success:', data);
                 const postScoreForm = document.getElementById('post-score-form')
-                postScoreForm.reset()
+                window.location.reload()
             })
             .catch((error) => {
                 console.error('Error:', error);

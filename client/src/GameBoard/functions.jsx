@@ -165,7 +165,7 @@ const keyManager = (buttonElement,isSolved) => {
         int2:document.getElementById('int 2'),
         oper:document.getElementById('operator')
     }
-    console.log('in keyManager', buttonElement, isSolved)
+    //console.log('in keyManager', buttonElement, isSolved)
     
     if  (boardTiles.int1.classList.contains('default')) {
         saveState()

@@ -6,6 +6,7 @@ export const updateWin = () => {
     const gameoverControlsDisplay = document.querySelector('.game-over-controls-container')
     const gameoverMessageDisplay = document.querySelector('.game-over-message-container')
 
+
     // *** replace with text.js from constants folder
     showMessage('You Win!')
     const endGame = document.getElementById('game-over')
@@ -16,11 +17,16 @@ export const updateWin = () => {
     endGameTitle.textContent = 'You Win!'
     endGame.prepend(endGameTitle)
     
+    const scoreLabel = document.createElement('p')
+    scoreLabel.setAttribute('id', 'score-label')
+    scoreLabel.textContent = 'Your time:'
+
     const endGameScore = document.createElement('p')
+    endGameScore.setAttribute('id', 'final-score')
     const seconds = document.getElementById('timer').textContent
     console.log(seconds, 'seconds in updateWin')
-    endGameScore.textContent = `Your time: ${(seconds)}`
-    gameoverMessageDisplay.append(endGameScore)
+    endGameScore.textContent = seconds
+    gameoverMessageDisplay.append(scoreLabel, endGameScore)
 
     const leaderBoard = document.createElement('ol')    
     leaderBoard.classList.add('leaderboard')

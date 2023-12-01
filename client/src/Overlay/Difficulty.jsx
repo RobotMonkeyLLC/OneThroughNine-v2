@@ -11,11 +11,12 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+        setDifficultySelected(level[1])
+        console.log(level[1], 'level[1] on submit')
         document.querySelector('.overlay').style.display = 'none'
         onStartGame(true)
         //const formData = new FormData(form)  
-        console.log(goal, '-target', min, 'min', max, 'max', goal, 'goal')
+        //console.log(goal, '-target', min, 'min', max, 'max', goal, 'goal')
     }
 
     const toggleDebug = () => {
@@ -32,18 +33,15 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
     }
 
     const startGame = ({index}) => {
-        if (isDebug) {
-            //setGoal(getDifficulty(difficulties.ids[index]))
-            console.log(goal, 'in Difficulty')
-        } else {
+   
         getDifficulty(difficulties.ids[index]).then(data => {
             setGoal(data.target)
             setTiles(data.tiles)
-            setDifficultySelected(difficulties.ids[index])
+            
             document.querySelector('.overlay').style.display = 'none'
             onStartGame(true)
-            console.log(goal, 'in Difficulty')
-        })}
+            //console.log(goal, 'in Difficulty')
+        })
     }
 
     return (
@@ -56,9 +54,10 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
             {
                 difficulties.ids.map((difficulty, index) =>  (
                         <button className="difficulty-button" onClick={() => {
+                            
                             if (isDebug) {
-                                //setGoal(getDifficulty(difficulties.ids[index]))
-                                //console.log(goal, 'in Difficulty')
+                                setDifficultySelected(level[1])
+                                console.log(level[1], 'level[1] on submit')
                                 getDifficulty(difficulty).then(data => {
                                     setMin(data.target > 3 && data.target < 201 ? 4 :
                                             data.target > 200 && data.target < 1001 ? 201 :1001 )

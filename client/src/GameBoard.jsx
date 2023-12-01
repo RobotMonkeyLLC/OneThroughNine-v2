@@ -23,7 +23,6 @@ function GameBoard ({ goal, tiles, gameStarted, isSolved, handleGameReStart, set
                 <h1>OneThruNine</h1>
             </div>
             <Goal goal={goal}/>
-            {console.log('logging goal',goal)}
             <Timer gameStarted={gameStarted}/>
             <Message />
             <Stack keys={gameStarted ? tiles : []} isSolved={isSolved}/>
