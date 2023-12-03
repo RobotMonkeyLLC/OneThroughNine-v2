@@ -292,7 +292,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
 }
 
 .control {
@@ -482,7 +482,7 @@ button {
   justify-content: space-around;
   align-items: center;
   gap: 0;
-
+  padding-bottom: 60px;
 }
 
 #game-over > h1 {

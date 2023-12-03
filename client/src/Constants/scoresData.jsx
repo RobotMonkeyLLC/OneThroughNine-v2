@@ -27,7 +27,7 @@ export async function populateScoresData(domain, name = 'jon' ) {
                     //statElement.append(scoreElement);
                 } catch (err) {
                     console.error(err);
-                    return scoresData_posted;
+                    return scoresData_posted_default;
                     
                 }
                 
@@ -38,68 +38,68 @@ export async function populateScoresData(domain, name = 'jon' ) {
 }
 
 
-const scoresData_posted = [
+const scoresData_posted_default = [
     // sample data for testing
     {
         "name": "Player 3",
         "score": 100,
-        "source": "Local",
+        "tags": "default",
         "difficulty": "Level 1",
         "date": "2020-01-01"
     },
     {
         "name": "Player 2",
         "score": 200,
-        "source": "Local",
+        "tags": "default",
         "difficulty": "Level 1",
         "date": "2020-01-01"
     },
     {
         "name": "Player 4",
         "score": 200,
-        "source": "Local",
+        "tags": "default",
         "difficulty": "Level 1",
         "date": "2020-01-01"
     },
     {
         "name": "Player 1",
         "score": 200,
-        "source": "Local",
+        "tags": "default",
         "difficulty": "Level 3",
         "date": "2020-01-01"
     },
     {
         "name": "Player 5",
         "score": 200,
-        "source": "Local",
+        "tags": "default",
         "difficulty": "Level 3",
         "date": "2020-01-01"
     },
     {
         "name": "Player 6",
         "score": 200,
-        "source": "Local",
+        "tags": "default",
         "difficulty": "Level 3",
         "date": "2020-01-01"
     },
     {
         "name": "Player 7",
         "score": 200,
-        "source": "Local",
+        "tags": "default",
         "difficulty": "Level 3",
         "date": "2020-01-01"
     },
     {
         "name": "Player 8",
         "score": 200,
-        "source": "Local",
+        "tags": "default",
         "difficulty": "Level 3",
         "date": "2020-01-01"
     },
     {
         "name": "Player 9",
         "score": 200,
-        "source": "Local",
+        "tags": "default",
         "difficulty": "Level 3",
         "date": "2020-01-01"
     }
@@ -115,4 +115,4 @@ const scoresData_local = [
     },
 ];
 
-export {scoresData_local, scoresData_posted};
+export {scoresData_local, scoresData_posted_default};

@@ -1,12 +1,12 @@
 import React,{ useState, useEffect } from "react";
-import { populateScoresData} from "../Constants/scoresData";
+import { populateScoresData, scoresData_posted_default} from "../Constants/scoresData";
 import { formatDate, secondsToHms } from "../GameBoard/functions";
 import { localScores } from "../Constants/defaults";
 
 const FillPosted = ({data}) => {
-    console.log('filling posted ---',data)
+    //console.log('filling posted ---',data)
     return (
-    <ul className="stats">
+    <ul className={`stats ${data.tags || ''}`}>
         <li>{data.name}</li>
         <li>{data.score}</li>
         <li>{data.difficulty}</li>
@@ -35,7 +35,7 @@ const Leaderboard = () => {
 
     const inLocalStorage = JSON.parse(localStorage.getItem('localStats_calc')) || localScores;
     const [scoresData_local, setLocalStats] = useState(inLocalStorage);
-    const [scoresData_posted, setPostedStats] = useState([]);
+    const [scoresData_posted, setPostedStats] = useState(scoresData_posted_default);
     
     //console.log('localStatsFromStorage ---',populateScoresData('local', 'jon'))
 
@@ -47,9 +47,9 @@ const Leaderboard = () => {
                 const localData = await populateScoresData('local', 'jon');
                 setLocalStats([localData]);
 
-                const postedData = await populateScoresData('posted');
+                const postedData = await populateScoresData('posted')
                 setPostedStats(postedData.top10Scores);
-                console.log('postedData ---',postedData)
+                //console.log('postedData ---',postedData)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
