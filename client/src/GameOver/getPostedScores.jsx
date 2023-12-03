@@ -1,19 +1,5 @@
 import { leaderScores } from "../Constants/defaults";
-
-// convert seconds to HH:MM:SS
-function secondsToHms(seconds) {
-    //const seconds = document.getElementById('timer').textContent
-    let hours = Math.floor(seconds / 3600)
-    let minutes = Math.floor(seconds % 3600 / 60)
-    let secondsScore = Math.floor(seconds % 3600 % 60)
-
-    return ( hours < 1 ? '' : (hours + ':')) + ( minutes < 1 ? '00' : (minutes)) + ':'+ secondsScore
-}
-
-function formatDate(date) {
-    const d = new Date(date);
-    return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
-}
+import { secondsToHms, formatDate } from "../GameBoard/functions";
 
 const updateLeaderBoard = (scores, leaderBoard) => {
     //leaderBoard.innerHTML = ''; // Clear the existing scores before appending new ones.

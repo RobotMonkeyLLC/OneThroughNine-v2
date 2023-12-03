@@ -28,5 +28,11 @@ const leaderScores = Array(10).fill().map(() => ({
         date: '--/--/----'
     }));
 
-export { defaults, leaderScores }
+const localScores = [{
+        best: '-----',
+        average: '-----',
+        daily: '--/--/----',
+        tags: 'default'
+}]
+export { defaults, leaderScores, localScores }
 export default getDefaults;

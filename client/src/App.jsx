@@ -3,6 +3,7 @@ import './App.css';
 import Overlay from './Overlay.jsx';
 import GameBoard from './GameBoard.jsx';
 import GameOver from './GameOver.jsx';
+import Footer from './Footer.jsx';
 
 function App() {
   const [seconds, setSeconds] = useState(0);
@@ -62,6 +63,7 @@ function App() {
         />
         
       <GameOver isSolved={isSolved} difficultySelected={difficultySelected}/>
+      <Footer />
     </div>
   );
 }

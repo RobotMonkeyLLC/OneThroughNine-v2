@@ -55,6 +55,8 @@ body {
   overflow-y: scroll;
   overscroll-behavior: none;
 }
+
+
 .overlay {
   position: absolute;
   top: 0;
@@ -67,6 +69,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 8vh;
 }
 
 
@@ -76,7 +79,6 @@ body {
   justify-content: space-evenly;
   align-items: center;
   font-size: x-large;
-  margin-block: 5vh;
 }
 
 .rules-container {
@@ -93,9 +95,6 @@ body {
   flex-direction: column;
   justify-content: space-around;
   font-size: large;
-  margin-block: 50px;
-  margin-inline: 10px;
-  gap: 10px;
 }
 
 .text-header {
@@ -293,6 +292,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-bottom: 40px;
 }
 
 .control {
@@ -325,7 +325,7 @@ button {
 .board-tile-container div:not(.default) {
   font-size: xx-large;
 }
-.default {
+.default , .default li {
   color: #ffffff85 !important;
   font-style: italic;
   font-size: medium
@@ -444,7 +444,7 @@ button {
 }
 
 #Local {
-  height: 15vh;
+  height: fit-content;
 }
 
 #Local > li {
@@ -480,6 +480,9 @@ button {
 
 #game-over {
   justify-content: space-around;
+  align-items: center;
+  gap: 0;
+
 }
 
 #game-over > h1 {
@@ -629,6 +632,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 11;
 }
 
 .footer-content {
@@ -636,12 +640,13 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 1em;
-  background-color: #f4f4f4;
+  background-color: #202020;
 }
 
 .company-logo {
   height: 40px;
   margin-left: 20px;
+  opacity: 0.5;
 }
 
 .footer-note {

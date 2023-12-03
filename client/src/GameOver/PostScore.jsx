@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 const timeToSeconds = (time) => {
     const timeArray = time.split(':').reverse()
-    console.log('timeArrya',timeArray)
+    //console.log('timeArray',timeArray)
     const seconds = parseInt(timeArray[0])
     const minutes = parseInt(timeArray[1])
     const hours = parseInt(timeArray[2] || 0)
-    console.log('tts returns',(hours * 3600) + (minutes * 60) + seconds)
+    //console.log('tts returns',(hours * 3600) + (minutes * 60) + seconds)
     return  (minutes * 60) + seconds
 }
 
@@ -26,6 +26,17 @@ export default function PostScore({difficultySelected}) {
         // Update the state and localStorage
         setLocalStats(updatedStats);
         localStorage.setItem('localStats', JSON.stringify(updatedStats));
+        // update localStats_calc
+        const localStats_calc = [{
+            best: Math.min(...updatedStats.map((stat) => stat.score)),
+            average: Math.round(updatedStats.reduce((acc, stat) => acc + stat.score, 0) / updatedStats.length),
+            daily: updatedStats.filter((stat) => 
+                (new Date(stat.date)).getDate() === new Date().getDate() &&
+                (new Date(stat.date)).getMonth() === new Date().getMonth() &&
+                (new Date(stat.date)).getFullYear() === new Date().getFullYear() ? stat.score : 0).reduce((acc, stat) => acc + stat.score, 0)
+        }]
+        console.log('localStats_calc',localStats_calc)
+        localStorage.setItem('localStats_calc', JSON.stringify(localStats_calc));
       };
 
     const handleSubmit = (event) => {
@@ -48,8 +59,7 @@ export default function PostScore({difficultySelected}) {
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-                const postScoreForm = document.getElementById('post-score-form')
-                window.location.reload()
+                //window.location.reload()
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -57,8 +67,8 @@ export default function PostScore({difficultySelected}) {
     }
     
     return (
-        <div id = "post-score" >
-            <form id="post-score-form" onSubmit={handleSubmit}>
+        <div id = "post-score" onSubmit={handleSubmit}>
+            <form id="post-score-form" >
                 <label htmlFor="name">Name:</label>
                 <input type="text" id="name" name="name" placeholder="Enter your name" required></input>
                 <button type="button" value='Cancel' onClick={() => window.location.reload()}>Cancel</button>

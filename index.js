@@ -155,6 +155,7 @@ app.get('/local_stats', async (req, res) => {
       req.session.best = scores[0].score;
       req.session.average = getAverage(scores);
       req.session.daily = isDaily(scores) == true? scores.sort(compare)[0].score : 'No score yet';
+      //req.session.top10Scores = await getTop10Scores()
       res.json({
         best: req.session.best,
         average: req.session.average,
@@ -167,11 +168,12 @@ app.get('/local_stats', async (req, res) => {
 
 async function getTop10Scores() {
   try {
-    const res = await client.query("SELECT player_name,score_time,score_date FROM scores ORDER BY score_time asc LIMIT 10;")
+    const res = await client.query("SELECT player_name,score_time,difficulty_id,score_date FROM scores ORDER BY score_time asc LIMIT 10;")
     //console.log('rows',res.rows);
     const scores = res.rows.map((row) => {
       return {name: row.player_name, 
               score: row.score_time,
+              difficulty: row.difficulty_id,
               date: row.score_date}
     })
     //console.log('Successfully retrieved scores', scores[0]);

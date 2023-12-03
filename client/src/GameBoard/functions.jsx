@@ -1,6 +1,21 @@
 import { defaults } from '../Constants/defaults'
 import { updateWin } from '../GameOver/endGame'
 
+// convert seconds to HH:MM:SS
+function secondsToHms(seconds) {
+    //const seconds = document.getElementById('timer').textContent
+    let hours = Math.floor(seconds / 3600)
+    let minutes = Math.floor(seconds % 3600 / 60)
+    let secondsScore = Math.floor(seconds % 3600 % 60)
+
+    return ( hours < 1 ? '' : (hours + ':')) + ( minutes < 1 ? '00' : (minutes)) + ':'+ (secondsScore < 10 ? '0' : '') + secondsScore
+}
+
+function formatDate(date) {
+    const d = new Date(date);
+    return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+}
+
 const isAllTilesUsed = (boardOperValue) => {
     const keyboard = document.querySelector('.keyboard-container')
     const goal = document.querySelector('.goal-container').textContent
@@ -263,4 +278,4 @@ function handleClick (buttonElement, isSolved, setIsSolved) {
     }
 }
 
-export { saveState, removeKey , undo, checkSolution, keyManager, operManager, showMessage}
+export { saveState, removeKey , undo, checkSolution, keyManager, operManager, showMessage, secondsToHms, formatDate}
