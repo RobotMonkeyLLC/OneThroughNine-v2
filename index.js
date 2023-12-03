@@ -34,7 +34,9 @@ connectToDatabase();
 
 async function getLocalScores(name) {
   try {
-    const res = await client.query("SELECT player_name,score_time,score_date FROM scores WHERE player_name = 'Player628' ORDER BY score_time asc LIMIT 5;")
+    const res = await client.query(`SELECT player_name,score_time,score_date 
+      FROM scores WHERE player_name = '${name}' 
+      ORDER BY score_time;`)
     //console.log('rows',res.rows);
     const scores = res.rows.map((row) => {
       return {name: row.player_name, 
