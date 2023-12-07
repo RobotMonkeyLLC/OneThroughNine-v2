@@ -50,7 +50,6 @@ html {
 
 body {
   margin: 0;
-  background-color: #5e5858;
   position: relative;
   overflow-y: scroll;
   overscroll-behavior: none;
@@ -63,13 +62,12 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.9);  /* This will make it slightly translucent */
+  background-color: rgb(255, 255, 255, 0.7);  /* This will make it slightly translucent */
   z-index: 10;  /* Ensure the overlay is above the game board */
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 8vh;
+  gap: 10vh;
 }
 
 
@@ -79,6 +77,9 @@ body {
   justify-content: space-evenly;
   align-items: center;
   font-size: x-large;
+  background-color: rgba(0, 131, 116);
+  width: 100%;
+  height: 13vh;
 }
 
 .rules-container {
@@ -89,7 +90,7 @@ body {
 .rules {
   padding-inline: 50px;
   padding-block: 10px;
-  background-color: #2e2e2e;
+  background-color: rgba(0, 131, 116);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -176,7 +177,7 @@ input[type=number] {
   max-width: 1200px;
   padding-inline: 20px;
   padding-block: 10px;
-  background-color: #2e2e2e;
+  background-color: rgba(0, 131, 116);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -212,15 +213,16 @@ input[type=number] {
 .difficulty-button {
   height: 80px;
   width: 100%;
-  background-color: #707070;
+  background-color: rgba(0, 146, 130);
 }
 
 .game-container {
   height: 100vh;
+  background-color: rgba(255,255,255);
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
+  gap: 10vh;
 }
 
 .title-container div{
@@ -229,6 +231,15 @@ input[type=number] {
   border-bottom: solid 1px #ffffff;
 }
 
+.game-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(0, 131, 116);
+  width: 100%;
+  gap: 20px;
+}
 .goal-container {
   width: 100px;
   height: 100px;
@@ -238,7 +249,7 @@ input[type=number] {
 
 .goal-container p {
   align-self: center;
-  background-color: #707070;
+  background-color: rgba(0, 146, 130);
   border-radius: 10px;
   padding: 30px;
   margin: 0;
@@ -258,7 +269,7 @@ input[type=number] {
   height: 58px;
   border-radius: 4px;
   border: none;
-  background-color: #2e2e2e;
+  background-color: rgba(0, 131, 116);
   margin: 4px;
 }
 .keyboard-container {
@@ -282,7 +293,7 @@ button {
   height: 68px;
   border-radius: 4px;
   border: none;
-  background-color: #2e2e2e;
+  background-color: rgba(0, 131, 116);
   margin: 4px; 
   font-size: x-large;
 }
@@ -304,7 +315,7 @@ button {
   height: 58px;
   border-radius: 4px;
   border: none;
-  background-color: #2e2e2e;
+  background-color: rgba(0, 131, 116);
   margin: 10px; 
 }
 .board-tile-container {
@@ -313,9 +324,9 @@ button {
 }
 
 .board-tile-container div {
-  border: 2px solid #2e2e2e;
+  border: 2px solid rgba(0, 131, 116);
   box-sizing: border-box;
-  color: #2e2e2e;
+  color: rgba(0, 131, 116);
   margin: 2px;
   text-align: center;
   padding-block: 50px;
@@ -338,7 +349,7 @@ button {
 
 .message-container p {
   width: 300px;
-  background-color: #2e2e2e;
+  background-color: rgba(0, 131, 116);
   border-radius: 10px;
   padding: 10px;
   margin: 0;
@@ -392,7 +403,7 @@ button {
   padding: 0%;
   padding-block: 1vh;
   padding-inline: 1vw;
-  background-color: #2e2e2e;
+  background-color: rgba(0, 131, 116);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -412,7 +423,7 @@ button {
   justify-content: space-between;
   padding-inline: 2vw;
   padding-block: 1vh;
-  background-color: #707070;
+  background-color: rgba(0, 146, 130);
   border-radius: 10px;
 }
 .stats-container ul > ul {
@@ -503,7 +514,7 @@ button {
 }   
 
 .game-over-stats-container {    
-  background-color: #707070;
+  background-color: rgba(0, 146, 130);
   border-radius: 10px;
   padding: 1%;
   display: flex;
@@ -533,7 +544,7 @@ button {
   height: 60vh;
   padding: 0%;
   margin: 0px;
-  background-color: #2e2e2e;
+  background-color: rgba(0, 131, 116);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -562,7 +573,7 @@ button {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: #707070;
+  background-color: rgba(0, 146, 130);
   border-radius: 10px;
   padding-inline: 50px;
   gap: 10px;
@@ -600,7 +611,7 @@ button {
 
 #username {
   border: none;
-  background-color: #2e2e2e;
+  background-color: rgba(0, 131, 116);
   margin: 4px; 
   padding-block: 10px;
   font-size: x-large;
@@ -640,7 +651,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 1em;
-  background-color: #202020;
+  background-color: rgba(0, 131, 116);
 }
 
 .company-logo {
@@ -651,5 +662,5 @@ footer {
 
 .footer-note {
   font-size: 12px;
-  color: #888;
+  color: #ffffff;
 }

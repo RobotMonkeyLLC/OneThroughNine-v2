@@ -18,13 +18,15 @@ function GameBoard ({ goal, tiles, gameStarted, isSolved, setIsSolved, handleGam
     //setTiles(getDifficulty(goal))
     return (
         <div id = "game-board" className="game-container">
-            
-            <div className="title-container">
-                <h1>OneThruNine</h1>
+            <div className='game-header'>
+                <div className="title-container">
+                    <h1>OneThruNine</h1>
+                </div>
+                <Goal goal={goal}/>
+                <Timer gameStarted={gameStarted}/>
             </div>
-            <Goal goal={goal}/>
-            <Timer gameStarted={gameStarted}/>
-            <Message />
+            
+            {/* <Message /> */}
             <Stack keys={gameStarted ? tiles : []} isSolved={isSolved} setIsSolved={setIsSolved}/>
             <BoardTile />
             <Operators isSolved={isSolved} setIsSolved={setIsSolved}/>

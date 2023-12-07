@@ -48,8 +48,9 @@ const Leaderboard = () => {
                 setLocalStats([localData]);
 
                 const postedData = await populateScoresData('posted')
-                setPostedStats(postedData.top10Scores);
-                //console.log('postedData ---',postedData)
+                
+                setPostedStats(postedData.top10Scores || postedData);
+                console.log('postedData ---',postedData)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
