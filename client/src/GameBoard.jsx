@@ -5,7 +5,7 @@ import {getDifficulty} from './GameBoard/getChoice.jsx';
 import Goal from './GameBoard/Goal.jsx';
 import Stack from './GameBoard/Stack.jsx';
 import BoardTile from './GameBoard/BoardTile.jsx';
-import Operators from './GameBoard/Operators.jsx';
+/* import Operators from './GameBoard/Operators.jsx'; */
 import Controls from './GameBoard/Controls.jsx';
 
 function GameBoard ({ goal, tiles, gameStarted, isSolved, setIsSolved, handleGameReStart }) {
@@ -28,8 +28,8 @@ function GameBoard ({ goal, tiles, gameStarted, isSolved, setIsSolved, handleGam
             
             {/* <Message /> */}
             <Stack keys={gameStarted ? tiles : []} isSolved={isSolved} setIsSolved={setIsSolved}/>
-            <BoardTile />
-            <Operators isSolved={isSolved} setIsSolved={setIsSolved}/>
+            <BoardTile  isSolved={isSolved} setIsSolved={setIsSolved}/>
+            {/* <Operators isSolved={isSolved} setIsSolved={setIsSolved}/> */}
             <Controls handleGameReStart={handleGameReStart}/>
         </div>
     )

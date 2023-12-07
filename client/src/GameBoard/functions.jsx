@@ -135,6 +135,8 @@ function operManager (buttonElement, isSolved,setIsSolved) {
         if (boardOper.classList.contains('default')) {
             boardOper.classList.remove('default')
         }
+        document.getElementsByClassName('operboard-container')[0].classList.remove('next-halo')
+        document.getElementById('int 2').classList.add('next-halo')
         boardOper.textContent = buttonElement.textContent
         checkSolution(isSolved, setIsSolved)
     }
@@ -191,13 +193,14 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
         return
     }   else if  (boardTiles.int1.classList.contains('default')) {
         saveState()
-        boardTiles.int1.classList.remove('default')
+        boardTiles.int1.classList.remove('default','next-halo')
         boardTiles.int1.textContent = buttonElement.textContent
+        document.getElementsByClassName('operboard-container')[0].classList.add('next-halo')
         console.log('in keyManager int 1 removing default', buttonElement, isSolved)
         removeKey(buttonElement, isSolved, setIsSolved)
     } else if (boardTiles.int2.classList.contains('default')) {
         saveState()
-        boardTiles.int2.classList.remove('default')
+        boardTiles.int2.classList.remove('default', 'next-halo')
         boardTiles.int2.textContent = buttonElement.textContent
         console.log('in keyManager int 2 removing default ', buttonElement, isSolved)
         removeKey(buttonElement, isSolved, setIsSolved)

@@ -260,10 +260,9 @@ input[type=number] {
   font-size: medium;
 }
 .operboard-container {
-  display: flex;
-  justify-content: center;
-
+  width: 300px;
 }
+
 .operboard-container button {
   width: 100px;
   height: 58px;
@@ -324,17 +323,24 @@ button {
 }
 
 .board-tile-container div {
-  border: 2px solid rgba(0, 131, 116);
-  box-sizing: border-box;
   color: rgba(0, 131, 116);
   margin: 2px;
-  text-align: center;
-  padding-block: 50px;
-  padding-inline: 40px;
-  
+  text-align: center;  
 }
 .board-tile-container div:not(.default) {
   font-size: xx-large;
+}
+
+.int {
+  border: 2px solid rgba(0, 131, 116);
+  background-color: rgba(0, 131, 116, 0.35);
+  box-sizing: border-box;
+  padding-block: 50px;
+  padding-inline: 40px;
+}
+.next-halo {
+  position: inherit;
+  border: 20px solid rgba(219, 216, 8, 0.7);
 }
 .default , .default li {
   color: #ffffff85 !important;
