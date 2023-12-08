@@ -16,9 +16,9 @@ const defaults = {
                 expert: 3000
         },
         board: {
-                int1: 'int 1',
-                int2: 'int 2',
-                oper: 'operator',
+                int1: ' ',
+                int2: ' ',
+                oper: ' ',
         }
 }
 

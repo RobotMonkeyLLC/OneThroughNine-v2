@@ -2,12 +2,9 @@ import { checkSolution, keyManager, saveState } from './functions.jsx'
 
 function handleTiles ( e,index, isSolved, setIsSolved ) {    
     console.log(e,'e in handleTiles')
-    const tile = e
-    if (tile.classList.contains('inactive')) {
-        return
-    }
+
     //console.log('in handleTiles', index, isSolved)
-    keyManager(tile, isSolved, setIsSolved)
+    keyManager(e, isSolved, setIsSolved)
     //saveState()
     //checkSolution(isSolved)
     //tile.classList.add('inactive')
