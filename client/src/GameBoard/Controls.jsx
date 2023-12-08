@@ -13,8 +13,8 @@ const Controls = ({ handleGameReStart }) => {
     return (
         <div className="controls-container">
             <button id="Return" className="control" onClick={() => window.location.reload()}>Return</button>
-            <button id="Restart" className="control" onClick={() => {handleRestart()}}>Restart</button>
             <button id="Undo" className="control" onClick={() => undo()}>Undo</button>
+            <button id="Restart" className="control" onClick={() => {handleRestart()}}>Restart</button>
         </div>
     )
     

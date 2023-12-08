@@ -26,7 +26,7 @@ function GameBoard ({ goal, tiles, gameStarted, isSolved, setIsSolved, handleGam
                 <Timer gameStarted={gameStarted}/>
             </div>
             
-            {/* <Message /> */}
+            <Message />
             <Stack keys={gameStarted ? tiles : []} isSolved={isSolved} setIsSolved={setIsSolved}/>
             <BoardTile  isSolved={isSolved} setIsSolved={setIsSolved}/>
             {/* <Operators isSolved={isSolved} setIsSolved={setIsSolved}/> */}
