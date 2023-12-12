@@ -142,7 +142,9 @@ function operManager (buttonElement, isSolved,setIsSolved) {
         }
         document.getElementById('operboard-shape').classList.remove('next-halo')
         document.getElementById('int 2').classList.add('next-halo')
+        
         boardOper.textContent = buttonElement.textContent
+        
         checkSolution(isSolved, setIsSolved)
     } else {
         showMessage('Select a number first.')
@@ -172,6 +174,7 @@ const saveState = () => {
         // Fill board with board values
         board.ids.push(x.id)
         board.values.push(x.textContent)
+        console.log("saving in board",x.textContent)
         board.classList.push(x.classList.value)
     })
     const currentState = {
@@ -199,22 +202,25 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
         int2:document.getElementById('int 2'),
         oper:document.getElementById('operboard-shape')
     }
-    checkSolution(isSolved, setIsSolved)
-    
+    checkSolution(isSolved, setIsSolved)    
     
     if (buttonElement.classList.contains('inactive')) {
         return
-    }   else if  (boardTiles.int1.classList.contains('default')) {
+    }   else if  (boardTiles.int1.classList.contains('next-halo')) {
         saveState()
-        boardTiles.int1.classList.remove('default','next-halo')
         boardTiles.int1.textContent = buttonElement.textContent
+        boardTiles.int1.classList.remove('default','next-halo')
+        
         document.getElementById('operboard-shape').classList.add('next-halo')
         console.log('in keyManager int 1 removing default', buttonElement, isSolved)
+        
         removeKey(buttonElement, isSolved, setIsSolved)
     } else if (boardTiles.int2.classList.contains('next-halo')) {
         saveState()
-        boardTiles.int2.classList.remove('default', 'next-halo')
         boardTiles.int2.textContent = buttonElement.textContent
+        
+        boardTiles.int2.classList.remove('default', 'next-halo')
+        //saveState()
         console.log('in keyManager int 2 removing default ', buttonElement, isSolved)
         removeKey(buttonElement, isSolved, setIsSolved)
     } else if (boardTiles.oper.classList.contains('next-halo')) {
@@ -227,7 +233,7 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
 const restoreBoardState = (tilesState, buttonElement, isSolved, setIsSolved) => {
     const keyboard = document.querySelector('.keyboard-container')
     const intDisplay = document.querySelectorAll('.int')
-    const boardDisplay = document.getElementById('operboard-shape').parentElement
+    const boardDisplay = document.getElementById('operboard-shape')
     // First, clear the current keyboard
     keyboard.innerHTML = '';
     //intDisplay.forEach(x => x.remove())
@@ -236,6 +242,7 @@ const restoreBoardState = (tilesState, buttonElement, isSolved, setIsSolved) => 
     const board = tilesState.board
     const oper = tilesState.oper
     
+    intDisplay.forEach((x) => x.classList.remove('next-halo', 'default'))
     tiles.keys.map((key, i) => {
         
         const buttonElement = document.createElement('button');
@@ -246,23 +253,17 @@ const restoreBoardState = (tilesState, buttonElement, isSolved, setIsSolved) => 
         keyboard.append(buttonElement);
     })
     board.values.map((values, ids) => {
-        console.log('testing key:',values, 'id:',ids, 'classList:', board.classList[ids])
-        intDisplay[ids].textContent = values
-        
-        /* const divElement = document.createElement('div');
-        divElement.textContent = values;
-        divElement.setAttribute('id', board.ids[ids]);
+        console.log('testing key:',values, 'id:',ids, 'classList:', board.classList[ids], intDisplay)
+        intDisplay[ids].textContent = values        
         board.classList[ids].split(' ').forEach(x => intDisplay[ids].classList.add(x))
-        ids === 0 ? boardDisplay.prepend(divElement) : boardDisplay.append(divElement) */
-        //values.split(' ').forEach(x => divElement.classList.add(x))
+        console.log('lastState board classlist: ',board.classList[ids], 'intDisplay classlist:', intDisplay[ids].classList.value)
+        //intDisplay[ids].classList.add('next-halo')
     })
-
-    
-    let isHalo = true
-    intDisplay.forEach(x => x.classList.contains('next-halo') ? isHalo = true : null)
-    if (isHalo) {
-        document.getElementById('operboard-shape').classList.remove('next-halo')
-    }
+    boardDisplay.childNodes.forEach(x => x.classList.remove('selected'))
+    boardDisplay.childNodes.forEach(x => x.textContent === oper ? x.classList.add('selected') : null)
+    document.getElementById('operator').textContent = oper
+    boardDisplay.classList.add('next-halo')
+    intDisplay.forEach((x) => x.classList.contains('next-halo') ? boardDisplay.classList.remove('next-halo') : null)
 }
 
 const undo = (buttonElement, isSolved, setIsSolved) => {   

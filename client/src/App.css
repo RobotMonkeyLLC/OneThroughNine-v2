@@ -284,16 +284,16 @@ input[type=number] {
   /* rotate: -45deg; */
 }
 .operator {
+  border: rgba(0, 131, 116) solid 1em;
   border-radius: 4px;
-  border: none;
   background-color: rgba(0, 131, 116);
   margin: 4px;
 }
 
 .operator p {
-  width: 10vh;
-  height: 10vh;
-  font-size: x-large;
+  width: 5vh;
+  height: 5vh;
+  font-size: 2em;
   color: #ffffff;
 }
 .selected {
