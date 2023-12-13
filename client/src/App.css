@@ -284,10 +284,11 @@ input[type=number] {
   /* rotate: -45deg; */
 }
 .operator {
-  border: rgba(0, 131, 116) solid 1em;
-  border-radius: 4px;
-  background-color: rgba(0, 131, 116);
-  margin: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10vh;
+  height: 10vh;
 }
 
 .operator p {
@@ -296,11 +297,12 @@ input[type=number] {
   font-size: 2em;
   color: #ffffff;
 }
-.selected {
+button.selected {
   background-color: rgba(255, 255, 255, 0.7);
+  border: rgba(0, 131, 116) solid 2px;
 }
 
-.selected p {
+button.selected p {
   color: rgb(0, 131, 116);
 }
 
@@ -353,7 +355,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  height: 30vh;
 }
 
 
@@ -365,8 +367,11 @@ button {
   border: 2px solid rgba(0, 131, 116);
   background-color: rgba(0, 131, 116, 0.35);
   box-sizing: border-box;
-  padding-block: 50px;
-  padding-inline: 40px;
+  height: 24vh;
+  width: 18vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .next-halo {
   position: inherit;

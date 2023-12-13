@@ -243,6 +243,8 @@ const restoreBoardState = (tilesState, buttonElement, isSolved, setIsSolved) => 
     const oper = tilesState.oper
     
     intDisplay.forEach((x) => x.classList.remove('next-halo', 'default'))
+    boardDisplay.childNodes.forEach(x => x.classList.remove('selected'))
+    
     tiles.keys.map((key, i) => {
         
         const buttonElement = document.createElement('button');
@@ -259,7 +261,7 @@ const restoreBoardState = (tilesState, buttonElement, isSolved, setIsSolved) => 
         console.log('lastState board classlist: ',board.classList[ids], 'intDisplay classlist:', intDisplay[ids].classList.value)
         //intDisplay[ids].classList.add('next-halo')
     })
-    boardDisplay.childNodes.forEach(x => x.classList.remove('selected'))
+    
     boardDisplay.childNodes.forEach(x => x.textContent === oper ? x.classList.add('selected') : null)
     document.getElementById('operator').textContent = oper
     boardDisplay.classList.add('next-halo')
