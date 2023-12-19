@@ -222,7 +222,7 @@ input[type=number] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10vh;
+  gap: 5vh;
 }
 
 .title-container div{
@@ -266,8 +266,8 @@ input[type=number] {
 }
 
 #operboard-shape {
-  width: 24vh;
-  height: 24vh;
+  width: 22vh;
+  height: 22vh;
   display: flex;
   flex-wrap: wrap;
   /* rotate: 45deg; */
@@ -307,10 +307,11 @@ button.selected p {
 }
 
 .keyboard-container {
-  width: 350px;
+  height: 17vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
 }
 
 
@@ -353,9 +354,10 @@ button {
 }
 .board-tile-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 30vh;
+  width: 65vh;
 }
 
 

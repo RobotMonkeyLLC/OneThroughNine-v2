@@ -1,6 +1,6 @@
 import { undo } from './functions.jsx'
 
-const Controls = ({ handleGameReStart }) => {
+const Controls = () => {
     const handleRestart = () => {
     //handleGameReStart()
         // ** This is a temporary fix to the restart issue. Update to track actual stack count**

@@ -72,9 +72,9 @@ const tiles = {
       /* easy: generateDailyTarget(4,200),
       advanced: generateDailyTarget(201,1000),
       expert: generateDailyTarget(1001,5000)}, */
-      lvl_1: generateDailyTarget(4,200),
-      lvl_2: generateDailyTarget(201,1000),
-      lvl_3: generateDailyTarget(1001,5000)},
+      lvl_1: generateDailyTarget(4,120),
+      lvl_2: generateDailyTarget(121,5040),
+      lvl_3: generateDailyTarget(5041,362880)},
     tiles:{
       /* easy: [1, 2, 3, 4, 5],
       advanced: [1, 2, 3, 4, 5, 6, 7],

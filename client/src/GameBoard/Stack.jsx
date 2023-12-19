@@ -27,7 +27,7 @@ function Stack ({keys, isSolved, setIsSolved}) {
         )
     })
     return(
-        <div className="keyboard-container">{stackTiles}</div>
+        <div className="keyboard-container" style={{width:`${keys.length*3+10}vh`}}>{stackTiles}</div>
     )
 }
 
