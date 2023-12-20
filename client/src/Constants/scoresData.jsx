@@ -41,77 +41,21 @@ export async function populateScoresData(domain, name = 'jon' ) {
 const scoresData_posted_default = [
     // sample data for testing
     {
-        "name": "Player 3",
-        "score": 100,
-        "tags": "default",
-        "difficulty": "Level 1",
-        "date": "2020-01-01"
-    },
-    {
-        "name": "Player 2",
-        "score": 200,
-        "tags": "default",
-        "difficulty": "Level 1",
-        "date": "2020-01-01"
-    },
-    {
-        "name": "Player 4",
-        "score": 200,
-        "tags": "default",
-        "difficulty": "Level 1",
-        "date": "2020-01-01"
-    },
-    {
-        "name": "Player 1",
-        "score": 200,
-        "tags": "default",
-        "difficulty": "Level 3",
-        "date": "2020-01-01"
-    },
-    {
-        "name": "Player 5",
-        "score": 200,
-        "tags": "default",
-        "difficulty": "Level 3",
-        "date": "2020-01-01"
-    },
-    {
-        "name": "Player 6",
-        "score": 200,
-        "tags": "default",
-        "difficulty": "Level 3",
-        "date": "2020-01-01"
-    },
-    {
-        "name": "Player 7",
-        "score": 200,
-        "tags": "default",
-        "difficulty": "Level 3",
-        "date": "2020-01-01"
-    },
-    {
-        "name": "Player 8",
-        "score": 200,
-        "tags": "default",
-        "difficulty": "Level 3",
-        "date": "2020-01-01"
-    },
-    {
-        "name": "Player 9",
-        "score": 200,
-        "tags": "default",
-        "difficulty": "Level 3",
-        "date": "2020-01-01"
+        "name": " ",
+        "score": 0,
+        "tags": " ",
+        "difficulty": " ",
+        "date": " "
     }
     
 ];
 const scoresData_local = [
     // sample data for testing
     {
-        best: 100,
-        average: 100,
-        daily: 100,
-        tags: "default"
+        best: 0,
+        average: 0,
+        daily: 0,
+        tags: " "
     },
 ];
 

@@ -97,12 +97,7 @@ function checkSolution (isSolved, setIsSolved) {
                                boardOperKey === 'x' ? parseInt(boardKeys.int1) * parseInt(boardKeys.int2) :
                                boardOperKey === '÷' ? parseInt(boardKeys.int1) / parseInt(boardKeys.int2) : 0
         console.log('boardOperkey:',boardOperKey,'boardOperValue:', boardOperValue, 'goal:', goal)
-        if (!Number.isInteger(boardOperValue)) {
-            showMessage("No Floats Allowed!")
-            JSON.parse(localStorage.getItem('undoStack')).pop()
-            //undo()
-            return
-        }
+        
         console.log('boardOperValue:', boardOperValue, 'goal:', goal, 'isSolved:', boardOperValue === goal)
         if (boardOperValue === goal) {
             if(isAllTilesUsed(boardOperValue)) {
@@ -116,6 +111,10 @@ function checkSolution (isSolved, setIsSolved) {
                 clearBoard()
                 addKey(boardOperValue,isSolved, setIsSolved)
             }
+        } else if (!Number.isInteger(boardOperValue)) {
+            showMessage("No Floats Allowed!")
+            JSON.parse(localStorage.getItem('undoStack')).pop()
+            //undo()
         } else {
             //setIsSolved(false)operboard-shape
             clearBoard()
@@ -194,19 +193,16 @@ const saveState = () => {
 
 function keyManager (buttonElement,isSolved, setIsSolved)  {
     
-    if (buttonElement.classList.contains('inactive')) {
-        return
-    }
     const boardTiles =  {
         int1:document.getElementById('int 1'),
         int2:document.getElementById('int 2'),
         oper:document.getElementById('operboard-shape')
     }
-    checkSolution(isSolved, setIsSolved)    
+    checkSolution(isSolved, setIsSolved) 
     
     if (buttonElement.classList.contains('inactive')) {
         return
-    }   else if  (boardTiles.int1.classList.contains('next-halo')) {
+    }   else if (boardTiles.int1.classList.contains('next-halo')) {
         saveState()
         boardTiles.int1.textContent = buttonElement.textContent
         boardTiles.int1.classList.remove('default','next-halo')
@@ -215,10 +211,9 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
         console.log('in keyManager int 1 removing default', buttonElement, isSolved)
         
         removeKey(buttonElement, isSolved, setIsSolved)
-    } else if (boardTiles.int2.classList.contains('next-halo')) {
+    } else if ((boardTiles.int2.classList.contains('next-halo'))) {
         saveState()
         boardTiles.int2.textContent = buttonElement.textContent
-        
         boardTiles.int2.classList.remove('default', 'next-halo')
         //saveState()
         console.log('in keyManager int 2 removing default ', buttonElement, isSolved)

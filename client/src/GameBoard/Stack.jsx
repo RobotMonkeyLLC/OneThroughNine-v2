@@ -14,7 +14,7 @@ function handleTiles ( e,index, isSolved, setIsSolved ) {
 function StackButton ({value, isSolved, setIsSolved}) {
     
     return (
-        <button id={`tile-${value}`} className="key" onClick={(e) => {handleTiles(e.target,value, isSolved,setIsSolved)}}>{value}</button>
+        <button id={`tile-${value}`} className="key" onClick={(e) => {keyManager(e.target,value, isSolved,setIsSolved)}}>{value}</button>
     )
 }
 
