@@ -87,6 +87,7 @@ function checkSolution (isSolved, setIsSolved) {
     const goal = parseInt(document.querySelector('.goal-container').textContent)
     //saveState()
     console.log('checking solution', isSolved)
+    console.log('setissolved ', setIsSolved)
     if (isBoardFilled()) {
         const boardTiles =  {int1:document.getElementById('int 1'),int2:document.getElementById('int 2')}
         const boardOper = document.getElementById('operator')
@@ -96,9 +97,9 @@ function checkSolution (isSolved, setIsSolved) {
                                boardOperKey === '-' ? parseInt(boardKeys.int1) - parseInt(boardKeys.int2) :
                                boardOperKey === 'x' ? parseInt(boardKeys.int1) * parseInt(boardKeys.int2) :
                                boardOperKey === '÷' ? parseInt(boardKeys.int1) / parseInt(boardKeys.int2) : 0
-        console.log('boardOperkey:',boardOperKey,'boardOperValue:', boardOperValue, 'goal:', goal)
+        //console.log('boardOperkey:',boardOperKey,'boardOperValue:', boardOperValue, 'goal:', goal)
         
-        console.log('boardOperValue:', boardOperValue, 'goal:', goal, 'isSolved:', boardOperValue === goal)
+        //console.log('boardOperValue:', boardOperValue, 'goal:', goal, 'isSolved:', boardOperValue === goal)
         if (boardOperValue === goal) {
             if(isAllTilesUsed(boardOperValue)) {
                 console.log('Solved!')
@@ -169,6 +170,7 @@ const saveState = () => {
         keys.keys.push(x.textContent)
         keys.ids.push(x.id)
     })
+    
     boardDisplay.forEach(x => {
         // Fill board with board values
         board.ids.push(x.id)
@@ -216,7 +218,7 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
         boardTiles.int2.textContent = buttonElement.textContent
         boardTiles.int2.classList.remove('default', 'next-halo')
         //saveState()
-        console.log('in keyManager int 2 removing default ', buttonElement, isSolved)
+        console.log('in keyManager int 2 removing default ', buttonElement, isSolved, setIsSolved)
         removeKey(buttonElement, isSolved, setIsSolved)
     } else if (boardTiles.oper.classList.contains('next-halo')) {
         showMessage('Select an operator first.')
@@ -225,7 +227,7 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
     }
 }
 
-const restoreBoardState = (tilesState, buttonElement, isSolved, setIsSolved) => {
+const restoreBoardState = (tilesState, isSolved, setIsSolved) => {
     const keyboard = document.querySelector('.keyboard-container')
     const intDisplay = document.querySelectorAll('.int')
     const boardDisplay = document.getElementById('operboard-shape')
@@ -263,7 +265,7 @@ const restoreBoardState = (tilesState, buttonElement, isSolved, setIsSolved) => 
     intDisplay.forEach((x) => x.classList.contains('next-halo') ? boardDisplay.classList.remove('next-halo') : null)
 }
 
-const undo = (buttonElement, isSolved, setIsSolved) => {   
+const undo = (isSolved, setIsSolved) => {   
     const undoStack = JSON.parse(localStorage.getItem('undoStack')) || []
     if (undoStack.length === 0) {
         showMessage('Nothing to undo')
@@ -271,7 +273,7 @@ const undo = (buttonElement, isSolved, setIsSolved) => {
         return null
     }
     const lastState = undoStack.pop().currentState
-    restoreBoardState(lastState,buttonElement, isSolved, setIsSolved)
+    restoreBoardState(lastState, isSolved, setIsSolved)
     localStorage.setItem('undoStack', JSON.stringify(undoStack))
     console.log('Undone to ',lastState) 
 }

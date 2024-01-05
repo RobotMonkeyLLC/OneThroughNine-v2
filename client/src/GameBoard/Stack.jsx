@@ -1,10 +1,10 @@
 import { checkSolution, keyManager, saveState } from './functions.jsx'
 
-function handleTiles ( e,index, isSolved, setIsSolved ) {    
+const keyHandler = ( e,index, isSolved, setIsSolved ) => {    
     console.log(e,'e in handleTiles')
-
+    e.preventDefault()
     //console.log('in handleTiles', index, isSolved)
-    keyManager(e, isSolved, setIsSolved)
+    keyManager(e.target, isSolved, setIsSolved)
     //saveState()
     //checkSolution(isSolved)
     //tile.classList.add('inactive')
@@ -14,7 +14,11 @@ function handleTiles ( e,index, isSolved, setIsSolved ) {
 function StackButton ({value, isSolved, setIsSolved}) {
     
     return (
-        <button id={`tile-${value}`} className="key" onClick={(e) => {keyManager(e.target,value, isSolved,setIsSolved)}}>{value}</button>
+        <button id={`tile-${value}`} 
+                className="key" 
+                onClick={(e) => {
+                    keyHandler(e ,value, isSolved,setIsSolved)
+                }}>{value}</button>
     )
 }
 
@@ -23,7 +27,10 @@ function Stack ({keys, isSolved, setIsSolved}) {
     const stackTiles = keys.map((key, index) => {
         //console.log(key, 'key in Stack', index, 'index in Stack')
         return (
-            <StackButton key={index} value={key} isSolved={isSolved} setIsSolved={setIsSolved}/>
+            <StackButton key={index} 
+                        value={key} 
+                        isSolved={isSolved} 
+                        setIsSolved={setIsSolved}/>
         )
     })
     return(

@@ -2,7 +2,7 @@ import { checkSolution, operManager, saveState } from "./functions"
 
 const operatorHandler = (e, isSolved, setIsSolved) => {
     e.preventDefault()
-    checkSolution(isSolved)
+    checkSolution(isSolved, setIsSolved)
     //saveState()
     operManager(e.target.parentElement, isSolved, setIsSolved)
 }

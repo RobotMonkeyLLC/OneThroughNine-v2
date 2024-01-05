@@ -30,7 +30,7 @@ function GameBoard ({ goal, tiles, gameStarted, isSolved, setIsSolved, handleGam
             <Stack keys={gameStarted ? tiles : []} isSolved={isSolved} setIsSolved={setIsSolved}/>
             <BoardTile  isSolved={isSolved} setIsSolved={setIsSolved}/>
             {/* <Operators isSolved={isSolved} setIsSolved={setIsSolved}/> */}
-            <Controls />
+            <Controls isSolved={isSolved} setIsSolved={setIsSolved}/>
         </div>
     )
     

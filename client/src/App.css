@@ -62,7 +62,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgb(255, 255, 255, 0.7);  /* This will make it slightly translucent */
+  background-color: rgb(255, 255, 255);  /* This will make it slightly translucent */
   z-index: 10;  /* Ensure the overlay is above the game board */
   display: flex;
   flex-direction: column;
