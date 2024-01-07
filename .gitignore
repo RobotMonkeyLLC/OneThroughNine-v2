@@ -2,3 +2,8 @@
 *.zip
 *.jpg
 _app.js
+
+# amplify
+node_modules
+.amplify
+amplifyconfiguration*
