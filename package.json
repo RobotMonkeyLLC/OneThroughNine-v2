@@ -8,7 +8,7 @@
     "frontend": "cd client && npm start",
     "api": "cd server && nodemon index.js",
     "start": "concurrently \"npm run api\" \"npm run frontend\"",
-    "heroku-postbuild": "cd client && npm install && npm run build --legacy-peer-deps"
+    "heroku-postbuild": "cd client && npm install  --legacy-peer-deps && npm run build"
   },
   "dependencies": {
     "cors": "^2.8.5",
