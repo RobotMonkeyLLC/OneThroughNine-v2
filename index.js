@@ -5,7 +5,7 @@ const client = new Client({
   user: process.env.PGUSER,
 })
 
-const PORT = 8000
+const PORT = process.env.PORT || 8000;
 const express = require('express')
 const session = require('express-session')
 const cors = require('cors')
@@ -32,7 +32,7 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-app.get("/*", function (req, res, next) {
+app.get("/*", function (req, res) {
   res.sendFile(
     path.join(__dirname, "client/build", "index.html"),
     function(err){
