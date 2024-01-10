@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 8000;
 const express = require('express')
 const session = require('express-session')
 const cors = require('cors')
+const path = require('path')
 const app = express()
  
 app.use(cors())
@@ -34,7 +35,7 @@ connectToDatabase();
 
 app.get("/*", function (req, res) {
   res.sendFile(
-    path.join(__dirname, "../client/build", "index.html"),
+    path.join("../client/build", "index.html"),
     function(err){
       res.status(500).send(err)
     }
