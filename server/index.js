@@ -35,7 +35,7 @@ connectToDatabase();
 
 app.get("/*", function (req, res) {
   res.sendFile(
-    path.join("../client/build", "index.html"),
+    path.join(__dirname,"../client/build", "index.html"),
     function(err){
       res.status(500).send(err)
     }
