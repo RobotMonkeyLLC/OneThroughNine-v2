@@ -5,7 +5,7 @@ import getDefaults from '../Constants/defaults.js';
 export async function getDifficulty(difficulty, setGoal, goal) {
     
     try {
-        const response = await fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
+        const response = await fetch(`http://107.23.235.204:8000/tiles?difficulty=${difficulty}`)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
