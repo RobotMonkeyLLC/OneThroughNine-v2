@@ -38,8 +38,6 @@
     ]
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^0.8.0",
-    "@aws-amplify/backend-cli": "^0.9.3",
     "typescript": "^5.3.3"
   }
 }
