@@ -2,7 +2,7 @@
   "name": "convolution_games",
   "version": "1.0.0",
   "description": "Version 1 of OneThuNine from Convolution Gaming",
-  "main": "src/app.js",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "start:backend": "nodemon index.js",
