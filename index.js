@@ -32,6 +32,15 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
+app.get("/*", function (req, res, next) {
+  res.sendFile(
+    path.join(__dirname, "client/build", "index.html"),
+    function(err){
+      res.status(500).send(err)
+    }
+  )
+})
+
 async function getLocalScores(name) {
   try {
     const res = await client.query(`SELECT player_name,score_time,score_date 
@@ -54,6 +63,7 @@ async function getLocalScores(name) {
 const crypto = require('crypto');
 const { get } = require('http');
 const { format } = require('path');
+const path = require('path');
 
 const generateDailyTarget = (min, max) => {
   if (min >= max) {
