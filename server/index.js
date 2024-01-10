@@ -64,7 +64,6 @@ async function getLocalScores(name) {
 const crypto = require('crypto');
 const { get } = require('http');
 const { format } = require('path');
-const path = require('path');
 
 const generateDailyTarget = (min, max) => {
   if (min >= max) {
