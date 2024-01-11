@@ -5,7 +5,7 @@ const client = new Client({
   user: process.env.PGUSER,
 })
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.APP_PORT || 8000;
 const express = require('express')
 const session = require('express-session')
 const cors = require('cors')
