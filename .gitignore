@@ -2,6 +2,7 @@
 *.zip
 *.jpg
 _app.js
+package-lock.json
 
 # amplify
 node_modules
