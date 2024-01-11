@@ -207,6 +207,15 @@ input[type=number] {
     justify-content: center;
     align-items: center;
   }
+  form.debug-box {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  form.debug-box input {
+    justify-content: center;
+    align-items: center;
+  }
   
 }
 

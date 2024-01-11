@@ -33,17 +33,6 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-const buildPath = path.join(__dirname, '..', 'client', 'build');
-app.use(express.static(buildPath));
-app.get("*", function (req, res) {
-  res.sendFile(
-    path.join(__dirname + "../client/build/index.html"),
-    function(err){
-      res.status(500).send(err)
-    }
-  )
-})
-
 async function getLocalScores(name) {
   try {
     const res = await client.query(`SELECT player_name,score_time,score_date 
@@ -207,6 +196,17 @@ app.get('/posted_stats', async (req, res) => {
 
 app.get('/api', (req, res) => {
     res.json({ message: 'Hello from server!' });
+})
+
+const buildPath = path.join(__dirname, '..', 'client', 'build');
+app.use(express.static(buildPath));
+app.get("/*", function (req, res) {
+  res.sendFile(
+    path.join(__dirname + "../client/build/index.html"),
+    function(err){
+      res.status(500).send(err)
+    }
+  )
 })
 
 app.listen(PORT, () => {console.log(`Server running on port ${PORT}`)})

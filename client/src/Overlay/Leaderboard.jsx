@@ -37,7 +37,7 @@ const Leaderboard = () => {
     const [scoresData_local, setLocalStats] = useState(inLocalStorage);
     const [scoresData_posted, setPostedStats] = useState(scoresData_posted_default);
     
-    //console.log('localStatsFromStorage ---',populateScoresData('local', 'jon'))
+    console.log('localStatsFromStorage ---',scoresData_posted)
 
     useEffect(() => {
         const fetchData = async () => {
