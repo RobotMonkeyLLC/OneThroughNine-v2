@@ -199,7 +199,7 @@ app.get('/api', (req, res) => {
 })
 
 const buildPath = path.join(__dirname, '../client/build');
-app.use(express.static(buildPath));
+app.use('/',express.static(buildPath));
 app.get("/*", function (req, res) {
   res.sendFile(
     path.join(__dirname + "../client/build/index.html"),
