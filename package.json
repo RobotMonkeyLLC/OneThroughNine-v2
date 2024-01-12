@@ -8,7 +8,7 @@
     "frontend": "cd server/client && npm run start-client",
     "api": "cd server && npm run start",
     "start": "npm run api",
-    "heroku-postbuild": "cd client && npm install --legacy-peer-deps --only=dev && npm run build"
+    "heroku-postbuild": "cd server/client && npm install --legacy-peer-deps --only=dev && npm run build"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
