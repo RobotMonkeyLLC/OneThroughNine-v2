@@ -3,7 +3,7 @@ export async function populateScoresData(domain, name = 'jon' ) {
         switch (domain) {
             case 'local':
                 try {
-                    const response = await fetch(`http://0.0.0.0:8000/${domain}_stats?name=${name}`
+                    const response = await fetch(`http://0.0.0.0/${domain}_stats?name=${name}`
                         ,{ method: 'GET' });
                     
                     const data = await response.json()
@@ -19,7 +19,7 @@ export async function populateScoresData(domain, name = 'jon' ) {
 
             case 'posted':
                 try {
-                    const response = await fetch(`http://0.0.0.0:8000/${domain}_stats`, { method: 'GET' });
+                    const response = await fetch(`http://0.0.0.0/${domain}_stats`, { method: 'GET' });
                     
                     const data = response.json()
                     console.log('fetching posted data:', data);
