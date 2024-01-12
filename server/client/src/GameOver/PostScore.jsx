@@ -44,6 +44,7 @@ export default function PostScore({difficultySelected}) {
         const name = document.getElementById('name').value
         const seconds = document.getElementById('final-score').textContent
         const score = timeToSeconds(seconds)
+        console.log('difficultySelected', difficultySelected)
         const difficulty = difficultySelected.split('_')[1]
         const date = new Date()
         const data = {name, score, difficulty, date}
@@ -59,7 +60,7 @@ export default function PostScore({difficultySelected}) {
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-                //window.location.reload()
+                window.location.reload()
             })
             .catch((error) => {
                 console.error('Error:', error);

@@ -1,4 +1,4 @@
-export async function populateScoresData(domain, name = 'jon' ) {
+export async function populateScoresData(domain, name) {
         console.log('populateScoresData ---',domain, name)
         switch (domain) {
             case 'local':

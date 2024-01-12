@@ -34,23 +34,28 @@ const FillLocal = ({data}) => {
 const Leaderboard = () => {
 
     const inLocalStorage = JSON.parse(localStorage.getItem('localStats_calc')) || localScores;
+    
+    // get username from local storage
+    const user =  JSON.parse(localStorage.getItem('username')) || null;
+
     const [scoresData_local, setLocalStats] = useState(inLocalStorage);
     const [scoresData_posted, setPostedStats] = useState(scoresData_posted_default);
     
-    console.log('localStatsFromStorage ---',scoresData_posted)
+
+    //console.log('localStatsFromStorage ---',scoresData_posted)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 // Fetch game data or perform initial setup
                 // Example: fetch('/api').then((res) => res.json()).then((data) => setData(data.message));
-                const localData = await populateScoresData('local', 'jon');
+                const localData = user != null ? await populateScoresData('local', user) : scoresData_local;
                 setLocalStats([localData]);
 
                 const postedData = await populateScoresData('posted')
                 
                 setPostedStats(postedData.top10Scores || postedData);
-                console.log('postedData ---',postedData)
+                //console.log('scoresData_posted ---',scoresData_posted)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

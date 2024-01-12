@@ -10,7 +10,7 @@ export async function getDifficulty(difficulty, setGoal, goal) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('fectched data:',data, 'at', difficulty);
+        console.log('fetched data:',data, 'at', difficulty);
         //setGoal(data)
         //console.log('goal set to:', goal)
         return data

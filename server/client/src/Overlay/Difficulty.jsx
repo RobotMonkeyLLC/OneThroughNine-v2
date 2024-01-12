@@ -54,10 +54,9 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
             {
                 difficulties.ids.map((difficulty, index) =>  (
                         <button className="difficulty-button" onClick={() => {
-                            
+                            setDifficultySelected(level[1])
                             if (isDebug) {
-                                setDifficultySelected(level[1])
-                                console.log(level[1], 'level[1] on submit')
+                                //setDifficultySelected(level[1])
                                 getDifficulty(difficulty).then(data => {
                                     setMin(data.target > 3 && data.target < 201 ? 4 :
                                             data.target > 200 && data.target < 1001 ? 201 :1001 )
