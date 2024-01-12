@@ -3,6 +3,9 @@ require('dotenv').config()
 //const pool = new Pool()
 const client = new Client({
   user: process.env.PGUSER,
+  ssl: {
+    rejectUnauthorized: false
+  }
 })
 
 const PORT = process.env.PORT || 8000;
