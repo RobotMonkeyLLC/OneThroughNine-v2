@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "frontend": "cd client && npm run start-client",
-    "api": "cd server && nodemon index.js",
+    "frontend": "cd server/client && npm run start-client",
+    "api": "cd server && npm run start",
     "start": "npm run api",
     "heroku-postbuild": "cd client && npm install --legacy-peer-deps --only=dev && npm run build"
   },

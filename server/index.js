@@ -198,11 +198,11 @@ app.get('/api', (req, res) => {
     res.json({ message: 'Hello from server!' });
 })
 
-const buildPath = path.join(__dirname, '../client/build');
+const buildPath = path.join(__dirname, 'client/build');
 app.use('/',express.static(buildPath));
 app.get("/*", function (req, res) {
   res.sendFile(
-    path.join(__dirname + "../client/build/index.html"),
+    path.join(__dirname + "client/build/index.html"),
     function(err){
       res.status(500).send(err)
     }
