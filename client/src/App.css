@@ -40,7 +40,7 @@
 html {
   height: 100%;
   overflow: hidden;
-  font-size: 62.5%;    
+  font-size: 62.5%;
 }
 * {
   margin: 0;
@@ -52,6 +52,7 @@ body {
   margin: 0;
   position: relative;
   overflow-y: scroll;
+  overflow-x: hidden;
   overscroll-behavior: none;
 }
 
