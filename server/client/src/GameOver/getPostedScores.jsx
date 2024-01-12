@@ -27,7 +27,7 @@ const updateLeaderBoard = (scores, leaderBoard) => {
 }
 
 export const getPostedScores = (leaderBoard) => {
-    fetch('http://localhost:8000/posted_stats')
+    fetch('https://one-through-nine-v3-028369100f4b.herokuapp.com/posted_stats')
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');

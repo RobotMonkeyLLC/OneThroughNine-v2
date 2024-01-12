@@ -49,7 +49,7 @@ export default function PostScore({difficultySelected}) {
         const data = {name, score, difficulty, date}
         console.log('data', data)
         updateLocalStats(data)
-        fetch('http://localhost:8000/post_score', {
+        fetch('https://one-through-nine-v3-028369100f4b.herokuapp.com/post_score', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
