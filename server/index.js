@@ -147,9 +147,12 @@ const compare = (a, b) => {
 app.get('/local_stats', async (req, res) => {
   try {
       const scores = await getLocalScores(req.query.name);
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const d = new Date().toLocaleString('en-US', { timeZone: tz });
+      console.log('scores', scores);
       req.session.best = scores.sort(compare)[0].score;
       req.session.average = getAverage(scores);
-      req.session.daily =  scores[0].date == (new Date()).toDateString ? scores[0].score: 0;
+      req.session.daily =  scores[0].date == d ? scores[0].score: 0;
       
       //req.session.top10Scores = await getTop10Scores()
       res.json({
