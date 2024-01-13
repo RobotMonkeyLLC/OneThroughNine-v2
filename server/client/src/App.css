@@ -640,7 +640,7 @@ button {
 
 footer {
   bottom: 0;
-  position: relative;
+  position: fixed;
   width: 100%;
   z-index: 11;
   height: 58px;
@@ -706,7 +706,7 @@ form.debug-box input {
   border-radius: 10px;
   display: flex;
   gap: 10px;
-  margin-bottom: 58px;
+  margin-bottom: 70px;
 }
 
 #Local > ul {
