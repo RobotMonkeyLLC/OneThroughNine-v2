@@ -40,7 +40,7 @@ async function getLocalScores(name) {
   try {
     const res = await client.query(`SELECT player_name,score_time,score_date 
       FROM scores WHERE player_name = '${name}' 
-      ORDER BY score_time;`)
+      ORDER BY score_date DESC;`)
     //console.log('rows',res.rows);
     const scores = res.rows.map((row) => {
       return {name: row.player_name, 
@@ -147,20 +147,24 @@ const compare = (a, b) => {
 const isDaily = (scores) => {
   const today = new Date();
   const todayString = today.toDateString();
-  if (scores[0].date === todayString) {
+
+
+
+/*   if (scores[0].date === todayString) {
     return true;
   } else {
     return false;
-  }
+  } */
 }
 
 
 app.get('/local_stats', async (req, res) => {
   try {
       const scores = await getLocalScores(req.query.name);
-      req.session.best = scores[0].score;
+      req.session.best = scores.slice(-1)[0].score;
       req.session.average = getAverage(scores);
-      req.session.daily = isDaily(scores) == true? scores.sort(compare)[0].score : 'No score yet';
+      req.session.daily = scores[0].score;
+      console.log('daily',scores);
       //req.session.top10Scores = await getTop10Scores()
       res.json({
         best: req.session.best,
