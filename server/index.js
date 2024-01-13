@@ -161,10 +161,10 @@ const isDaily = (scores) => {
 app.get('/local_stats', async (req, res) => {
   try {
       const scores = await getLocalScores(req.query.name);
-      req.session.best = scores.slice(-1)[0].score;
+      req.session.best = max(scores, x => x.score);
       req.session.average = getAverage(scores);
-      req.session.daily = scores[0].score;
-      console.log('daily',scores);
+      req.session.daily =  scores[0].date == (new Date()).toDateString ? scores[0].score: 0;
+      
       //req.session.top10Scores = await getTop10Scores()
       res.json({
         best: req.session.best,
