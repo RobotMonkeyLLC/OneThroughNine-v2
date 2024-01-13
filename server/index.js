@@ -132,18 +132,6 @@ const getAverage = (scores) => {
   return sum / scores.length;
 }
 
-// compare function for sorting scores by date
-const compare = (a, b) => {
-  if (a.date < b.date) {
-    return -1;
-  } else if (a.date > b.date) {
-    return 1;
-  } else {
-    return 0;
-  }
-}
-
-
 app.get('/local_stats', async (req, res) => {
   try {
       const scores = await getLocalScores(req.query.name);
