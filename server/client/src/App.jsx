@@ -44,7 +44,7 @@ function App() {
   //console.log('loading app')
   return (
     <div className="App">
-      <div id="overlay" className="overlay">
+      
         <Overlay 
           onGameStart={handleGameStart}
           setDifficultySelected={setDifficultySelected}
@@ -52,7 +52,7 @@ function App() {
           setGoal={setGoal}
           setTiles={setTiles}
         />
-      </div>
+      
       <GameBoard 
         goal={goal}
         tiles={tiles}
