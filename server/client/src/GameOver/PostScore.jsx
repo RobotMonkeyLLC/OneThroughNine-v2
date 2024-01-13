@@ -60,6 +60,7 @@ export default function PostScore({difficultySelected}) {
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
+                localStorage.setItem('username', JSON.stringify(name));
                 window.location.reload()
             })
             .catch((error) => {
