@@ -12,36 +12,40 @@ const timeToSeconds = (time) => {
 
 export default function PostScore({difficultySelected}) {
     const [localStats, setLocalStats] = useState([]);
+    const [localName, setLocalName] = useState(null);
     
     useEffect(() => {
         // Fetch local stats from localStorage on component mount
         const localStatsFromStorage = JSON.parse(localStorage.getItem('localStats')) || [];
+        const username = JSON.parse(localStorage.getItem('username')) || null;
+        setLocalName(username);
         setLocalStats(localStatsFromStorage);
-      }, []);
+    }, []);
     
-      // Function to update local leaderboard stats
-      const updateLocalStats = (newStat) => {
-        // Add the new stat to the localStats array
-        const updatedStats = [...localStats, newStat];
-        // Update the state and localStorage
-        setLocalStats(updatedStats);
-        localStorage.setItem('localStats', JSON.stringify(updatedStats));
-        // update localStats_calc
-        const localStats_calc = [{
-            best: Math.min(...updatedStats.map((stat) => stat.score)),
-            average: Math.round(updatedStats.reduce((acc, stat) => acc + stat.score, 0) / updatedStats.length),
-            daily: updatedStats.filter((stat) => 
-                (new Date(stat.date)).getDate() === new Date().getDate() &&
-                (new Date(stat.date)).getMonth() === new Date().getMonth() &&
-                (new Date(stat.date)).getFullYear() === new Date().getFullYear() ? stat.score : 0).reduce((acc, stat) => acc + stat.score, 0)
-        }]
-        console.log('localStats_calc',localStats_calc)
-        localStorage.setItem('localStats_calc', JSON.stringify(localStats_calc));
-      };
+    // Function to update local leaderboard stats
+    const updateLocalStats = (newStat) => {
+    // Add the new stat to the localStats array
+    const updatedStats = [...localStats, newStat];
+    // Update the state and localStorage
+    setLocalStats(updatedStats);
+    localStorage.setItem('localStats', JSON.stringify(updatedStats));
+    // update localStats_calc
+    const localStats_calc = [{
+        best: Math.min(...updatedStats.map((stat) => stat.score)),
+        average: Math.round(updatedStats.reduce((acc, stat) => acc + stat.score, 0) / updatedStats.length),
+        daily: updatedStats.filter((stat) => 
+            (new Date(stat.date)).getDate() === new Date().getDate() &&
+            (new Date(stat.date)).getMonth() === new Date().getMonth() &&
+            (new Date(stat.date)).getFullYear() === new Date().getFullYear() ? stat.score : 0).reduce((acc, stat) => acc + stat.score, 0)
+    }]
+    console.log('localStats_calc',localStats_calc)
+    localStorage.setItem('localStats_calc', JSON.stringify(localStats_calc));
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        const name = document.getElementById('name').value
+        //const name = document.getElementById('name').value
+        const name = localName || document.getElementById('name').value
         const seconds = document.getElementById('final-score').textContent
         const score = timeToSeconds(seconds)
         console.log('difficultySelected', difficultySelected)
@@ -71,8 +75,8 @@ export default function PostScore({difficultySelected}) {
     return (
         <div id = "post-score" onSubmit={handleSubmit}>
             <form id="post-score-form" >
-                <label htmlFor="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" required></input>
+                <label htmlFor="name">Name:{localName || ''}</label>
+                {localName == null && <input type="text" id="name" name="name" placeholder="Enter your name" required></input>}
                 <button type="button" value='Cancel' onClick={() => window.location.reload()}>Cancel</button>
                 <button type="submit">Submit</button>
             </form>
