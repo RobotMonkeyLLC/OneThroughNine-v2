@@ -227,8 +227,8 @@ input[type=number] {
 }
 
 #operboard-shape {
-  width: 22vh;
-  height: 22vh;
+  width: 17vh;
+  height: 17vh;
   display: flex;
   flex-wrap: wrap;
   /* rotate: 45deg; */
@@ -248,8 +248,8 @@ input[type=number] {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 10vh;
-  height: 10vh;
+  width: 7vh;
+  height: 7vh;
 }
 
 .operator p {
@@ -317,21 +317,17 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 30vh;
-  width: 65vh;
-}
-
-
-.board-tile-container div:not(.default) {
-  font-size: xx-large;
+  height: 280px;
+  gap: 10px;
 }
 
 .int {
   border: 2px solid rgba(0, 131, 116);
   background-color: rgba(0, 131, 116, 0.35);
   box-sizing: border-box;
-  height: 24vh;
-  width: 18vh;
+  height: 150px;
+  width: 100px;
+  font-size: 60pt;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -489,6 +485,7 @@ button {
 
 
 #game-over {
+  height: auto;
   justify-content: space-around;
   align-items: center;
   gap: 0;
@@ -496,7 +493,8 @@ button {
 }
 
 #game-over > h1 {
-  font-size: x-large;
+  font-size: 40pt;
+  color: #008374;
 }
 
 .game-over-message-container {
@@ -505,6 +503,10 @@ button {
   justify-content: space-around;
   align-items: center;
   font-size: xx-large;
+  
+}
+.game-over-message-container > p {
+  color: #008374;
 }
 
 .leaderboard-container {
@@ -744,5 +746,19 @@ form.debug-box input {
   }
   #Local {
     flex-direction: column;
+  }
+
+  .operator {
+    width: 10vh;
+    height: 10vh;
+  }
+  #operboard-shape {
+    width: 22vh;
+    height: 22vh;
+  }
+  .int {
+    font-size: 80pt;
+    height: 200px;
+    width: 150px;
   }
 }
