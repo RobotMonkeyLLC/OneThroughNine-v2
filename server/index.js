@@ -147,7 +147,7 @@ const compare = (a, b) => {
 app.get('/local_stats', async (req, res) => {
   try {
       const scores = await getLocalScores(req.query.name);
-      req.session.best = max(scores, x => x.score);
+      req.session.best = scores.sort(compare)[0].score;
       req.session.average = getAverage(scores);
       req.session.daily =  scores[0].date == (new Date()).toDateString ? scores[0].score: 0;
       
