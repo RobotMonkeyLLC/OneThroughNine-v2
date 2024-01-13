@@ -67,9 +67,43 @@ const Leaderboard = () => {
         <div className="stats-container">
             <div className="text-header">
                 <p>Local Stats</p>
-                <p>Posted Stats</p>
+                <div className="stats-board">
+                <ul id="Local" className="stat">
+                    <ul>
+                        <li>Best</li>
+                        <li>Average</li>
+                        <li>Daily</li>
+                    </ul>
+                    {scoresData_local.map((score, index) => (
+                        <FillLocal
+                            key={index}
+                            data={score}
+                        />
+                    ))}
+                </ul>
             </div>
-            <div className="stats-board">
+            </div>
+            <div className="text-header">
+                
+                <p>Posted Stats</p>
+                <div className="stats-board">
+                <ul id="Posted" className="stat">
+                    <ul>
+                        <li>Name</li>
+                        <li>Score</li>
+                        <li>Difficulty</li>
+                        <li>Date</li>
+                    </ul>
+                    {scoresData_posted.map((score, index) => (
+                        <FillPosted
+                            key={index}
+                            data={score}
+                        />
+                    ))}
+                </ul>
+            </div>
+            </div>
+            {/* <div className="stats-board">
                 <ul id="Local" className="stat">
                     <ul>
                         <li>Best</li>
@@ -97,7 +131,7 @@ const Leaderboard = () => {
                         />
                     ))}
                 </ul>
-            </div>        
+            </div> */}        
         </div>
     )
 }
