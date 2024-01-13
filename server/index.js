@@ -143,20 +143,6 @@ const compare = (a, b) => {
   }
 }
 
-// check if daily
-const isDaily = (scores) => {
-  const today = new Date();
-  const todayString = today.toDateString();
-
-
-
-/*   if (scores[0].date === todayString) {
-    return true;
-  } else {
-    return false;
-  } */
-}
-
 
 app.get('/local_stats', async (req, res) => {
   try {
