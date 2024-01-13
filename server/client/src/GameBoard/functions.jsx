@@ -12,8 +12,10 @@ function secondsToHms(seconds) {
 }
 
 function formatDate(date) {
-    const d = new Date(date);
-    return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+    const d = new Date().toLocaleDateString('en-US', {timeZone: tz});
+    //console.log('formatting date', date, ' -- ',d)
+    return d//`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
 }
 
 const isAllTilesUsed = (boardOperValue) => {
