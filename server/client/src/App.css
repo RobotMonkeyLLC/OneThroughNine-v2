@@ -101,10 +101,11 @@ body {
 
 .text-header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   font-size: medium;
-  text-align: start;
-  justify-content: space-between;
+  text-align: center;
+  justify-content: start;
+  width: 100%;
 }
 
 .text-header p {
@@ -122,14 +123,7 @@ body {
   font-weight: bolder;
   background-color: #ffc965;
   text-decoration: none;
-}
-
-form.debug-box {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  align-self: end;
 }
 
 .debug-box {
@@ -173,52 +167,10 @@ input[type=number] {
 }
 
 
-.difficulty-container {
-  width: 80%;
-  max-width: 1200px;
-  padding-inline: 20px;
-  padding-block: 10px;
-  background-color: rgba(0, 131, 116);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  gap: 10px;
 
-}
 
-.difficulty-buttons {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  gap: 20px;
-}
 
-@media screen and (max-width: 900px) {
-  .difficulty-container {
-    width: 60%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .difficulty-buttons {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  form.debug-box {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  form.debug-box input {
-    justify-content: center;
-    align-items: center;
-  }
-  
-}
+
 
 .difficulty-button {
   height: 80px;
@@ -457,18 +409,7 @@ button {
   height: 30vh;
   margin-top: 2vh;
 }
-.stats-container {
-  width: 950px;
-  padding: 0%;
-  padding-block: 1vh;
-  padding-inline: 1vw;
-  background-color: rgba(0, 131, 116);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  gap: 10px;
-}
+
 
 .stats-board {
   display: flex;
@@ -722,4 +663,84 @@ footer {
 .footer-note {
   font-size: 12px;
   color: #ffffff;
+}
+.difficulty-container {
+  width: 60%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-block: 10px;
+  padding-inline: 20px;  
+  background-color: rgba(0, 131, 116);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.difficulty-buttons {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+form.debug-box {
+  height: fit-content;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+form.debug-box input {
+  justify-content: center;
+  align-items: center;
+}
+.stats-container {
+  flex-direction: column;
+  padding: 0%;
+  padding-block: 1vh;
+  padding-inline: 1vw;
+  background-color: rgba(0, 131, 116);
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+#Local > ul {
+  flex-direction: column;
+}
+#Local {
+  flex-direction: row;
+}
+@media screen and (min-width: 900px) {
+  .difficulty-container {
+    width: 80%;
+    max-width: 1200px;
+    flex-direction: column;
+  }
+  .difficulty-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  form.debug-box {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .stats-container {
+    width: 100%;
+    max-width: 900px;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  #Local > ul {
+    flex-direction: row;
+  }
+  #Local {
+    flex-direction: column;
+  }
 }
