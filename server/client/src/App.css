@@ -763,4 +763,7 @@ form.debug-box input {
     align-items: center;
     gap: 20px;
   }
+  .keyboard-container {
+    width: 100%; 
+  }
 }
