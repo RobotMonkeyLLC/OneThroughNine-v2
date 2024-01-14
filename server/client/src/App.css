@@ -638,15 +638,14 @@ footer {
   position: fixed;
   width: 100%;
   z-index: 11;
-  height: 58px;
+  height: 5em;
 }
 
 .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: fit-content;
-  padding-block: 1vh;
+  height: 100%;
   background-color: rgba(0, 131, 116);
 }
 
