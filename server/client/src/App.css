@@ -718,6 +718,9 @@ form.debug-box input {
   flex-direction: row;
 }
 @media screen and (min-width: 900px) {
+  .overlay {
+    gap: 10vh;
+  }
   .difficulty-container {
     width: 80%;
     max-width: 1200px;
