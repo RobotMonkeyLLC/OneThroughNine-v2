@@ -277,6 +277,7 @@ button.selected p {
 .keyboard-container {
   display: flex;
   flex-wrap: wrap;
+  
   justify-content: center;
   align-items: flex-start;
 }
@@ -307,7 +308,7 @@ button {
 }
 
 .control {
-  font-size: large;
+  font-size: medium;
   height: 5vh;
 }
 /* .controls-container .oper {
@@ -333,7 +334,7 @@ button {
   box-sizing: border-box;
   height: 150px;
   width: 100px;
-  font-size: 50pt;
+  font-size: 40pt;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -782,6 +783,9 @@ form.debug-box > button, label {
     font-size: 80pt;
     height: 200px;
     width: 150px;
+  }
+  .control {
+    font-size: x-large;
   }
 }
 @media (orientation: landscape) {
