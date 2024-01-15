@@ -69,7 +69,7 @@ const Leaderboard = () => {
                 <p>Local Stats</p>
                 <div className="stats-board">
                 <ul id="Local" className="stat">
-                    <ul>
+                    <ul className="stats-board-header">
                         <li>Best</li>
                         <li>Average</li>
                         <li>Daily</li>
@@ -88,7 +88,7 @@ const Leaderboard = () => {
                 <p>Posted Stats</p>
                 <div className="stats-board">
                 <ul id="Posted" className="stat">
-                    <ul>
+                    <ul className="stats-board-header">
                         <li>Name</li>
                         <li>Score</li>
                         <li>Difficulty</li>

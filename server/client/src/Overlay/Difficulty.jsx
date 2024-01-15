@@ -12,7 +12,7 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
     const handleSubmit = (e) => {
         e.preventDefault()
         setDifficultySelected(level[1])
-        console.log(level[1], 'level[1] on submit')
+        
         document.querySelector('.overlay').style.display = 'none'
         onStartGame(true)
         //const formData = new FormData(form)  

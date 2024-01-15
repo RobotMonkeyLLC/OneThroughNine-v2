@@ -419,7 +419,6 @@ button {
 }
 
 .stats-container ul  {
-  width: 345px;
   display: flex;
   justify-content: space-between;
   padding-inline: 2vw;
@@ -427,17 +426,18 @@ button {
   background-color: rgba(0, 146, 130);
   border-radius: 10px;
 }
-.stats-container ul > ul {
-  padding-block: 0vh;
-  padding-inline: 0vw;
-}
-
 .stats-container li {
   list-style-type: none;
-  padding-block: 0.5vh;
+  padding-block: 3px;
+  padding-inline: 5px;
   margin: 0%;
   display: flex;
   flex-direction: row;
+}
+.stats-board-header {
+  font-size: x-large;
+  font-weight: bold;
+  text-decoration-color: #282c34;
 }
 .stats-container li:not(.default) {
   font-size: large;
@@ -466,6 +466,7 @@ button {
 
 #Posted {
   height: 15vh;
+  width: 100%;
   overflow-y: auto;
   transition: height 0.3s ease;
 }
@@ -716,8 +717,8 @@ form.debug-box > button, label {
 .stats-container {
   flex-direction: column;
   padding: 0%;
-  padding-block: 1vh;
-  padding-inline: 1vw;
+  padding-block: 5px;
+  padding-inline: 10px;
   background-color: rgba(0, 131, 116);
   border-radius: 10px;
   display: flex;
