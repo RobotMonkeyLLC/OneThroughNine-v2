@@ -44,6 +44,34 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
         })
     }
 
+    const handleClick = (e, difficulty, index) => {
+        setDifficultySelected(difficulty)
+        console.log('difficulty selected', difficulty, 'in Difficulty')
+        if (isDebug) {
+            //setDifficultySelected(level[1])
+            getDifficulty(difficulty).then(data => {
+                setMin(data.target > 3 && data.target < 201 ? 4 :
+                        data.target > 200 && data.target < 1001 ? 201 :1001 )
+                setMax(data.target > 3 && data.target < 201 ? 200 :
+                        data.target > 200 && data.target < 1001 ? 1000 :5000 )
+                setTarget(data.target)
+                //console.log(target, 'set target')
+                setGoal(data.target)
+                setTiles(data.tiles)
+                console.log(difficulty, 'in Difficulty')
+                const buttons = document.querySelectorAll('.difficulty-button')
+                buttons.forEach(button => button.classList.remove('selected'))
+                const buttonSelected = document.getElementById(difficulty)
+                buttonSelected.classList.toggle('selected')
+                setLevel([difficulties.display[index], difficulty])
+            }                                
+        )} else {
+        // matches api difficulty ids to difficulty names
+            startGame({index})
+            console.log(difficulty, 'in Difficulty - ', index)
+        }
+    }
+
     return (
     <div className="difficulty-container">
         <div className='text-header'>
@@ -53,30 +81,11 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
         <div className="difficulty-buttons">
             {
                 difficulties.ids.map((difficulty, index) =>  (
-                        <button className="difficulty-button" onClick={() => {
-                            setDifficultySelected(level[1])
-                            if (isDebug) {
-                                //setDifficultySelected(level[1])
-                                getDifficulty(difficulty).then(data => {
-                                    setMin(data.target > 3 && data.target < 201 ? 4 :
-                                            data.target > 200 && data.target < 1001 ? 201 :1001 )
-                                    setMax(data.target > 3 && data.target < 201 ? 200 :
-                                            data.target > 200 && data.target < 1001 ? 1000 :5000 )
-                                    setTarget(data.target)
-                                    //console.log(target, 'set target')
-                                    setGoal(data.target)
-                                    setTiles(data.tiles)
-                                    console.log(difficulty, 'in Difficulty')
-                                    const buttons = document.querySelectorAll('.difficulty-button')
-                                    buttons.forEach(button => button.classList.remove('selected'))
-                                    const buttonSelected = document.getElementById(difficulty)
-                                    buttonSelected.classList.toggle('selected')
-                                    setLevel([difficulties.display[index], difficulty])
-                                }                                
-                            )} else {
-                            // matches api difficulty ids to difficulty names
-                                startGame({index})
-                            }
+                        <button className="difficulty-button" onClick={(event) => {
+                            setTimeout(() => {
+                                handleClick(event, difficulty, index)
+                            }, 100)
+                            
                             }
                         } id={difficulty} key={index}>{difficulties.display[index]}</button>
                     )
