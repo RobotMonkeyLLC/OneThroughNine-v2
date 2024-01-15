@@ -310,6 +310,7 @@ button {
 .control {
   font-size: medium;
   height: 5vh;
+  padding: 0;
 }
 /* .controls-container .oper {
   width: 60px;
