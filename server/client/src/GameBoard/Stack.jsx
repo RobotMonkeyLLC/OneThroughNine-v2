@@ -1,6 +1,6 @@
 import { checkSolution, keyManager, saveState } from './functions.jsx'
 
-const keyHandler = ( e,index, isSolved, setIsSolved ) => {    
+export const keyHandler = ( e, isSolved, setIsSolved ) => {    
     console.log(e,'e in handleTiles')
     e.preventDefault()
     //console.log('in handleTiles', index, isSolved)

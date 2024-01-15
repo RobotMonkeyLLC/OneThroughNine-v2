@@ -1,5 +1,6 @@
 import { defaults } from '../Constants/defaults'
 import { updateWin } from '../GameOver/endGame'
+import { keyHandler } from './Stack'
 
 // convert seconds to HH:MM:SS
 function secondsToHms(seconds) {
@@ -250,7 +251,7 @@ const restoreBoardState = (tilesState, isSolved, setIsSolved) => {
         buttonElement.textContent = key;
         buttonElement.setAttribute('id', tiles.ids[i]);
         buttonElement.classList.add('key');
-        buttonElement.addEventListener('click', () => keyManager(buttonElement, isSolved, setIsSolved));
+        buttonElement.addEventListener('click', (e) => keyHandler(e, isSolved, setIsSolved));
         keyboard.append(buttonElement);
     })
     board.values.map((values, ids) => {
