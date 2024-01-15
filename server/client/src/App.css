@@ -179,7 +179,7 @@ input[type=number] {
 
 .game-container {
   width: 100%;
-  height: 90vh;
+  height: 100%;
   background-color: rgba(255,255,255);
   display: flex;
   flex-direction: column;
@@ -204,7 +204,7 @@ input[type=number] {
   padding-block: 10px;
 }
 .goal-container {
-  text-align: center;
+  justify-content: center;
   display: flex;
 }
 
@@ -250,6 +250,8 @@ input[type=number] {
   align-items: center;
   width: 7vh;
   height: 7vh;
+  padding: 0;
+  margin: 1px;
 }
 
 .operator p {
@@ -278,7 +280,6 @@ button {
   border-radius: 4px;
   border: none;
   background-color: rgba(0, 131, 116);
-  margin: 4px; 
   font-size: x-large;
 }
 
@@ -293,24 +294,25 @@ button {
 }
 
 .controls-container {
-  width: 50vw;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  width: 50%;
+  justify-content: center;
+  gap: 2vw;
+  margin-bottom: 1vh;
 }
 
 .control {
-  padding: 10px;
-  font-size: medium;
+  font-size: large;
+  height: 5vh;
 }
-.controls-container .oper {
+/* .controls-container .oper {
   width: 60px;
   height: 58px;
   border-radius: 4px;
   border: none;
   background-color: rgba(0, 131, 116);
   margin: 10px; 
-}
+} */
 .board-tile-container {
   display: flex;
   justify-content: space-between;
@@ -642,7 +644,7 @@ footer {
   bottom: 0;
   position: relative;
   width: 100%;
-  z-index: 11;
+  z-index: 8;
   height: 5em;
 }
 
@@ -666,6 +668,7 @@ footer {
 }
 .difficulty-container {
   width: 60%;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -679,6 +682,8 @@ footer {
 }
 
 .difficulty-buttons {
+  width: 100%;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -705,7 +710,6 @@ form.debug-box input {
   border-radius: 10px;
   display: flex;
   gap: 10px;
-  margin-bottom: 70px;
 }
 
 #Local > ul {
@@ -714,9 +718,14 @@ form.debug-box input {
 #Local {
   flex-direction: row;
 }
+
+.thirds {
+  width: 33.33%;
+}
 @media screen and (min-width: 900px) {
   .overlay {
-    gap: 10vh;
+    height: 100%;
+    justify-content: space-between;
   }
   .difficulty-container {
     width: 80%;
@@ -724,8 +733,6 @@ form.debug-box input {
     flex-direction: column;
   }
   .difficulty-buttons {
-    width: 100%;
-    display: flex;
     flex-direction: row;
     justify-content: space-around;
   }
@@ -764,9 +771,6 @@ form.debug-box input {
 @media (orientation: landscape) {
   .game-header {
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    gap: 20px;
   }
   .keyboard-container {
     width: 100%; 
