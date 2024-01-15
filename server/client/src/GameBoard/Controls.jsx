@@ -12,9 +12,9 @@ const Controls = ({isSolved, setIsSolved}) => {
 
     return (
         <div className="controls-container">
-            <button id="Return" className="control" onClick={() => window.location.reload()}>Return</button>
-            <button id="Undo" className="control" onClick={() => undo(isSolved, setIsSolved)}>Undo</button>
-            <button id="Restart" className="control" onClick={() => {handleRestart()}}>Restart</button>
+            <button id="Return" className="control thirds" onClick={() => window.location.reload()}>Return</button>
+            <button id="Undo" className="control thirds" onClick={() => undo(isSolved, setIsSolved)}>Undo</button>
+            <button id="Restart" className="control thirds" onClick={() => {handleRestart()}}>Restart</button>
         </div>
     )
     

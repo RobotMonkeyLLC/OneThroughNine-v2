@@ -19,7 +19,7 @@ function GameBoard ({ goal, tiles, gameStarted, isSolved, setIsSolved, handleGam
     return (
         <div id = "game-board" className="game-container">
             <div className='game-header'>
-                <div className="title-container">
+                <div className="title-container thirds">
                     <h1>OneThruNine</h1>
                 </div>
                 <Goal goal={goal}/>

@@ -1,6 +1,6 @@
 const Goal = ({goal}) => {
     return (
-        <div className="goal-container">
+        <div className="goal-container thirds">
             <p>{parseInt(goal)}</p>
         </div>
     )
