@@ -140,7 +140,7 @@ app.get('/local_stats', async (req, res) => {
       //console.log('scores', scores);
       req.session.best = scores.sort((x, y) => x.score - y.score )[0].score;
       req.session.average = getAverage(scores);
-      req.session.daily =  scores[0].date,toLocaleString('en-US', {timeZone: tz}) == d ? scores[0].score: 0;
+      req.session.daily =  scores[0].date.toLocaleString('en-US', {timeZone: tz}) == d ? scores[0].score: 0;
       
       //req.session.top10Scores = await getTop10Scores()
       res.json({
