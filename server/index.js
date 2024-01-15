@@ -96,7 +96,7 @@ app.get('/tiles', (req, res) => {
     if (!difficulty || !tiles.tiles[difficulty]) {
         return res.status(400).json({ error: 'Invalid difficulty level provided.' });
     }
-
+    console.log('target',tiles.goal[difficulty], 'tiles', tiles.tiles[difficulty]);
     return res.json({ tiles: tiles.tiles[difficulty],
                       target: tiles.goal[difficulty] })
 })
