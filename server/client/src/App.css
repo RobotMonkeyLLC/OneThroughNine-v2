@@ -227,8 +227,8 @@ input[type=number] {
 }
 
 #operboard-shape {
-  width: 17vh;
-  height: 17vh;
+  width: 170px;
+  height: 170px;
   display: flex;
   flex-wrap: wrap;
   /* rotate: 45deg; */
@@ -248,10 +248,10 @@ input[type=number] {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 7vh;
-  height: 7vh;
+  width: 70px;
+  height: 70px;
   padding: 0;
-  margin: 1px;
+  margin: .1vh;
 }
 
 .operator p {
@@ -755,12 +755,12 @@ form.debug-box input {
     flex-direction: column;
   }  
   .operator {
-    width: 10vh;
-    height: 10vh;
+    width: 100px;
+    height: 100px;
   }
   #operboard-shape {
-    width: 22vh;
-    height: 22vh;
+    width: 220px;
+    height: 220px;
   }
   .int {
     font-size: 80pt;
