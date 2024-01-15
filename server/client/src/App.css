@@ -322,9 +322,8 @@ button {
 } */
 .board-tile-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
   width: 100%;
   max-width: 360px;
 }
@@ -751,6 +750,7 @@ form.debug-box > button, label {
     flex-direction: row;
     justify-content: space-around;
   }
+  
   form.debug-box {
     width: 100%;
     display: flex;
@@ -768,7 +768,10 @@ form.debug-box > button, label {
   }
   #Local {
     flex-direction: column;
-  }  
+  }
+  .game-header {
+    flex-direction: row;
+  }
   .operator {
     width: 100px;
     height: 100px;
@@ -778,7 +781,7 @@ form.debug-box > button, label {
     height: 220px;
   }
   .board-tile-container {
-    max-width: 900px;
+    max-width: 600px;
   }
   .int {
     font-size: 80pt;
@@ -787,13 +790,5 @@ form.debug-box > button, label {
   }
   .control {
     font-size: x-large;
-  }
-}
-@media (orientation: landscape) {
-  .game-header {
-    flex-direction: row;
-  }
-  .keyboard-container {
-    width: 100%; 
   }
 }
