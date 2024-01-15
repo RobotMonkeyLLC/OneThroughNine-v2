@@ -136,11 +136,11 @@ app.get('/local_stats', async (req, res) => {
   try {
       const scores = await getLocalScores(req.query.name);
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const d = new Date().toLocaleString('en-US', { timeZone: tz });
-      //console.log('scores', scores);
+      const d = new Date().toDateString();
+      console.log('scores', scores[0].date.toDateString(), d);
       req.session.best = scores.sort((x, y) => x.score - y.score )[0].score;
       req.session.average = getAverage(scores);
-      req.session.daily =  scores[0].date.toLocaleString('en-US', {timeZone: tz}) == d ? scores[0].score: 0;
+      req.session.daily =  scores[0].date.toDateString() == d ? scores[0].score: 0;
       
       //req.session.top10Scores = await getTop10Scores()
       res.json({
