@@ -126,7 +126,7 @@ body {
 }
 
 .debug-button {
-  font-size: small;
+  font-size: medium;
   color: hsl(0, 0%, 18%);
   font-weight: bolder;
   background-color: #ffc965;
