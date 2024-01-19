@@ -67,7 +67,7 @@ const addKey = (value,isSolved, setIsSolved) => {
     console.log('adding key', value, 'to keyboard id:', keyboardIDs, 'maxID:', maxID)
     buttonElement.setAttribute('id', `tile-${maxID+1}`)
     buttonElement.classList.add('key')
-    buttonElement.addEventListener('click', (e) => keyManager(e.target,isSolved, setIsSolved))
+    buttonElement.addEventListener('click', (e) => keyHandler(e.target,isSolved, setIsSolved))
     keyboard.append(buttonElement)
 }
 
