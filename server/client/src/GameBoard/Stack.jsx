@@ -17,7 +17,7 @@ function StackButton ({value, isSolved, setIsSolved}) {
         <button id={`tile-${value}`} 
                 className="key" 
                 onClick={(e) => {
-                    keyHandler(e ,value, isSolved,setIsSolved)
+                    keyHandler( e, isSolved, setIsSolved)
                 }}>{value}</button>
     )
 }

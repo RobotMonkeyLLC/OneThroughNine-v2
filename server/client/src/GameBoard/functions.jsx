@@ -19,7 +19,7 @@ function formatDate(date) {
     return d//`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
 }
 
-const isAllTilesUsed = (boardOperValue) => {
+const isAllTilesUsed = () => {
     const keyboard = document.querySelector('.keyboard-container')
     const goal = document.querySelector('.goal-container').textContent
 
@@ -28,13 +28,9 @@ const isAllTilesUsed = (boardOperValue) => {
 
     if (isEmpty) {
         
-        if(isEmpty){ 
-            return true
-        } else {
-            return ((keyboard.childNodes.length === 1))
-        }
+        return true
     } else if(keyboard.childNodes.length === 1) {
-        return (goal === boardOperValue)
+        return false
     }
 }
 
@@ -67,7 +63,7 @@ const addKey = (value,isSolved, setIsSolved) => {
     console.log('adding key', value, 'to keyboard id:', keyboardIDs, 'maxID:', maxID)
     buttonElement.setAttribute('id', `tile-${maxID+1}`)
     buttonElement.classList.add('key')
-    buttonElement.addEventListener('click', (e) => keyHandler(e.target,isSolved, setIsSolved))
+    buttonElement.addEventListener('click', (e) => keyHandler(e,isSolved, setIsSolved))
     keyboard.append(buttonElement)
 }
 
@@ -91,6 +87,10 @@ function checkSolution (isSolved, setIsSolved) {
     //saveState()
     console.log('checking solution', isSolved)
     console.log('setissolved ', setIsSolved)
+    if (isAllTilesUsed() && !isBoardFilled()) {
+        showMessage('All tiles used! Hit Undo.')
+        return
+    }
     if (isBoardFilled()) {
         const boardTiles =  {int1:document.getElementById('int 1'),int2:document.getElementById('int 2')}
         const boardOper = document.getElementById('operator')
@@ -100,11 +100,10 @@ function checkSolution (isSolved, setIsSolved) {
                                boardOperKey === '-' ? parseInt(boardKeys.int1) - parseInt(boardKeys.int2) :
                                boardOperKey === 'x' ? parseInt(boardKeys.int1) * parseInt(boardKeys.int2) :
                                boardOperKey === '÷' ? parseInt(boardKeys.int1) / parseInt(boardKeys.int2) : 0
-        //console.log('boardOperkey:',boardOperKey,'boardOperValue:', boardOperValue, 'goal:', goal)
         
-        //console.log('boardOperValue:', boardOperValue, 'goal:', goal, 'isSolved:', boardOperValue === goal)
+        
         if (boardOperValue === goal) {
-            if(isAllTilesUsed(boardOperValue)) {
+            if(isAllTilesUsed()) {
                 console.log('Solved!')
                 setIsSolved(true)
                 updateWin()
@@ -271,7 +270,7 @@ const restoreBoardState = (tilesState, isSolved, setIsSolved) => {
 const undo = (isSolved, setIsSolved) => {   
     const undoStack = JSON.parse(localStorage.getItem('undoStack')) || []
     if (undoStack.length === 0) {
-        showMessage('Nothing to undo')
+        //showMessage('Nothing to undo')
         console.log('Nothing to undo')
         return null
     }
