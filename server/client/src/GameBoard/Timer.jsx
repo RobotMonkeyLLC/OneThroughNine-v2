@@ -26,10 +26,13 @@ const Timer = ({ gameStarted }) => {
   useEffect(() => {
     // Update timer text when seconds change
     const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
     const remainingSeconds = seconds % 60;
 
-    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedHours = hours > 0 ? String(hours).padStart(2, '0') : '';
+    const formattedMinutes = formattedHours + String(minutes).padStart(2, '0');
     const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+    
 
     setTimerText(`${formattedMinutes}:${formattedSeconds}`);
   }, [seconds]);

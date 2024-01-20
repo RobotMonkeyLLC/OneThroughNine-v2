@@ -63,7 +63,8 @@ const addKey = (value,isSolved, setIsSolved) => {
     console.log('adding key', value, 'to keyboard id:', keyboardIDs, 'maxID:', maxID)
     buttonElement.setAttribute('id', `tile-${maxID+1}`)
     buttonElement.classList.add('key')
-    buttonElement.addEventListener('click', (e) => keyHandler(e,isSolved, setIsSolved))
+    //buttonElement.addEventListener('click', (e) => keyHandler(e,isSolved, setIsSolved))
+    buttonElement.onclick = (e) => keyHandler(e,isSolved, setIsSolved)
     keyboard.append(buttonElement)
 }
 
@@ -250,11 +251,11 @@ const restoreBoardState = (tilesState, isSolved, setIsSolved) => {
         buttonElement.textContent = key;
         buttonElement.setAttribute('id', tiles.ids[i]);
         buttonElement.classList.add('key');
-        buttonElement.addEventListener('click', (e) => keyHandler(e, isSolved, setIsSolved));
+        //buttonElement.addEventListener('click', (e) => keyHandler(e, isSolved, setIsSolved));
+        buttonElement.onclick = (e) => keyHandler(e, isSolved, setIsSolved);
         keyboard.append(buttonElement);
     })
     board.values.map((values, ids) => {
-        console.log('testing key:',values, 'id:',ids, 'classList:', board.classList[ids], intDisplay)
         intDisplay[ids].textContent = values        
         board.classList[ids].split(' ').forEach(x => intDisplay[ids].classList.add(x))
         console.log('lastState board classlist: ',board.classList[ids], 'intDisplay classlist:', intDisplay[ids].classList.value)
