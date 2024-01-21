@@ -290,7 +290,7 @@ button {
 }
 
 .keyboard-container button {
-  width: 60px;
+  min-width: 60px;
   height: 60px;
   border-radius: 4px;
   border: none;
@@ -325,7 +325,7 @@ button {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 360px;
+  max-width: 400px;
 }
 
 .int {
