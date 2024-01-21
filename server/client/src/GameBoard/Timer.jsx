@@ -19,7 +19,7 @@ const Timer = ({ gameStarted }) => {
   useEffect(() => {
     // Reset timer when game is restarted
     if (!gameStarted) {
-      setSeconds(3595);
+      setSeconds(0);
     }
   }, [gameStarted]);
 

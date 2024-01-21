@@ -708,6 +708,8 @@ form.debug-box {
 }
 
 form.debug-box input {
+  width: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
