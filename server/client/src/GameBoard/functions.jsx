@@ -69,6 +69,7 @@ const addKey = (value,isSolved, setIsSolved) => {
 }
 
 const clearBoard = () => {
+    console.log('clearing board')
     const boardTiles =  {int1:document.getElementById('int 1'),int2:document.getElementById('int 2')}
     const boardOper = document.getElementById('operator')
     const operShape = document.getElementById('operboard-shape')
@@ -86,12 +87,11 @@ const clearBoard = () => {
 function checkSolution (isSolved, setIsSolved) {
     const goal = parseInt(document.querySelector('.goal-container').textContent)
     //saveState()
-    console.log('checking solution', isSolved)
     console.log('setissolved ', setIsSolved)
     if (isAllTilesUsed() && !isBoardFilled()) {
         showMessage('All tiles used! Hit Undo.')
         return
-    }
+    } else
     if (isBoardFilled()) {
         const boardTiles =  {int1:document.getElementById('int 1'),int2:document.getElementById('int 2')}
         const boardOper = document.getElementById('operator')
@@ -158,7 +158,7 @@ function removeKey (buttonElement, isSolved, setIsSolved) {
     const elem = buttonElement
     buttonElement.classList.add('inactive')
     checkSolution(isSolved, setIsSolved)
-    setTimeout(() => elem.parentNode.removeChild(elem), 200)
+    setTimeout(() => elem.parentNode.removeChild(elem), 270)
 }
 
 const saveState = () => {
@@ -243,6 +243,7 @@ const restoreBoardState = (tilesState, isSolved, setIsSolved) => {
     const oper = tilesState.oper
     
     intDisplay.forEach((x) => x.classList.remove('next-halo', 'default'))
+    document.getElementById('operator').classList.remove('next-halo', 'default')
     boardDisplay.childNodes.forEach(x => x.classList.remove('selected'))
     
     tiles.keys.map((key, i) => {
