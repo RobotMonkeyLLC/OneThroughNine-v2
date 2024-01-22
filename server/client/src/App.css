@@ -334,7 +334,6 @@ button {
   box-sizing: border-box;
   height: 150px;
   width: 100px;
-  font-size: 40pt;
   display: flex;
   justify-content: center;
   align-items: center;
