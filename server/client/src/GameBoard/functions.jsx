@@ -210,6 +210,8 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
     }   else if (boardTiles.int1.classList.contains('next-halo')) {
         saveState()
         boardTiles.int1.textContent = buttonElement.textContent
+        // scale int box to fit number by 60 - (number of digits * 10)/1.5
+        boardTiles.int1.style.fontSize = `${60-((boardTiles.int1.textContent.length*10)/1.5)}pt`
         boardTiles.int1.classList.remove('default','next-halo')
         
         document.getElementById('operboard-shape').classList.add('next-halo')
@@ -219,6 +221,7 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
     } else if ((boardTiles.int2.classList.contains('next-halo'))) {
         saveState()
         boardTiles.int2.textContent = buttonElement.textContent
+        boardTiles.int2.style.fontSize = `${60-((boardTiles.int1.textContent.length*10)/1.5)}pt`
         boardTiles.int2.classList.remove('default', 'next-halo')
         //saveState()
         console.log('in keyManager int 2 removing default ', buttonElement, isSolved, setIsSolved)
