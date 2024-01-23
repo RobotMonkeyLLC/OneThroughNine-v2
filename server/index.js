@@ -71,29 +71,22 @@ const old_generateDailyTarget = (min, max) => {
   return min + (randomNumber % scale);
 }
 
-const generateDailyTarget = (level) => {
+async function generateDailyTarget(level) {
   try {
-    const res = client.query(`SELECT ${level} FROM daily_goal WHERE date = CURRENT_DATE;`)
-    console.log('rows',res.rows);
+    const res = await client.query(`SELECT ${level} FROM daily_goals WHERE date=(SELECT CURRENT_DATE+1);`)
+    console.log('level', level,'rows',res.rows);
     const target = res.rows.map((row) => {
-      return {target: row.target}
+      return {target: row[level]}
     })
-    console.log('Successfully retrieved target', target[0]);
+    console.log('Successfully retrieved target', target[0].target);
     
-    return target;
+    return target[0].target;
   } catch (err) {
     console.error('Error executing query', err.stack);
   }
 }
 
 const tiles = {
-    goal : {
-      /* easy: generateDailyTarget(4,200),
-      advanced: generateDailyTarget(201,1000),
-      expert: generateDailyTarget(1001,5000)}, */
-      lvl_1: generateDailyTarget('lvl1'),
-      lvl_2: generateDailyTarget('lvl2'),
-      lvl_3: generateDailyTarget('lvl3')},
     tiles:{
       /* easy: [1, 2, 3, 4, 5],
       advanced: [1, 2, 3, 4, 5, 6, 7],
@@ -105,15 +98,21 @@ const tiles = {
 }
  
 // merge difficulty endpoints into single call at the start of game
-app.get('/tiles', (req, res) => {
-    const difficulty = req.query.difficulty;
+app.get('/tiles', async (req, res) => {
+    try {
+      const difficulty = req.query.difficulty;
 
-    if (!difficulty || !tiles.tiles[difficulty]) {
-        return res.status(400).json({ error: 'Invalid difficulty level provided.' });
+      if (!difficulty || !tiles.tiles[difficulty]) {
+          return res.status(400).json({ error: 'Invalid difficulty level provided.' });
+      }
+      console.log('difficulty', difficulty);
+      goal = await generateDailyTarget(difficulty)
+      console.log('target',goal, 'tiles', tiles.tiles[difficulty]);
+      return res.json({ tiles: tiles.tiles[difficulty],
+                        target: goal })
+    } catch (error) {
+      res.status(500).send(error.toString()); 
     }
-    console.log('target',tiles.goal[difficulty], 'tiles', tiles.tiles[difficulty]);
-    return res.json({ tiles: tiles.tiles[difficulty],
-                      target: tiles.goal[difficulty] })
 })
 
 async function postScore(name, score, difficulty, date) {    
