@@ -35,7 +35,7 @@ function Stack ({keys, isSolved, setIsSolved}) {
     })
     return(
         <div className="keyboard-container" 
-            style={{width:`${(keys.length*68)-(((keys.length-3)*68))}px`}}>
+            style={{width:`${(keys.length*70)-(((keys.length-3)*70))}px`}}>
                 {stackTiles}
         </div>
     )
