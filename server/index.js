@@ -59,7 +59,7 @@ const crypto = require('crypto');
 const { get } = require('http');
 const { format } = require('path');
 
-const generateDailyTarget = (min, max) => {
+const old_generateDailyTarget = (min, max) => {
   if (min >= max) {
       throw new Error('Min should be less than max.');
   }
@@ -71,14 +71,29 @@ const generateDailyTarget = (min, max) => {
   return min + (randomNumber % scale);
 }
 
+const generateDailyTarget = (level) => {
+  try {
+    const res = client.query(`SELECT ${level} FROM daily_goal WHERE date = CURRENT_DATE;`)
+    console.log('rows',res.rows);
+    const target = res.rows.map((row) => {
+      return {target: row.target}
+    })
+    console.log('Successfully retrieved target', target[0]);
+    
+    return target;
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+  }
+}
+
 const tiles = {
     goal : {
       /* easy: generateDailyTarget(4,200),
       advanced: generateDailyTarget(201,1000),
       expert: generateDailyTarget(1001,5000)}, */
-      lvl_1: generateDailyTarget(4,120),
-      lvl_2: generateDailyTarget(121,5040),
-      lvl_3: generateDailyTarget(5041,362880)},
+      lvl_1: generateDailyTarget('lvl1'),
+      lvl_2: generateDailyTarget('lvl2'),
+      lvl_3: generateDailyTarget('lvl3')},
     tiles:{
       /* easy: [1, 2, 3, 4, 5],
       advanced: [1, 2, 3, 4, 5, 6, 7],
@@ -108,9 +123,9 @@ async function postScore(name, score, difficulty, date) {
       VALUES ('${name}', ${score}, '${difficulty}', '${date}');`;
     console.log("Here is the query",query1, "Here is the name", name, "Here is the score", score, "Here is the difficulty", difficulty);
     await client.query(query1).then((res) => {
-    //console.log(res.rows);
-    console.log('Successfully updated scores');
-    return res.rows;} )
+      //console.log(res.rows);
+      console.log('Successfully updated scores');
+      return res.rows;} )
   } catch (err) {
     console.error('Error executing query', err.stack);
   }
