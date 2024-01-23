@@ -73,7 +73,7 @@ const old_generateDailyTarget = (min, max) => {
 
 async function generateDailyTarget(level) {
   try {
-    const res = await client.query(`SELECT ${level} FROM daily_goals WHERE date=(SELECT CURRENT_DATE+1);`)
+    const res = await client.query(`SELECT ${level} FROM daily_goals WHERE date=(SELECT CURRENT_DATE);`)
     console.log('level', level,'rows',res.rows);
     const target = res.rows.map((row) => {
       return {target: row[level]}
