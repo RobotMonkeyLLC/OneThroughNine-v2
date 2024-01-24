@@ -8,6 +8,8 @@
   --color-primary: #008374;
   --color-secondary: #70b59f3a;
   --color-tertiary: #2e2e2e;
+  --color-quaternary: #f1cb21;
+  --color-quinary: #f1cb21c4;  
 }
 
 .App-logo {
@@ -280,7 +282,6 @@ button.selected p {
 .keyboard-container {
   display: flex;
   flex-wrap: wrap;
-  
   justify-content: center;
   align-items: flex-start;
 }
@@ -344,8 +345,9 @@ button {
   align-items: center;
 }
 .next-halo {
-  position: inherit;
-  border: 20px solid rgba(219, 216, 8, 0.7);
+  border-style: solid;
+  border-width: 15px;
+  border-color: var(--color-quaternary);
 }
 .default , .default li {
   color: #ffffff85 !important;
@@ -403,6 +405,21 @@ button {
       transform: scale(1.5);
       opacity: 0.5;
   }
+}
+
+.button-shrink {
+  animation-name: shrinker;
+  animation-duration: 0.28s;
+}
+@keyframes shrinker {
+  0% {
+      transform: scale(1);
+  }
+  100% {
+      transform: scale(0.5);
+      opacity: 0.0;
+  }
+  
 }
 
 .stat {
