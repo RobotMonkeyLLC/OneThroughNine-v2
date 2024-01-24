@@ -495,7 +495,7 @@ button {
   justify-content: space-around;
   align-items: center;
   gap: 0;
-  padding-bottom: 60px;
+  margin-bottom: 5em;
 }
 
 #game-over > h1 {
