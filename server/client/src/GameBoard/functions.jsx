@@ -140,6 +140,7 @@ function operManager (buttonElement, isSolved,setIsSolved) {
         //console.log('in operManager', buttonElement, isSolved)
         
         buttonElement.classList.add('selected')
+        buttonElement.classList.add('button-grow')
         if (boardOper.classList.contains('default')) {
             boardOper.classList.remove('default')
         }
@@ -247,7 +248,10 @@ const restoreBoardState = (tilesState, isSolved, setIsSolved) => {
     
     intDisplay.forEach((x) => x.classList.remove('next-halo', 'default'))
     document.getElementById('operator').classList.remove('next-halo', 'default')
-    boardDisplay.childNodes.forEach(x => x.classList.remove('selected'))
+    boardDisplay.childNodes.forEach(x => {
+        x.classList.remove('selected')
+        x.classList.remove('button-grow')
+    })
     
     tiles.keys.map((key, i) => {
         
