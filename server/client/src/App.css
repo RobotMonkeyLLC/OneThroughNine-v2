@@ -279,6 +279,13 @@ button.selected p {
   color: rgb(0, 131, 116);
 }
 
+.keyboard-spacer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 33.33%;
+}
 .keyboard-container {
   display: flex;
   flex-wrap: wrap;
