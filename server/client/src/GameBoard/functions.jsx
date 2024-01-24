@@ -159,6 +159,7 @@ function removeKey (buttonElement, isSolved, setIsSolved) {
     const elem = buttonElement
     buttonElement.classList.add('inactive')
     checkSolution(isSolved, setIsSolved)
+    buttonElement.classList.add('button-shrink')
     setTimeout(() => elem.parentNode.removeChild(elem), 270)
 }
 
