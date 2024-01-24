@@ -105,9 +105,9 @@ app.get('/tiles', async (req, res) => {
       if (!difficulty || !tiles.tiles[difficulty]) {
           return res.status(400).json({ error: 'Invalid difficulty level provided.' });
       }
-      console.log('difficulty', difficulty);
+      
       goal = await generateDailyTarget(difficulty)
-      console.log('target',goal, 'tiles', tiles.tiles[difficulty]);
+      
       return res.json({ tiles: tiles.tiles[difficulty],
                         target: goal })
     } catch (error) {
