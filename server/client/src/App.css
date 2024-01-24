@@ -360,10 +360,13 @@ button {
   height: 65%;
   width: 80%;
   background-color: var(--color-secondary);
-  border-radius: 10px;
-  border: var(--color-primary) solid 20px;
+  border-radius: 50px;
+  border: var(--color-primary) solid 5px;
   justify-content: center;
   align-items: center;
+  background-image: url('../public/game_assets/shine.png');
+  background-repeat: no-repeat;
+  background-position: center;  
   z-index: 10;
 }
 

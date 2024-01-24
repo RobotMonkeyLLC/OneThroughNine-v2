@@ -122,7 +122,7 @@ function checkSolution (isSolved, setIsSolved) {
         } else {
             //setIsSolved(false)operboard-shape
             clearBoard()
-            addKey(boardOperValue,isSolved, setIsSolved)
+            setTimeout(() => addKey(boardOperValue,isSolved, setIsSolved), 270)
             //console.log('Not solved!')
         }
         //setIsSolved(false)
@@ -144,7 +144,7 @@ function operManager (buttonElement, isSolved,setIsSolved) {
             boardOper.classList.remove('default')
         }
         document.getElementById('operboard-shape').classList.remove('next-halo')
-        document.getElementById('int 2').classList.add('next-halo')
+        setTimeout(() => document.getElementById('int 2').classList.add('next-halo'), 270)
         
         boardOper.textContent = buttonElement.textContent
         
@@ -213,8 +213,8 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
         // scale int box to fit number by 60 - (number of digits * 10)/1.5
         boardTiles.int1.style.fontSize = `${60-((boardTiles.int1.textContent.length*10)/1.5)}pt`
         boardTiles.int1.classList.remove('default','next-halo')
+        setTimeout(() => document.getElementById('operboard-shape').classList.add('next-halo'), 270)
         
-        document.getElementById('operboard-shape').classList.add('next-halo')
         console.log('in keyManager int 1 removing default', buttonElement, isSolved)
         
         removeKey(buttonElement, isSolved, setIsSolved)
