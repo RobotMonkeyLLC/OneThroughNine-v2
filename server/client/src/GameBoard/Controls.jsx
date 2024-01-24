@@ -5,7 +5,7 @@ const Controls = ({isSolved, setIsSolved}) => {
     //handleGameReStart()
         // ** This is a temporary fix to the restart issue. Update to track actual stack count**
         e.preventDefault()
-        for (let i = 0; i < localStorage.stackCount+1; i++) {
+        for (let i = 0; i < localStorage.undoStack.length; i++) {
             console.log('removing state')
             undo(isSolved, setIsSolved)
         }
