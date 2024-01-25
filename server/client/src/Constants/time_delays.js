@@ -4,5 +4,6 @@ export const time_delays = {
     oper_next: 270,
     in2_next: 270,
     remove_key: 270,
-    start_game: 270,
+    start_game: 0,
+    start_game_delay: 270,
 }
