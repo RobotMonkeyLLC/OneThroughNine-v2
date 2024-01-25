@@ -72,46 +72,66 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
         }
     }
 
-    return (
-    <div className="difficulty-container">
-        <div className='text-header'>
-            <p>Difficulty</p>
-            <button className='debug-button' onClick={toggleDebug}>Debug</button>
-        </div>
-        <div className="difficulty-buttons">
-            {
-                difficulties.ids.map((difficulty, index) =>  (
-                        <button className="difficulty-button" onClick={(event) => {
-                            setTimeout(() => {
-                                handleClick(event, difficulty, index)
-                            }, 100)
-                            
-                            }
-                        } id={difficulty} key={index}>{difficulties.display[index]}</button>
-                    )
-                )
-            }
+    var counter = null
+    const onMouseDown = (e, difficulty, index) => {
+        if (!isDebug) {
+            counter = setInterval(() => {
+                handleClick(e, difficulty, index)
+                onMouseUp()
+            }, 270)
             
+        }
+    }
+    const onMouseUp = () => {
+        clearInterval(counter)
+        counter = null
+    }
+
+    return (
+        <div className="difficulty-container">
+            <div className='text-header'>
+                <p>Difficulty</p>
+                <button className='debug-button' onClick={toggleDebug}>Debug</button>
+            </div>
+            <div className="difficulty-buttons">
+                {
+                    difficulties.ids.map((difficulty, index) =>  (
+                            <button className="difficulty-button" 
+                            onMouseDown={(event) => {
+                                onMouseDown(event, difficulty, index)
+                            }}
+                            onMouseUp={(event) => {
+                                onMouseUp()
+                                /* setTimeout(() => {
+                                    handleClick(event, difficulty, index)
+                                }, 270*2) */
+                                
+                                }
+                            } id={difficulty} key={index}>{difficulties.display[index]}</button>
+                        )
+                    )
+                }
+                
+            </div>
+            {isDebug && <form onSubmit={handleSubmit} className='debug-box'>
+                <input 
+                    type="number"
+                    min={min}
+                    max={max}
+                    name='target'
+                    placeholder={target || 'Set target'}
+                    className='goal-contianer'
+                    onChange={e => setGoal(e.target.value)}
+                    value={goal}/>
+                <label className='debug-level' type="text" name="level">{level[0]}</label>
+                <button
+                    type="button"
+                    onClick={randomTarget}>
+                        Random
+                </button>
+                <button type='submit'>Start</button>
+            </form>}
         </div>
-        {isDebug && <form onSubmit={handleSubmit} className='debug-box'>
-            <input 
-                type="number"
-                min={min}
-                max={max}
-                name='target'
-                placeholder={target || 'Set target'}
-                className='goal-contianer'
-                onChange={e => setGoal(e.target.value)}
-                value={goal}/>
-            <label className='debug-level' type="text" name="level">{level[0]}</label>
-            <button
-                type="button"
-                onClick={randomTarget}>
-                    Random
-            </button>
-            <button type='submit'>Start</button>
-        </form>}
-    </div>
-)}
+    )}
 
 export default Difficulty
