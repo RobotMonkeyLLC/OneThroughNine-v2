@@ -121,8 +121,10 @@ function checkSolution (isSolved, setIsSolved) {
             //undo()
         } else {
             //setIsSolved(false)operboard-shape
-            clearBoard()
-            setTimeout(() => addKey(boardOperValue,isSolved, setIsSolved), 270)
+            setTimeout(() => {
+                clearBoard()
+                addKey(boardOperValue,isSolved, setIsSolved)
+            }, 270)
             //console.log('Not solved!')
         }
         //setIsSolved(false)

@@ -427,7 +427,7 @@ button {
 
 .button-grow {
   animation-name: grower;
-  animation-duration: 0.27s;
+  animation-duration: 0.28s;
 }
 
 @keyframes grower {
