@@ -1,4 +1,5 @@
 import { defaults } from '../Constants/defaults'
+import { time_delays } from '../Constants/time_delays'
 import { updateWin } from '../GameOver/endGame'
 import { keyHandler } from './Stack'
 
@@ -39,7 +40,7 @@ const showMessage = (message) => {
     const messageText = document.getElementById('message')
     messageDisplay.classList.remove('hidden')
     messageText.textContent = message
-    setTimeout(() => messageDisplay.classList.add('hidden'), 2000)
+    setTimeout(() => messageDisplay.classList.add('hidden'), time_delays.clear_message)
 }
 
 const isBoardFilled = () => {
@@ -124,7 +125,7 @@ function checkSolution (isSolved, setIsSolved) {
             setTimeout(() => {
                 clearBoard()
                 addKey(boardOperValue,isSolved, setIsSolved)
-            }, 270)
+            }, time_delays.clear_board)
             //console.log('Not solved!')
         }
         //setIsSolved(false)
@@ -147,7 +148,7 @@ function operManager (buttonElement, isSolved,setIsSolved) {
             boardOper.classList.remove('default')
         }
         document.getElementById('operboard-shape').classList.remove('next-halo')
-        setTimeout(() => document.getElementById('int 2').classList.add('next-halo'), 270)
+        setTimeout(() => document.getElementById('int 2').classList.add('next-halo'), time_delays.in2_next)
         
         boardOper.textContent = buttonElement.textContent
         
@@ -162,7 +163,7 @@ function removeKey (buttonElement, isSolved, setIsSolved) {
     buttonElement.classList.add('inactive')
     checkSolution(isSolved, setIsSolved)
     buttonElement.classList.add('button-shrink')
-    setTimeout(() => elem.parentNode.removeChild(elem), 270)
+    setTimeout(() => elem.parentNode.removeChild(elem), time_delays.remove_key)
 }
 
 const saveState = () => {
@@ -217,7 +218,7 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
         // scale int box to fit number by 60 - (number of digits * 10)/1.5
         boardTiles.int1.style.fontSize = `${60-((boardTiles.int1.textContent.length*10)/1.5)}pt`
         boardTiles.int1.classList.remove('default','next-halo')
-        setTimeout(() => document.getElementById('operboard-shape').classList.add('next-halo'), 270)
+        setTimeout(() => document.getElementById('operboard-shape').classList.add('next-halo'), time_delays.oper_next)
         
         console.log('in keyManager int 1 removing default', buttonElement, isSolved)
         

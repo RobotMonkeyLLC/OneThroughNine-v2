@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { getDifficulty } from '../GameBoard/getChoice.jsx'
 import { debug, handleSubmit } from './Debug.jsx'
+import { time_delays } from '../Constants/time_delays.js'
 
 const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, setGoal, setTiles}) => {
     const [ isDebug, setIsDebug ] = useState(false)
@@ -78,7 +79,7 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
             counter = setInterval(() => {
                 handleClick(e, difficulty, index)
                 onMouseUp()
-            }, 270)
+            }, time_delays.start_game)
             
         }
     }
@@ -101,12 +102,8 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
                                 onMouseDown(event, difficulty, index)
                             }}
                             onMouseUp={(event) => {
-                                onMouseUp()
-                                /* setTimeout(() => {
-                                    handleClick(event, difficulty, index)
-                                }, 270*2) */
-                                
-                                }
+                                onMouseUp()                                
+                            }
                             } id={difficulty} key={index}>{difficulties.display[index]}</button>
                         )
                     )
