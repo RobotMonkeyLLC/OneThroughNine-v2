@@ -77,8 +77,11 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
     const onMouseDown = (e, difficulty, index) => {
         if (!isDebug) {
             counter = setInterval(() => {
-                handleClick(e, difficulty, index)
-                onMouseUp()
+                setTimeout(() => {
+                    handleClick(e, difficulty, index)
+                    onMouseUp()
+                }, time_delays.start_game_delay)
+                
             }, time_delays.start_game)
             
         }
