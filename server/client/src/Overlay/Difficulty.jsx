@@ -100,13 +100,22 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
                 {
                     difficulties.ids.map((difficulty, index) =>  (
                             <button className="difficulty-button" 
-                            onMouseDown={(event) => {
+                            /* onMouseDown={(event) => {
                                 onMouseDown(event, difficulty, index)
                             }}
                             onMouseUp={(event) => {
                                 onMouseUp()                                
                             }
-                            } id={difficulty} key={index}>{difficulties.display[index]}</button>
+                            } */ 
+                            onClick={(e) => {
+                                e.target.classList.add('difficulty-selected')
+                                setTimeout(() => {
+                                    e.target.classList.remove('difficulty-selected')
+                                    handleClick(e, difficulty, index)
+                                }, time_delays.start_game_delay)
+                            }                         
+                            }
+                            id={difficulty} key={index}>{difficulties.display[index]}</button>
                         )
                     )
                 }

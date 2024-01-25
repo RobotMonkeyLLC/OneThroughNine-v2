@@ -774,7 +774,7 @@ footer {
       var(--color-primary),
       var(--color-secondary) 100%);
   }
-  75% {
+  100% {
     background: radial-gradient(
       circle at 50%,
       var(--color-secondary) 100%,
