@@ -312,9 +312,10 @@ button {
 
 .controls-container {
   display: flex;
-  width: 50%;
+  width: 87%;
+  max-width: 900px;
   justify-content: center;
-  gap: 2vw;
+  gap: 8vw;
   margin-bottom: 1vh;
 }
 
