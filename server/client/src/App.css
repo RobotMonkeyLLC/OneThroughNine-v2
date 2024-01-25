@@ -291,9 +291,17 @@ button.selected {
   background-color: rgba(255, 255, 255, 0.7);
   border: var(--color-primary) solid 2px;
 }
-
-button.selected p {
-  color: rgb(0, 131, 116);
+#plus.selected {
+  background-image: url('../public/game_assets/plus_select.png');
+}
+#minus.selected {
+  background-image: url('../public/game_assets/minus_select.png');
+}
+#times.selected {
+  background-image: url('../public/game_assets/times_select.png');
+}
+#div.selected {
+  background-image: url('../public/game_assets/div_select.png');
 }
 
 .keyboard-spacer {
@@ -426,9 +434,13 @@ button {
   0% {
       transform: scale(1);
   }
+  75% {
+      transform: scale(1.25);
+      opacity: 0.5;
+  }
   100% {
       transform: scale(1.5);
-      opacity: 0.5;
+      opacity: 0.0;
   }
 }
 
@@ -439,6 +451,10 @@ button {
 @keyframes shrinker {
   0% {
       transform: scale(1);
+  }
+  75% {
+      transform: scale(0.25);
+      opacity: 0.5;
   }
   100% {
       transform: scale(0.5);
