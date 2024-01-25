@@ -268,7 +268,24 @@ input[type=number] {
   width: 100%;
   height: 100%;
   font-size: 2em;
-  color: #ffffff00;
+  color: #ffffff00;  
+}
+button.operator {
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#plus {
+  background-image: url('../public/game_assets/plus.png');
+}
+#minus {
+  background-image: url('../public/game_assets/minus.png');
+}
+#times {
+  background-image: url('../public/game_assets/times.png');
+}
+#div {
+  background-image: url('../public/game_assets/div.png');
 }
 button.selected {
   background-color: rgba(255, 255, 255, 0.7);

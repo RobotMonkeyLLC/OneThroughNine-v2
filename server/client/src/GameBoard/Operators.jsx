@@ -6,7 +6,7 @@ const operatorHandler = (e, isSolved, setIsSolved) => {
     //saveState()
     operManager(e.target.parentElement, isSolved, setIsSolved)
 }
-
+const operators = ['plus', 'minus', 'times', 'div']
 function Operators ({isSolved, setIsSolved}) {
     return (
         <div className="operboard-container">
@@ -14,7 +14,7 @@ function Operators ({isSolved, setIsSolved}) {
                 {
                     ['+', '-', 'x', '÷'].map((oper, index) => {
                         return (
-                            <button id={oper} className="operator" onClick={(e) => operatorHandler(e, isSolved,setIsSolved)} key={index}>
+                            <button id={operators[index]} className="operator" onClick={(e) => operatorHandler(e, isSolved,setIsSolved)} key={index}>
                                 <p>{oper}</p>                            
                             </button>
                         )
