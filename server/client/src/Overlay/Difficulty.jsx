@@ -21,7 +21,7 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
     }
 
     const toggleDebug = () => {
-        document.getElementById(level[1]).classList.add('selected')
+        document.getElementById(level[1]).classList.toggle('selected')
         setIsDebug(!isDebug)
     }
     
@@ -74,17 +74,16 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
     }
 
     var counter = null
-    const onMouseDown = (e, difficulty, index) => {
-        if (!isDebug) {
-            counter = setInterval(() => {
-                setTimeout(() => {
-                    handleClick(e, difficulty, index)
-                    onMouseUp()
-                }, time_delays.start_game_delay)
-                
-            }, time_delays.start_game)
+    const onMouseDown = (e, difficulty, index) => {        
+        e.target.classList.add('difficulty-selected')
+        counter = setInterval(() => {
+            setTimeout(() => {
+                handleClick(e, difficulty, index)
+                onMouseUp()
+                e.target.classList.remove('difficulty-selected')
+            }, time_delays.start_game_delay)
             
-        }
+        }, time_delays.start_game)
     }
     const onMouseUp = () => {
         clearInterval(counter)
