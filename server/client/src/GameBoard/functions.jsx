@@ -35,10 +35,11 @@ const isAllTilesUsed = () => {
     }
 }
 
-const showMessage = (message) => {
+const showMessage = (message, win = false) => {
     const messageDisplay = document.getElementsByClassName('message-container')[0]
     const messageText = document.getElementById('message')
     messageDisplay.classList.remove('hidden')
+    messageDisplay.classList.add(win ? 'win-grow' : 'message-grow')
     messageText.textContent = message
     setTimeout(() => messageDisplay.classList.add('hidden'), time_delays.clear_message)
 }

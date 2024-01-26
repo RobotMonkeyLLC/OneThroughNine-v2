@@ -425,44 +425,6 @@ button {
   border: none !important;
 }
 
-.button-grow {
-  animation-name: grower;
-  animation-duration: 0.28s;
-}
-
-@keyframes grower {
-  0% {
-      transform: scale(1);
-  }
-  75% {
-      transform: scale(1.25);
-      opacity: 0.5;
-  }
-  100% {
-      transform: scale(1.5);
-      opacity: 0.0;
-  }
-}
-
-.button-shrink {
-  animation-name: shrinker;
-  animation-duration: 0.28s;
-}
-@keyframes shrinker {
-  0% {
-      transform: scale(1);
-  }
-  75% {
-      transform: scale(0.25);
-      opacity: 0.5;
-  }
-  100% {
-      transform: scale(0.5);
-      opacity: 0.0;
-  }
-  
-}
-
 .stat {
   display: flex;
   flex-direction: column;

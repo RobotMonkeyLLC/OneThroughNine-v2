@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import './animation.css';
 import Overlay from './Overlay.jsx';
 import GameBoard from './GameBoard.jsx';
 import GameOver from './GameOver.jsx';

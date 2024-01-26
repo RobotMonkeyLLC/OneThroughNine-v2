@@ -19,7 +19,7 @@ const Timer = ({ gameStarted, isSolved }) => {
     }
 
     return () => clearInterval(interval);
-  }, [gameStarted, isSolved]);
+  }, [gameStarted, isSolved, seconds]);
 
   useEffect(() => {
     // Reset timer when game is restarted

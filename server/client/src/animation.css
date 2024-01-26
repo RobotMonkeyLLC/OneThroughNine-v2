@@ -1,0 +1,69 @@
+.win-grow {
+    animation-name: win-grow;
+    animation-duration: 1s;
+}
+@keyframes win-grow {
+    0% {
+        transform: scale(0.1);
+    }
+    50% {
+        transform: scale(1.4);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.message-grow {
+    animation-name: message-grow;
+    animation-duration: 0.5s;
+}
+@keyframes message-grow {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.button-grow {
+    animation-name: grower;
+    animation-duration: 0.28s;
+  }
+  
+  @keyframes grower {
+    0% {
+        transform: scale(1);
+    }
+    75% {
+        transform: scale(1.25);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0.0;
+    }
+  }
+  
+  .button-shrink {
+    animation-name: shrinker;
+    animation-duration: 0.28s;
+  }
+  @keyframes shrinker {
+    0% {
+        transform: scale(1);
+    }
+    75% {
+        transform: scale(0.25);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(0.5);
+        opacity: 0.0;
+    }
+    
+  }
+  
