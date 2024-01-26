@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Timer = ({ gameStarted }) => {
+const Timer = ({ gameStarted, isSolved }) => {
   const [seconds, setSeconds] = useState(0);
   const [timerText, setTimerText] = useState('00:00');
 
@@ -13,14 +13,19 @@ const Timer = ({ gameStarted }) => {
       }, 1000);
     }
 
+    if (isSolved) {
+      clearInterval(interval);
+    }
+
     return () => clearInterval(interval);
-  }, [gameStarted]);
+  }, [gameStarted, isSolved]);
 
   useEffect(() => {
     // Reset timer when game is restarted
     if (!gameStarted) {
       setSeconds(0);
     }
+
   }, [gameStarted]);
 
   useEffect(() => {

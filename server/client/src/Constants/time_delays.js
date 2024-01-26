@@ -6,4 +6,5 @@ export const time_delays = {
     remove_key: 270,
     start_game: 1,
     start_game_delay: 270,
+    game_over_delay: 2700,
 }

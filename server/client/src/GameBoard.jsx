@@ -23,7 +23,7 @@ function GameBoard ({ goal, tiles, gameStarted, isSolved, setIsSolved, handleGam
                     <h1>OneThruNine</h1>
                 </div>
                 <Goal goal={goal}/>
-                <Timer gameStarted={gameStarted}/>
+                <Timer gameStarted={gameStarted} isSolved={isSolved}/>
             </div>
             
             <Message />
