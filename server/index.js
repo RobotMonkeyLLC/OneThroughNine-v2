@@ -80,7 +80,8 @@ async function generateDailyTarget(level) {
       return {target: row[level]}
     })
     console.log('Successfully -- retrieved target', target[0].target);
-    
+    const res2 = await client.query('SELECT CURRENT_DATE;');
+    console.log('date', res2.rows[0].current_date);
     return target[0].target;
   } catch (err) {
     console.error('Error executing query', err.stack);
