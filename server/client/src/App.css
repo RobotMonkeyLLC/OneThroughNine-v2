@@ -762,7 +762,7 @@ footer {
 
 .difficulty-selected {
   animation: difficuly-select;
-  animation-duration: 0.27s;
+  animation-duration: 0.5s;
 }
 
 @keyframes difficuly-select {
@@ -773,6 +773,14 @@ footer {
       var(--color-secondary) 50%,
       var(--color-primary),
       var(--color-secondary) 100%);
+  }
+  75% {
+    background: radial-gradient(
+      circle at 50%,
+      var(--color-secondary) 50%,
+      var(--color-primary) 50%,
+      var(--color-primary) 50%,
+      var(--color-secondary) 50%);
   }
   100% {
     background: radial-gradient(
