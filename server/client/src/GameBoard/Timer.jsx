@@ -15,6 +15,7 @@ const Timer = ({ gameStarted, isSolved }) => {
 
     if (isSolved) {
       clearInterval(interval);
+      setSeconds(seconds);
     }
 
     return () => clearInterval(interval);
