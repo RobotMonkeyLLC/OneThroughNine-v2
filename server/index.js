@@ -79,7 +79,7 @@ async function generateDailyTarget(level) {
     const target = res.rows.map((row) => {
       return {target: row[level]}
     })
-    console.log('Successfully retrieved target', target[0].target);
+    console.log('Successfully -- retrieved target', target[0].target);
     
     return target[0].target;
   } catch (err) {
