@@ -73,7 +73,8 @@ const old_generateDailyTarget = (min, max) => {
 
 async function generateDailyTarget(level) {
   try {
-    setTZ = await client.query(`SET TIME ZONE '${Intl.DateTimeFormat().resolvedOptions().timeZone}';`)
+    //setTZ = await client.query(`SET TIME ZONE '${Intl.DateTimeFormat().resolvedOptions().timeZone}';`)
+    setTZ = await client.query(`SET TIME ZONE 'EST';`)
     const res = await client.query(`SELECT ${level} FROM daily_goals WHERE date=(SELECT CURRENT_DATE);`)
     console.log('level', level,'rows',res.rows);
     const target = res.rows.map((row) => {
