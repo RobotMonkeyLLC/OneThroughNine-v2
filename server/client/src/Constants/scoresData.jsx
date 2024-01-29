@@ -3,8 +3,9 @@ export async function populateScoresData(domain, name) {
         switch (domain) {
             case 'local':
                 try {
-                    const response = await fetch(`https://one-through-nine-v3-028369100f4b.herokuapp.com/${domain}_stats?name=${name}`
-                        ,{ method: 'GET' });
+                    const apiHost = `https://one-through-nine-v3-028369100f4b.herokuapp.com/${domain}_stats?name=${name}`
+                    //const apiHost = `http://localhost:8000/${domain}_stats?name=${name}`
+                    const response = await fetch(apiHost ,{ method: 'GET' });
                     
                     const data = await response.json()
                     //console.log('async data:', data);
@@ -19,7 +20,9 @@ export async function populateScoresData(domain, name) {
 
             case 'posted':
                 try {
-                    const response = await fetch(`https://one-through-nine-v3-028369100f4b.herokuapp.com/${domain}_stats`, { method: 'GET' });
+                    const apiHost = `https://one-through-nine-v3-028369100f4b.herokuapp.com/${domain}_stats`
+                    //const apiHost = `http://localhost:8000/${domain}_stats`
+                    const response = await fetch(apiHost, { method: 'GET' });
                     
                     const data = response.json()
                     console.log('fetching posted data:', data);
