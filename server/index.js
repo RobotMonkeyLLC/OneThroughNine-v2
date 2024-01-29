@@ -170,9 +170,9 @@ app.get('/local_stats', async (req, res) => {
   }
 });
 
-async function getTop10Scores() {
+async function getTop10Scores(level) {
   try {
-    const res = await client.query("SELECT player_name,score_time,difficulty_id,score_date FROM scores ORDER BY score_time asc LIMIT 10;")
+    const res = await client.query(`SELECT player_name,score_time,difficulty_id,score_date FROM scores WHERE difficulty_id = ${level} ORDER BY score_time asc LIMIT 10;`)
     //console.log('rows',res.rows);
     const scores = res.rows.map((row) => {
       return {name: row.player_name, 
@@ -188,10 +188,15 @@ async function getTop10Scores() {
   }
 }
 
+
 app.get('/posted_stats', async (req, res) => {
-  req.session.top10Scores = await getTop10Scores()
+  req.session.top10Scores = await getTop10Scores(1)
+  req.session.top10Scores2 = await getTop10Scores(2)
+  req.session.top10Scores3 = await getTop10Scores(3)
   res.json({
-      top10Scores: req.session.top10Scores
+      top10Scores: req.session.top10Scores,
+      top10Scores2: req.session.top10Scores2,
+      top10Scores3: req.session.top10Scores3
     });
 })
 
