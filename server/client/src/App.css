@@ -794,6 +794,15 @@ form.debug-box > button, label {
 .thirds {
   width: 33.33%;
 }
+.leaderboard-level-select {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.leaderboard-level-select > button {
+  font-size: medium;
+}
 @media screen and (min-width: 900px) {
   .overlay {
     height: 100%;
