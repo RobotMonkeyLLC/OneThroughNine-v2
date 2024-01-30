@@ -9,7 +9,7 @@ const FillPosted = ({data}) => {
     <ul className={`stats ${data.tags || ''}`}>
         <li>{data.name}</li>
         <li>{data.score}</li>
-        <li>{data.difficulty}</li>
+        {/* <li>{data.difficulty}</li> */}
         <li>{formatDate(data.date)}</li>
     </ul>        
     )
@@ -40,6 +40,9 @@ const Leaderboard = () => {
 
     const [scoresData_local, setLocalStats] = useState(inLocalStorage);
     const [scoresData_posted, setPostedStats] = useState(scoresData_posted_default);
+    const [scores_level1, setScores_level1] = useState(scoresData_posted_default);
+    const [scores_level2, setScores_level2] = useState(scoresData_posted_default);
+    const [scores_level3, setScores_level3] = useState(scoresData_posted_default);
     
 
     //console.log('localStatsFromStorage ---',scoresData_posted)
@@ -54,8 +57,12 @@ const Leaderboard = () => {
 
                 const postedData = await populateScoresData('posted')
                 
-                setPostedStats(postedData.top10Scores || postedData);
-                //console.log('scoresData_posted ---',scoresData_posted)
+                setPostedStats(postedData.top10Scores || postedData)
+                setScores_level1(postedData.top10Scores);
+                setScores_level2(postedData.top10Scores2);
+                setScores_level3(postedData.top10Scores3);
+                
+                console.log('scoresData_posted ---',postedData)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -87,21 +94,26 @@ const Leaderboard = () => {
                 
                 <p>Posted Stats</p>
                 <div className="stats-board">
-                <ul id="Posted" className="stat">
-                    <ul className="stats-board-header">
-                        <li>Name</li>
-                        <li>Score</li>
-                        <li>Difficulty</li>
-                        <li>Date</li>
+                    <ul id="Posted" className="stat">
+                        <div className="leaderboard-level-select">
+                            <button onClick={() => setPostedStats(scores_level1)}>Level 1</button>
+                            <button onClick={() => setPostedStats(scores_level2)}>Level 2</button>
+                            <button onClick={() => setPostedStats(scores_level3)}>Level 3</button>
+                        </div>
+                        <ul className="stats-board-header">
+                            <li>Name</li>
+                            <li>Score</li>
+                            {/* <li>Difficulty</li> */}
+                            <li>Date</li>
+                        </ul>
+                        {scoresData_posted.map((score, index) => (
+                            <FillPosted
+                                key={index}
+                                data={score}
+                            />
+                        ))}
                     </ul>
-                    {scoresData_posted.map((score, index) => (
-                        <FillPosted
-                            key={index}
-                            data={score}
-                        />
-                    ))}
-                </ul>
-            </div>
+                </div>
             </div>
             {/* <div className="stats-board">
                 <ul id="Local" className="stat">
