@@ -70,6 +70,15 @@ const Leaderboard = () => {
         fetchData();
     }, []);
     
+    const leaderSelect = (e, level) => {
+        e.preventDefault();
+        e.target.parentElement.childNodes.forEach((child) => {
+            child.classList.remove('selected');
+        })
+        e.target.classList.add('selected');
+        console.log('e',e.target)
+        setPostedStats(level)
+    }
     return (
         <div className="stats-container">
             <div className="text-header">
@@ -96,9 +105,9 @@ const Leaderboard = () => {
                 <div className="stats-board">
                     <ul id="Posted" className="stat">
                         <div className="leaderboard-level-select">
-                            <button onClick={() => setPostedStats(scores_level1)}>Level 1</button>
-                            <button onClick={() => setPostedStats(scores_level2)}>Level 2</button>
-                            <button onClick={() => setPostedStats(scores_level3)}>Level 3</button>
+                            <button onClick={(e) => leaderSelect(e,scores_level1)} className="selected">Level 1</button>
+                            <button onClick={(e) => leaderSelect(e,scores_level2)}>Level 2</button>
+                            <button onClick={(e) => leaderSelect(e,scores_level3)}>Level 3</button>
                         </div>
                         <ul className="stats-board-header">
                             <li>Name</li>
