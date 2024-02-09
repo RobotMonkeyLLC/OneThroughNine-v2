@@ -6,6 +6,7 @@ export async function getDifficulty(difficulty, setGoal, goal) {
     
     try {
         const response = await fetch(`https://one-through-nine-v3-028369100f4b.herokuapp.com/tiles?difficulty=${difficulty}`)
+        //const response = await fetch(`http://localhost:8000/tiles?difficulty=${difficulty}`)
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
