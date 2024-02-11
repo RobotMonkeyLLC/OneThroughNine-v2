@@ -34,15 +34,17 @@ const FillLocal = ({data}) => {
 const Leaderboard = () => {
 
     const inLocalStorage = JSON.parse(localStorage.getItem('localStats_calc')) || localScores;
-    
     // get username from local storage
-    const user =  JSON.parse(localStorage.getItem('username')) || null;
+    const user =  JSON.parse(localStorage.getItem('localStats'))[0].name || null;
 
     const [scoresData_local, setLocalStats] = useState(inLocalStorage);
     const [scoresData_posted, setPostedStats] = useState(scoresData_posted_default);
-    const [scores_level1, setScores_level1] = useState(scoresData_posted_default);
-    const [scores_level2, setScores_level2] = useState(scoresData_posted_default);
-    const [scores_level3, setScores_level3] = useState(scoresData_posted_default);
+    const [scores_level1_posted, setScores_level1_posted] = useState(scoresData_posted_default);
+    const [scores_level2_posted, setScores_level2_posted] = useState(scoresData_posted_default);
+    const [scores_level3_posted, setScores_level3_posted] = useState(scoresData_posted_default);
+    const [scores_level1_local, setScores_level1_local] = useState(scoresData_posted_default);
+    const [scores_level2_local, setScores_level2_local] = useState(scoresData_posted_default);
+    const [scores_level3_local, setScores_level3_local] = useState(scoresData_posted_default);
     
 
     //console.log('localStatsFromStorage ---',scoresData_posted)
@@ -52,17 +54,23 @@ const Leaderboard = () => {
             try {
                 // Fetch game data or perform initial setup
                 // Example: fetch('/api').then((res) => res.json()).then((data) => setData(data.message));
+                
                 const localData = user != null ? await populateScoresData('local', user) : scoresData_local;
-                setLocalStats([localData]);
+                setLocalStats([localData.lvl1]);
+                console.log('localData ---',localData)
 
                 const postedData = await populateScoresData('posted')
                 
                 setPostedStats(postedData.top10Scores || postedData)
-                setScores_level1(postedData.top10Scores);
-                setScores_level2(postedData.top10Scores2);
-                setScores_level3(postedData.top10Scores3);
+                setScores_level1_posted(postedData.top10Scores);
+                setScores_level2_posted(postedData.top10Scores2);
+                setScores_level3_posted(postedData.top10Scores3);
                 
-                console.log('scoresData_posted ---',postedData)
+                setScores_level1_local([localData.lvl1]);
+                setScores_level2_local([localData.lvl2]);
+                setScores_level3_local([localData.lvl3]);
+                
+                //console.log('scoresData_local ---',localData)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -70,7 +78,7 @@ const Leaderboard = () => {
         fetchData();
     }, []);
     
-    const leaderSelect = (e, level) => {
+    const leaderSelect_posted = (e, level) => {
         e.preventDefault();
         e.target.parentElement.childNodes.forEach((child) => {
             child.classList.remove('selected');
@@ -79,12 +87,26 @@ const Leaderboard = () => {
         console.log('e',e.target)
         setPostedStats(level)
     }
+    const leaderSelect_local = (e, level) => {
+        e.preventDefault();
+        e.target.parentElement.childNodes.forEach((child) => {
+            child.classList.remove('selected');
+        })
+        e.target.classList.add('selected');
+        console.log('e',e.target)
+        setLocalStats(level)
+    }
     return (
         <div className="stats-container">
             <div className="text-header">
                 <p>Local Stats</p>
                 <div className="stats-board">
                 <ul id="Local" className="stat">
+                    <div className="leaderboard-level-select">
+                        <button onClick={(e) => leaderSelect_local(e,scores_level1_local)} className="selected">Level 1</button>
+                        <button onClick={(e) => leaderSelect_local(e,scores_level2_local)}>Level 2</button>
+                        <button onClick={(e) => leaderSelect_local(e,scores_level3_local)}>Level 3</button>
+                    </div>
                     <ul className="stats-board-header">
                         <li>Best</li>
                         <li>Average</li>
@@ -105,9 +127,9 @@ const Leaderboard = () => {
                 <div className="stats-board">
                     <ul id="Posted" className="stat">
                         <div className="leaderboard-level-select">
-                            <button onClick={(e) => leaderSelect(e,scores_level1)} className="selected">Level 1</button>
-                            <button onClick={(e) => leaderSelect(e,scores_level2)}>Level 2</button>
-                            <button onClick={(e) => leaderSelect(e,scores_level3)}>Level 3</button>
+                            <button onClick={(e) => leaderSelect_posted(e,scores_level1_posted)} className="selected">Level 1</button>
+                            <button onClick={(e) => leaderSelect_posted(e,scores_level2_posted)}>Level 2</button>
+                            <button onClick={(e) => leaderSelect_posted(e,scores_level3_posted)}>Level 3</button>
                         </div>
                         <ul className="stats-board-header">
                             <li>Name</li>

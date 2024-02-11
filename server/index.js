@@ -36,17 +36,24 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-async function getLocalScores(name) {
+async function getLocalScores(name, level) {
   try {
     const res = await client.query(`SELECT player_name,score_time,score_date 
-      FROM scores WHERE player_name = '${name}' 
+      FROM scores WHERE player_name = '${name}' AND difficulty_id = ${level}
       ORDER BY score_date DESC;`)
-    //console.log('rows',res.rows);
-    const scores = res.rows.map((row) => {
-      return {name: row.player_name, 
-              score: row.score_time,
-              date: row.score_date}
-    })
+    console.log('rows',res.rows.length == 0);
+    const scores = res.rows.length > 0 ? 
+      res.rows.map((row) => {
+        return {name: row.player_name, 
+                score: row.score_time,
+                date: row.score_date}
+                
+      }) : [{name: name, score: 0, date: new Date()}].map((row) => {
+        return {name: row.name, 
+                score: 0,
+                date: row.date}
+      })
+      
     //console.log('Successfully retrieved scores', scores[0]);
     
     return scores;
@@ -151,20 +158,38 @@ const getAverage = (scores) => {
 
 app.get('/local_stats', async (req, res) => {
   try {
-      const scores = await getLocalScores(req.query.name);
+      const scores1 = await getLocalScores(req.query.name, 1);
+      const scores2 = await getLocalScores(req.query.name, 2);
+      const scores3 = await getLocalScores(req.query.name, 3);
+      
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
       const d = new Date().toDateString();
-      console.log('scores', scores[0].date.toDateString(), d);
-      req.session.best = scores.sort((x, y) => x.score - y.score )[0].score;
-      req.session.average = getAverage(scores);
-      req.session.daily =  scores[0].date.toDateString() == d ? scores[0].score: 0;
+      
+      req.session.best1 = scores1.sort((x, y) => x.score - y.score )[0].score;
+      req.session.average1 = getAverage(scores1);
+      req.session.daily1 =  scores1[0].date.toDateString() == d ? scores1[0].score: 0;      
+      
+      req.session.best2 = scores2.sort((x, y) => x.score - y.score )[0].score;
+      req.session.average2 = getAverage(scores2);
+      req.session.daily2 =  scores2[0].date.toDateString() == d ? scores2[0].score: 0;
+      
+      req.session.best3 = scores3.sort((x, y) => x.score - y.score )[0].score;
+      req.session.average3 = getAverage(scores3);
+      req.session.daily3 =  scores3[0].date.toDateString() == d ? scores3[0].score: 0;
       
       //req.session.top10Scores = await getTop10Scores()
       res.json({
-        best: req.session.best,
-        average: req.session.average,
-        daily: req.session.daily
+        lvl1: {best: req.session.best1,
+          average: req.session.average1,
+          daily: req.session.daily1},
+        lvl2: {best: req.session.best2,
+          average: req.session.average2,
+          daily: req.session.daily2},
+        lvl3: {best: req.session.best3,
+          average: req.session.average3,
+          daily: req.session.daily3}
       });
+      
   } catch (error) {
       res.status(500).send(error.toString());
   }

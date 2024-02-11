@@ -24,22 +24,45 @@ export default function PostScore({difficultySelected}) {
     
     // Function to update local leaderboard stats
     const updateLocalStats = (newStat) => {
-    // Add the new stat to the localStats array
-    const updatedStats = [...localStats, newStat];
-    // Update the state and localStorage
-    setLocalStats(updatedStats);
-    localStorage.setItem('localStats', JSON.stringify(updatedStats));
-    // update localStats_calc
-    const localStats_calc = [{
-        best: Math.min(...updatedStats.map((stat) => stat.score)),
-        average: Math.round(updatedStats.reduce((acc, stat) => acc + stat.score, 0) / updatedStats.length),
-        daily: updatedStats.filter((stat) => 
-            (new Date(stat.date)).getDate() === new Date().getDate() &&
-            (new Date(stat.date)).getMonth() === new Date().getMonth() &&
-            (new Date(stat.date)).getFullYear() === new Date().getFullYear() ? stat.score : 0).reduce((acc, stat) => acc + stat.score, 0)
-    }]
-    console.log('localStats_calc',localStats_calc)
-    localStorage.setItem('localStats_calc', JSON.stringify(localStats_calc));
+        // Add the new stat to the localStats array
+        const updatedStats = [...localStats, newStat];
+        // Update the state and localStorage
+        setLocalStats(updatedStats);
+        localStorage.setItem('localStats', JSON.stringify(updatedStats));
+        // update localStats_calc
+        let lvl1 = updatedStats.filter((stat) => stat.difficulty === '1')
+        let lvl2 = updatedStats.filter((stat) => stat.difficulty === '2')
+        let lvl3 = updatedStats.filter((stat) => stat.difficulty === '3')
+        const localStats_calc = [
+            {
+                lvl1 : {
+                best: Math.min(...lvl1.map((stat) => stat.score)),
+                average: Math.round(lvl1.reduce((acc, stat) => acc + stat.score, 0) / lvl1.length),
+                daily: lvl1.filter((stat) => 
+                    (new Date(stat.date)).getDate() === new Date().getDate() &&
+                    (new Date(stat.date)).getMonth() === new Date().getMonth() &&
+                    (new Date(stat.date)).getFullYear() === new Date().getFullYear() ? stat.score : 0).reduce((acc, stat) => acc + stat.score, 0)
+                },
+                lvl2 : {
+                    best: Math.min(...lvl2.map((stat) => stat.score)),
+                    average: Math.round(lvl2.reduce((acc, stat) => acc + stat.score, 0) / lvl2.length),
+                    daily: lvl2.filter((stat) => 
+                        (new Date(stat.date)).getDate() === new Date().getDate() &&
+                        (new Date(stat.date)).getMonth() === new Date().getMonth() &&
+                        (new Date(stat.date)).getFullYear() === new Date().getFullYear() ? stat.score : 0).reduce((acc, stat) => acc + stat.score, 0)
+                },
+                lvl3 : {
+                    best: Math.min(...lvl3.map((stat) => stat.score)),
+                    average: Math.round(lvl3.reduce((acc, stat) => acc + stat.score, 0) / lvl3.length),
+                    daily: lvl3.filter((stat) => 
+                        (new Date(stat.date)).getDate() === new Date().getDate() &&
+                        (new Date(stat.date)).getMonth() === new Date().getMonth() &&
+                        (new Date(stat.date)).getFullYear() === new Date().getFullYear() ? stat.score : 0).reduce((acc, stat) => acc + stat.score, 0)    
+                }
+            }
+        ]
+        console.log('localStats_calc',localStats_calc)
+        localStorage.setItem('localStats_calc', JSON.stringify(localStats_calc));
     };
 
     const handleSubmit = (event) => {

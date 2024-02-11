@@ -16,7 +16,6 @@ export async function populateScoresData(domain, name) {
                     return scoresData_local;
                     
                 }
-                break;
 
             case 'posted':
                 try {
