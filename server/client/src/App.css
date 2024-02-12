@@ -484,12 +484,21 @@ button {
 }
 
 #Local {
+  flex-direction: column;
   height: fit-content;
 }
 
 #Local > li {
   align-self: flex-start;
   
+}
+#Local > ul {
+  flex-direction: column;
+}
+
+.stats-calc {
+  display: flex;
+  flex-direction: column;
 }
 
 #Posted {
@@ -782,13 +791,6 @@ form.debug-box > button, label {
   border-radius: 10px;
   display: flex;
   gap: 10px;
-}
-
-#Local > ul {
-  flex-direction: column;
-}
-#Local {
-  flex-direction: row;
 }
 
 .thirds {

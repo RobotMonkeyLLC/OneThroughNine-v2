@@ -107,17 +107,19 @@ const Leaderboard = () => {
                         <button onClick={(e) => leaderSelect_local(e,scores_level2_local)}>Level 2</button>
                         <button onClick={(e) => leaderSelect_local(e,scores_level3_local)}>Level 3</button>
                     </div>
-                    <ul className="stats-board-header">
-                        <li>Best</li>
-                        <li>Average</li>
-                        <li>Daily</li>
-                    </ul>
-                    {scoresData_local.map((score, index) => (
-                        <FillLocal
-                            key={index}
-                            data={score}
-                        />
-                    ))}
+                    <div className="stats-calc">
+                        <ul className="stats-board-header">
+                            <li>Best</li>
+                            <li>Average</li>
+                            <li>Daily</li>
+                        </ul>
+                        {scoresData_local.map((score, index) => (
+                            <FillLocal
+                                key={index}
+                                data={score}
+                            />
+                        ))}
+                    </div>                    
                 </ul>
             </div>
             </div>
