@@ -55,8 +55,8 @@ const Leaderboard = () => {
                 // Fetch game data or perform initial setup
                 // Example: fetch('/api').then((res) => res.json()).then((data) => setData(data.message));
                 
-                const localData = user != null ? await populateScoresData('local', user) : scoresData_local;
-                setLocalStats([localData.lvl1]);
+                const localData = await populateScoresData('local', user);
+                setLocalStats([localData.lvl1] || scoresData_local);
                 console.log('localData ---',localData)
 
                 const postedData = await populateScoresData('posted')

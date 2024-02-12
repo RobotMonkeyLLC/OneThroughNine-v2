@@ -41,7 +41,7 @@ async function getLocalScores(name, level) {
     const res = await client.query(`SELECT player_name,score_time,score_date 
       FROM scores WHERE player_name = '${name}' AND difficulty_id = ${level}
       ORDER BY score_date DESC;`)
-    console.log('rows',res.rows.length == 0);
+    
     const scores = res.rows.length > 0 ? 
       res.rows.map((row) => {
         return {name: row.player_name, 
@@ -83,13 +83,13 @@ async function generateDailyTarget(level) {
     //setTZ = await client.query(`SET TIME ZONE '${Intl.DateTimeFormat().resolvedOptions().timeZone}';`)
     setTZ = await client.query(`SET TIME ZONE 'EST';`)
     const res = await client.query(`SELECT ${level} FROM daily_goals WHERE date=(SELECT CURRENT_DATE);`)
-    console.log('level', level,'rows',res.rows);
+    
     const target = res.rows.map((row) => {
       return {target: row[level]}
     })
-    console.log('Successfully -- retrieved target', target[0].target);
+    
     const res2 = await client.query('SELECT CURRENT_DATE;');
-    console.log('date', res2.rows[0].current_date);
+    
     return target[0].target;
   } catch (err) {
     console.error('Error executing query', err.stack);
