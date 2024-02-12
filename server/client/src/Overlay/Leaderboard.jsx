@@ -35,7 +35,7 @@ const Leaderboard = () => {
 
     const inLocalStorage = JSON.parse(localStorage.getItem('localStats_calc')) || localScores;
     // get username from local storage
-    const user = JSON.parse(localStorage.getItem('localStats'))[0].name || null;
+    const user = localStorage.localStats ? JSON.parse(localStorage.getItem('localStats'))[0].name : null;
 
     const [scoresData_local, setLocalStats] = useState(inLocalStorage);
     const [scoresData_posted, setPostedStats] = useState(scoresData_posted_default);
