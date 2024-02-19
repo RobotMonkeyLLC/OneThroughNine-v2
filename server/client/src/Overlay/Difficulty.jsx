@@ -93,7 +93,7 @@ const Difficulty = ({difficulties, onStartGame, setDifficultySelected, goal, set
     return (
         <div className="difficulty-container">
             <div className='text-header'>
-                <p>Difficulty</p>
+                {/* <p>Difficulty</p> */}
                 <button className='debug-button' onClick={toggleDebug}>Debug</button>
             </div>
             <div className="difficulty-buttons">

@@ -1,6 +1,6 @@
 export const time_delays = {
-    clear_board: 270,
-    clear_message: 2000,
+    clear_board: 800,
+    clear_message: 1000,
     oper_next: 270,
     in2_next: 270,
     remove_key: 270,

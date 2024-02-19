@@ -14,7 +14,7 @@ export const updateWin = () => {
     const leaderBoard = document.createElement('ol')
     const leaderBoardTitle = document.createElement('h2')
     // *** replace with text.js from constants folder
-    showMessage('You Win!', true)
+    showMessage('YOU WIN', true)
     setTimeout(() => {
         endGame.classList.add('overlay')
         endGame.classList.remove('hidden')

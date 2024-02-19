@@ -99,9 +99,10 @@ const Leaderboard = () => {
     return (
         <div className="stats-container">
             <div className="text-header">
-                <p>Local Stats</p>
+                
                 <div className="stats-board">
                 <ul id="Local" className="stat">
+                    <p>Stats</p>
                     <div className="leaderboard-level-select">
                         <button onClick={(e) => leaderSelect_local(e,scores_level1_local)} className="selected">Level 1</button>
                         <button onClick={(e) => leaderSelect_local(e,scores_level2_local)}>Level 2</button>
@@ -125,9 +126,10 @@ const Leaderboard = () => {
             </div>
             <div className="text-header">
                 
-                <p>Posted Stats</p>
+                
                 <div className="stats-board">
                     <ul id="Posted" className="stat">
+                        <p>Leaderboard</p>  
                         <div className="leaderboard-level-select">
                             <button onClick={(e) => leaderSelect_posted(e,scores_level1_posted)} className="selected">Level 1</button>
                             <button onClick={(e) => leaderSelect_posted(e,scores_level2_posted)}>Level 2</button>

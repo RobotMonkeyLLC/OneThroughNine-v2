@@ -91,7 +91,8 @@ function checkSolution (isSolved, setIsSolved) {
     //saveState()
     console.log('setissolved ', setIsSolved)
     if (isAllTilesUsed() && !isBoardFilled()) {
-        showMessage('All tiles used! Hit Undo.')
+        //showMessage('All tiles used! Hit Undo.')
+        showMessage("ILLEGAL MOVE")
         return
     } else
     if (isBoardFilled()) {
@@ -113,12 +114,13 @@ function checkSolution (isSolved, setIsSolved) {
                 console.log('Goal reached! isSolved:', isSolved)
             } else {
                 //setIsSolved(false)
-                showMessage('Goal reached...but not all tiles used.')
+                showMessage('NOT ALL TILES USED')
                 clearBoard()
                 addKey(boardOperValue,isSolved, setIsSolved)
             }
         } else if (!Number.isInteger(boardOperValue)) {
-            showMessage("No Floats Allowed!")
+            //showMessage("No Floats Allowed!")
+            showMessage("ILLEGAL MOVE")
             JSON.parse(localStorage.getItem('undoStack')).pop()
             //undo()
         } else {
@@ -155,7 +157,8 @@ function operManager (buttonElement, isSolved,setIsSolved) {
         
         checkSolution(isSolved, setIsSolved)
     } else {
-        showMessage('Select a number first.')
+        //showMessage('Select a number first.')
+        showMessage("ILLEGAL MOVE")
     }
 }
 
@@ -233,9 +236,11 @@ function keyManager (buttonElement,isSolved, setIsSolved)  {
         console.log('in keyManager int 2 removing default ', buttonElement, isSolved, setIsSolved)
         removeKey(buttonElement, isSolved, setIsSolved)
     } else if (boardTiles.oper.classList.contains('next-halo')) {
-        showMessage('Select an operator first.')
+        //showMessage('Select an operator first.')
+        showMessage("ILLEGAL MOVE")
     } else {
-        showMessage("Can't do that.")
+        //showMessage("Can't do that.")
+        showMessage("ILLEGAL MOVE")
     }
 }
 

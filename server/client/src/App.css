@@ -7,6 +7,7 @@
   justify-content: space-between;
   --color-primary: #008374;
   --color-secondary: #70b59f3a;
+  --color-secondary-opaque: #70b59f;
   --color-tertiary: #2e2e2e;
   --color-quaternary: #f1cb21;
   --color-quinary: #f1cb21c4;  
@@ -104,12 +105,16 @@ body {
 .rules {
   padding-inline: 50px;
   padding-block: 10px;
-  background-color: var(--color-primary);
+  /* background-color: var(--color-primary); */
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   font-size: large;
+}
+
+.rules > p {
+  color: var(--color-tertiary);
 }
 
 .text-header {
@@ -119,10 +124,14 @@ body {
   text-align: center;
   justify-content: start;
   width: 100%;
+  
 }
 
 .text-header p {
-  text-decoration: underline;
+  font-weight: bold;
+  color: var(--color-tertiary);
+  padding-bottom: 10px;
+  font-size: x-large;
 }
 
 .selected {
@@ -389,24 +398,24 @@ button {
 }
 
 .message-container {
-  bottom: 5em;
+  bottom: 40em;
   position: absolute;
   display: flex;
-  height: 65%;
-  width: 80%;
-  background-color: var(--color-secondary);
+  height: 35%;
+  width: 70%;
+  background-color: var(--color-secondary-opaque);
   border-radius: 50px;
   border: var(--color-primary) solid 5px;
   justify-content: center;
   align-items: center;
-  background-image: url('../public/game_assets/shine.png');
   background-repeat: no-repeat;
   background-position: center;  
   z-index: 10;
 }
 
 .message-container p {
-  font-size: medium;
+  font-size: xx-large;
+  font-weight: bold;
   color: var(--color-tertiary);
 }
 
@@ -715,7 +724,7 @@ footer {
   align-items: center;
   padding-block: 10px;
   padding-inline: 20px;  
-  background-color: var(--color-primary);
+  /* background-color: var(--color-primary); */
   border-radius: 10px;
   display: flex;
   justify-content: space-around;
@@ -787,7 +796,7 @@ form.debug-box > button, label {
   padding: 0%;
   padding-block: 5px;
   padding-inline: 10px;
-  background-color: var(--color-primary);
+  /* background-color: var(--color-primary); */
   border-radius: 10px;
   display: flex;
   gap: 10px;
